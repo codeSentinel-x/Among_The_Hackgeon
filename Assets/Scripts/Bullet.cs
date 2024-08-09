@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyUtils.Interfaces;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
@@ -27,8 +28,8 @@ public class Bullet : MonoBehaviour {
             Physics2D.IgnoreCollision(col.collider, this.col);
         }
         else {
-            IUnit unit = col.gameObject.GetComponent<IUnit>();
-            unit?.DealDamage(_bulletDamage);
+            IDamageable unit = col.gameObject.GetComponent<IDamageable>();
+            unit?.Damage(_bulletDamage);
             Destroy(transform.parent.gameObject);
 
         }

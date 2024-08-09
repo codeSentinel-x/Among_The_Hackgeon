@@ -61,5 +61,6 @@ namespace MyUtils.Classes {
     public class Content {
         public string _name;
     }
+    
 
 }

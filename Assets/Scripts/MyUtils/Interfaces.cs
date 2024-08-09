@@ -9,4 +9,7 @@ namespace MyUtils.Interfaces{
         public void CloseDoor();
         public void HideDoor();
     }
+    public interface IDamageable{
+        public void Damage(int v);
+    }
 } 
