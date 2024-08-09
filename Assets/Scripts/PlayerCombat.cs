@@ -25,14 +25,13 @@ public class PlayerCombat : MonoBehaviour {
 
     private void RotateWeaponToMouse() {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = mousePos - _weaponHolder.transform.position;
-        direction.Normalize();
+        Vector2 direction = mousePos - transform.position;
+        // direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
         if (angle < -90 || angle > 90) _weaponHolder.transform.GetChild(0).localScale = new(-1, 1, 1);
         else _weaponHolder.transform.GetChild(0).localScale = new(1, 1, 1);
         angle -= 90;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
-        _weaponHolder.transform.rotation = Quaternion.Slerp(_weaponHolder.transform.rotation, rot, _rotSpeed * Time.deltaTime);
+        _weaponHolder.transform.rotation = Quaternion.Lerp(_weaponHolder.transform.rotation, rot, _rotSpeed * Time.deltaTime);
     }
 }

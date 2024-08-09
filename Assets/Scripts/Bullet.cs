@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour {
     private Vector3 _startPos;
     public float _maxDist = 5;
     public LayerMask layerToIgnore;
+    public string _tagToIgnore;
     private Collider2D col;
     void Awake() {
         _startPos = transform.position;
@@ -24,8 +25,10 @@ public class Bullet : MonoBehaviour {
 
     }
     void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.layer == layerToIgnore) {
-            Physics2D.IgnoreCollision(col.collider, this.col);
+        Debug.Log($"Collision with{col.gameObject.name}");
+        if (col.collider.isTrigger) return;
+        if (col.gameObject.layer == LayerMask.GetMask("Player") || col.gameObject.CompareTag(_tagToIgnore)) {
+            Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col);
         }
         else {
             IDamageable unit = col.gameObject.GetComponent<IDamageable>();

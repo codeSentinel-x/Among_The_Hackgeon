@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   _sprite: {fileID: -6628414004274166170, guid: 99a2e6a558c2ddcb7a88d6f051609733, type: 3}
-  _firePointPos: {x: 0, y: 0.6, z: 0}
-  _bulletPref: {fileID: 0}
+  _firePointPos: {x: 0.33, y: 0.14, z: 0}
+  _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
   _bulletSetting:
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     _damage: 6

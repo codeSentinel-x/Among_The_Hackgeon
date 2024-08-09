@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.ScriptableObjects;
+using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour {
@@ -15,5 +16,6 @@ public class WeaponHolder : MonoBehaviour {
     }
     public void Shoot() {
         Debug.Log("Piu");
+        Instantiate(_defaultWeapon._bulletPref, _firePoint.position, transform.rotation);
     }
 }
