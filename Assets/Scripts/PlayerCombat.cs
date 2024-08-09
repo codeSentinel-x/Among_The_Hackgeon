@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.ScriptableObjects;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour {
     public WeaponHolder _weaponHolder;
     public float _rotSpeed;
+    public Transform _spriteRenderer;
     // public Transform _firePoint;
     public Transform _bulletPref;
 
@@ -28,10 +30,14 @@ public class PlayerCombat : MonoBehaviour {
         Vector2 direction = mousePos - transform.position;
         // direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        if (angle < -90 || angle > 90) _weaponHolder.transform.GetChild(0).localScale = new(-1, 1, 1);
-        else _weaponHolder.transform.GetChild(0).localScale = new(1, 1, 1);
+        if (angle < -90 || angle > 90) ChangeLocalScale(-1);
+        else ChangeLocalScale(1);
         angle -= 90;
         Quaternion rot = Quaternion.AngleAxis(angle, Vector3.forward);
         _weaponHolder.transform.rotation = Quaternion.Lerp(_weaponHolder.transform.rotation, rot, _rotSpeed * Time.deltaTime);
+    }
+    void ChangeLocalScale(int x) {
+        _weaponHolder.transform.GetChild(0).localScale = new(x, 1, 1);
+        _spriteRenderer.localScale = new(Mathf.Abs(_spriteRenderer.localScale.x) * x, _spriteRenderer.localScale.y, 1);
     }
 }

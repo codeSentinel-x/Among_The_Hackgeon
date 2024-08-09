@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Interfaces;
+using MyUtils.Structs;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class BulletMono : MonoBehaviour {
     public int _bulletDamage = 10;
     public float _speed = 4;
     private Vector3 _startPos;
@@ -22,6 +23,12 @@ public class Bullet : MonoBehaviour {
             transform.localPosition += _speed * Time.deltaTime * Vector3.up;
         }
         else Destroy(transform.parent.gameObject);
+
+    }
+    public void Setup(BulletSetting s) {
+        _bulletDamage = s._damage;
+        _speed = s._speed;
+        _maxDist = s._maxDist;
 
     }
     void OnCollisionEnter2D(Collision2D col) {

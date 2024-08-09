@@ -16,6 +16,8 @@ public class WeaponHolder : MonoBehaviour {
     }
     public void Shoot() {
         Debug.Log("Piu");
-        Instantiate(_defaultWeapon._bulletPref, _firePoint.position, transform.rotation);
+        var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, transform.rotation).GetComponentInChildren<BulletMono>();
+        b.Setup(_defaultWeapon._bulletSetting);
+        Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponentInParent<Collider2D>());
     }
 }
