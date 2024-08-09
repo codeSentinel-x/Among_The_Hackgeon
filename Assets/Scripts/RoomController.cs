@@ -5,5 +5,6 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour {
     public RoomType _roomType;
-    
+    public BoxCollider2D _cameraBoundaries;
+    public DoorController[] _doors;
 }

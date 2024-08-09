@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Enums;
+using MyUtils.Interfaces;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour {
@@ -53,9 +54,29 @@ public class DoorController : MonoBehaviour {
     }
 }
 public class DoorBasic : MonoBehaviour {
+    public DoorState state;
 
 }
-public class DoorOnShoot : MonoBehaviour {
+public class DoorOnShoot : MonoBehaviour, IDoor {
     public Collider2D col;
 
+    public void CloseDoor() {
+        //TODO
+        throw new System.NotImplementedException();
+    }
+
+    public void HideDoor() {
+        //TODO
+        throw new System.NotImplementedException();
+    }
+
+    public void OpenDoor() {
+        //TODO
+        throw new System.NotImplementedException();
+    }
+
+    public void ShowDoor() {
+        //TODO
+        throw new System.NotImplementedException();
+    }
 }

@@ -20,5 +20,10 @@ namespace MyUtils.Enums {
         OpenOnDefeatEnemy,
         OpenOnCustomItemHold,
     }
-    
+    public enum DoorState {
+        Hidden,
+        Visible,
+        Opened,
+    }
+
 }
