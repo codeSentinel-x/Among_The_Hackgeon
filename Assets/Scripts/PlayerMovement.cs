@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
 using UnityEngine.PlayerLoop;
@@ -8,14 +9,17 @@ using UnityEngine.PlayerLoop;
 public class PlayerMovement : MonoBehaviour {
     public float _speed;
     public float _dashDuration;
+    public float _dashStaminaUsage;
     public float _dashPower;
     public float _maxStamina;
+    public float _staminaRegDelay;
     public float _stamRegPerSec;
     private bool _canMove = true;
     private Vector2 _dir;
     private Rigidbody2D _rgb;
     public bool _dashToMouse;
     private float _currentStamina;
+    private float _staminaCounter;
     void Awake() {
         _rgb = GetComponent<Rigidbody2D>();
         var p = GetComponent<PlayerController>();
@@ -24,18 +28,26 @@ public class PlayerMovement : MonoBehaviour {
         p._data._dashPower._OnStatValueChanged += (x) => _dashPower = x;
         p._data._stamRegPerSecMult._OnStatValueChanged += (x) => _stamRegPerSec = x;
         p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
-
-        //todo {
-        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
-        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
-        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
-        //todo }
-
-
+        p._data._dashStaminaUsage._OnStatValueChanged += (x) => _dashStaminaUsage = x;
+        p._data._staminaRegenerationDelay._OnStatValueChanged += (x) => _staminaRegDelay = x;
     }
+
+    
 
     public void Update() {
         HandleInput();
+        HandleStamina();
+    }
+
+    private void HandleStamina() {
+        if(_currentStamina < _maxStamina){
+            if(_staminaCounter <= 0){
+                _currentStamina += Time.deltaTime * _stamRegPerSec;
+
+            }else{
+                _staminaCounter -= Time.deltaTime;
+            }
+        }
     }
 
     private void HandleInput() {
@@ -43,8 +55,12 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Mouse1)) if (_dashToMouse) DashToMouse(Camera.main.ScreenToWorldPoint(Input.mousePosition)); else DashForward();
     }
     private void DashForward() {
-        _rgb.AddForce(_dir.normalized * _dashPower, ForceMode2D.Impulse);
-        StartCoroutine(StopMoving(_dashDuration));
+        if(_currentStamina >= _dashStaminaUsage){
+            _currentStamina -= _dashStaminaUsage;
+            _rgb.AddForce(_dir.normalized * _dashPower, ForceMode2D.Impulse);
+            StartCoroutine(StopMoving(_dashDuration));
+            _staminaCounter = _staminaRegDelay;
+        }
     }
     private void DashToMouse(Vector2 pos) {
         Vector2 dir = pos - new Vector2(transform.position.x, transform.position.y);
