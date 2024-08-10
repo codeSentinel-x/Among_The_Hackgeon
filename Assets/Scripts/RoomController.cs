@@ -6,14 +6,21 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour {
     public RoomType _roomType;
+    public DoorChecker[] _doors;
     public GameObject _content;
     public bool _found;
     public PolygonCollider2D _cameraBoundaries;
-    public DoorController[] _doors;
+    public Action OnPlayerEnter;
 
+    void Awake() {
+        foreach (var c in _doors) {
+            if (c._checker.colli)
+        }
+    }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             SetupRoom(other.gameObject.GetComponent<PlayerController>());
+            OnPlayerEnter?.Invoke();
         }
     }
 
@@ -29,4 +36,9 @@ public class RoomController : MonoBehaviour {
         _found = true;
         _content.SetActive(true);
     }
+}
+[Serializable]
+public struct DoorChecker {
+    public Rigidbody2D _checker;
+    public DoorController _door;
 }

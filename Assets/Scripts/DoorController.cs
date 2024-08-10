@@ -8,10 +8,11 @@ using UnityEngine;
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
     public RoomController _roomToShow1;
-    public RoomController _roomToShow2;
+    [HideInInspector] public RoomController _roomToShow2;
 
     void Awake() {
         Initialize();
+        _roomToShow2 = GetComponentInParent<RoomController>();
     }
     public void Initialize() {
         switch (_doorType) {
