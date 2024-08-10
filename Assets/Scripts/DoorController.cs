@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
+    public RoomController _roomToShow1;
+    public RoomController _roomToShow2;
+
     void Awake() {
         Initialize();
     }
@@ -94,6 +97,9 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         _opened = true;
         _col.isTrigger = true;
         _renderer.enabled = false;
+        var d = GetComponent<DoorController>();
+        d._roomToShow1?.ShowRoom();
+        d._roomToShow2?.ShowRoom();
         //TODO
     }
 

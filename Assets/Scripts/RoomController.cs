@@ -19,13 +19,13 @@ public class RoomController : MonoBehaviour {
 
     private void SetupRoom(PlayerController contr) {
         if (contr._currentRoom == this) return;
-        if (!_found) RoomFound();
         contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
     }
 
-    private void RoomFound() {
+    public void ShowRoom() {
+        if (_found) return;
         _found = true;
         _content.SetActive(true);
     }
