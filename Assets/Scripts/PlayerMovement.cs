@@ -9,12 +9,29 @@ public class PlayerMovement : MonoBehaviour {
     public float _speed;
     public float _dashDuration;
     public float _dashPower;
+    public float _maxStamina;
+    public float _stamRegPerSec;
     private bool _canMove = true;
     private Vector2 _dir;
     private Rigidbody2D _rgb;
     public bool _dashToMouse;
+    private float _currentStamina;
     void Awake() {
         _rgb = GetComponent<Rigidbody2D>();
+        var p = GetComponent<PlayerController>();
+        p._data._dashDuration._OnStatValueChanged += (x) => _dashDuration = x;
+        p._data._movementSpeed._OnStatValueChanged += (x) => _speed = x;
+        p._data._dashPower._OnStatValueChanged += (x) => _dashPower = x;
+        p._data._stamRegPerSecMult._OnStatValueChanged += (x) => _stamRegPerSec = x;
+        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
+
+        //todo {
+        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
+        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
+        p._data._maxStamina._OnStatValueChanged += (x) => _maxStamina = x;
+        //todo }
+
+
     }
 
     public void Update() {

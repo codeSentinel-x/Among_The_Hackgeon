@@ -13,7 +13,23 @@ using UnityEngine;
 namespace MyUtils.Classes {
     [Serializable]
     public class PlayerData {
-
+        //Movement
+        public PlayerStat _movementSpeed;
+        public PlayerStat _dashPower;
+        public PlayerStat _dashDuration;
+        public PlayerStat _staminaRegenerationDelay;
+        public PlayerStat _stamRegPerSecMult; // stamina regeneration per second multiplier (I am to lazy to time this every time)
+        public PlayerStat _maxStamina;
+        public PlayerStat _dashStaminaUsage;
+        public PlayerStat _invincibleAfterDash;
+        //Defense
+        public PlayerStat _maxHealth;
+        public PlayerStat _damageIgnore;
+        public PlayerStat _damageReduction;
+        //Offense
+        public PlayerStat _reloadSpeedMult;
+        public PlayerStat _bulletSpeedMult;
+        public PlayerStat _shootDelayMult;
     }
     [Serializable]
     public class PlayerStat {
@@ -24,9 +40,11 @@ namespace MyUtils.Classes {
         private readonly List<float> _modifiers = new();
         private readonly List<float> _multipliers = new();
 
-        // public;/
         public string GetDescription() => _description;
         public float GetBaseValue() => _baseValue;
+        public void ChangeBaseValue(float newValue) => _baseValue = newValue;
+        public void InvokeOnChangeAction() => _OnStatValueChanged?.Invoke(GetValue());
+
 
         public float GetValue() {
 
@@ -47,9 +65,6 @@ namespace MyUtils.Classes {
             float value = 1;
             _multipliers.ForEach(x => value *= x);
             return value;
-        }
-        public void ChangeBaseValue(float newValue) {
-            _baseValue = newValue;
         }
         public void AddModifier(float modifier) {
             if (modifier != 0) _modifiers.Add(modifier);
@@ -80,9 +95,7 @@ namespace MyUtils.Classes {
             _multipliers.Clear();
             InvokeOnChangeAction();
         }
-        public void InvokeOnChangeAction() {
-            _OnStatValueChanged?.Invoke(GetValue());
-        }
+
     }
 
     [Serializable]

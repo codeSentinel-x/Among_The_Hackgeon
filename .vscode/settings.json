@@ -58,6 +58,8 @@
     },
     "dotnet.defaultSolution": "SlackGameJam.sln",
     "cSpell.words": [
-        "destr"
+        "destr",
+        "Mult",
+        "stam"
     ]
 }
