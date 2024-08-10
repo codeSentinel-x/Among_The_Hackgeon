@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Enums;
 using MyUtils.Interfaces;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour {
@@ -57,12 +58,31 @@ public class DoorBasic : MonoBehaviour {
     public DoorState state;
 
 }
-public class DoorOnShoot : MonoBehaviour, IDoor {
-    public Collider2D col;
-
+[RequireComponent(typeof(SpriteRenderer))]
+public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
+    public Collider2D _col;
+    public int _stage;
+    private GameDataManager _gMD;
+    private SpriteRenderer _renderer;
+    private bool _opened;
+    void Start() {
+        _gMD = GameDataManager._I;
+        _stage = _gMD._destroyableDoorSprites.Length;
+        _col = GetComponent<Collider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
+    }
     public void CloseDoor() {
         //TODO
         throw new System.NotImplementedException();
+    }
+
+    public void Damage(int v) {
+        if (_opened) return;
+        if (_stage == 0) { OpenDoor(); return; }
+        _stage--;
+        _renderer.sprite = _gMD._destroyableDoorSprites[_stage];
+
+
     }
 
     public void HideDoor() {
@@ -71,8 +91,10 @@ public class DoorOnShoot : MonoBehaviour, IDoor {
     }
 
     public void OpenDoor() {
+        _opened = true;
+        _col.isTrigger = true;
+        _renderer.enabled = false;
         //TODO
-        throw new System.NotImplementedException();
     }
 
     public void ShowDoor() {

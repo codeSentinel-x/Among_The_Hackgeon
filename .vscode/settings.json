@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SlackGameJam.sln"
+    "dotnet.defaultSolution": "SlackGameJam.sln",
+    "cSpell.words": [
+        "destr"
+    ]
 }
