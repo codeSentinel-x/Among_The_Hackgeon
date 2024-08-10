@@ -279,7 +279,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _dashDuration: 0.05
+  _dashStaminaUsage: 0
   _dashPower: 50
+  _maxStamina: 0
+  _staminaRegDelay: 0
+  _stamRegPerSec: 0
   _dashToMouse: 0
 --- !u!114 &395204931
 MonoBehaviour:
@@ -309,6 +313,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76164eab7fd414aa2ba388f97c5c6d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data:
+    _movementSpeed:
+      _baseValue: 10
+      _description: "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+    _dashPower:
+      _baseValue: 50
+      _description: 
+    _dashDuration:
+      _baseValue: 0.05
+      _description: 
+    _staminaRegenerationDelay:
+      _baseValue: 2
+      _description: 
+    _stamRegPerSecMult:
+      _baseValue: 5
+      _description: 
+    _maxStamina:
+      _baseValue: 20
+      _description: 
+    _dashStaminaUsage:
+      _baseValue: 12
+      _description: 
+    _invincibleAfterDash:
+      _baseValue: 0.05
+      _description: 
+    _maxHealth:
+      _baseValue: 100
+      _description: 
+    _damageIgnore:
+      _baseValue: 0
+      _description: 
+    _damageReduction:
+      _baseValue: 0
+      _description: 
+    _reloadSpeedMult:
+      _baseValue: 1
+      _description: 
+    _bulletSpeedMult:
+      _baseValue: 1
+      _description: 
+    _shootDelayMult:
+      _baseValue: 1
+      _description: 
   _cam: {fileID: 519420031}
   _confirmed: {fileID: 519420033}
   _currentRoom: {fileID: 0}

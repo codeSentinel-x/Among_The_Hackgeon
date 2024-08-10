@@ -10,6 +10,6 @@ namespace MyUtils.Interfaces{
         public void HideDoor();
     }
     public interface IDamageable{
-        public void Damage(int v);
+        public void Damage(float v);
     }
 } 

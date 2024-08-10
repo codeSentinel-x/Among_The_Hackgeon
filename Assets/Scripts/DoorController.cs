@@ -80,7 +80,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         throw new System.NotImplementedException();
     }
 
-    public void Damage(int v) {
+    public void Damage(float v) {
         if (_opened) return;
         if (_stage == 0) { OpenDoor(); return; }
         _stage--;
