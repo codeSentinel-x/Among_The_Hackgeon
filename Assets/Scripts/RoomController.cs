@@ -13,9 +13,10 @@ public class RoomController : MonoBehaviour {
     public Action OnPlayerEnter;
 
     void Awake() {
-        foreach (var c in _doors) {
-            if (c._checker.colli)
-        }
+        // foreach (var c in _doors) {
+        // RaycastHit2D[] ray = new RaycastHit2D[10];
+        // Physics2D.OverlapBox(c._checker.position, new(2, 2), 0);
+        // }
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
