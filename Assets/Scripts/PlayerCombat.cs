@@ -2,16 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using MyUtils.Classes;
 using MyUtils.Interfaces;
 using MyUtils.ScriptableObjects;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour, IDamageable {
-    public WeaponHolder _weaponHolder;
+
+    public WeaponSO _defaultWeapon;
+    public Weapon _currentWeapon;
     public float _rotSpeed;
     public Transform _spriteRenderer;
-    // public Transform _firePoint;
+    public SpriteRenderer _weaponSpriteR;
+    public Transform _firePoint;
+    public Transform _weaponHolder;
     public Transform _bulletPref;
     private float _maxHealth;
     private float _damageIgnore;
@@ -31,6 +37,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
         d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
+        _currentWeapon = new(_defaultWeapon);
+        _currentWeapon.Setup(_firePoint, _weaponSpriteR);
     }
     void Start() {
         _currentHealth = _maxHealth;
@@ -44,13 +52,29 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
 
     private void HandleInput() {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-            _weaponHolder.Shoot();
+        if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
+        if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
     }
+    public void Shoot() {
+        if (_isReloading) return;
+        if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
+        Debug.Log("Piu");
+        var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, transform.rotation).GetComponentInChildren<BulletMono>();
+        b.Setup(_defaultWeapon._bulletSetting);
+        Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        _currentWeapon._bulletsInMagazine -= 1;
+    }
+
+
+
+
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
-        yield return new WaitForSeconds(_reloadSpeedMult);
+        _isReloading = true;
+        yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
+        _currentWeapon.Reload();
         Debug.Log("Reloaded");
+        _isReloading = false;
     }
 
 

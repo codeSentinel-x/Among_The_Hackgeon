@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MyUtils.ScriptableObjects;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -140,6 +141,25 @@ namespace MyUtils.Classes {
     [Serializable]
     public class Content {
         public string _name;
+    }
+    [Serializable]
+    public class Weapon{
+        public Weapon(WeaponSO def){
+            _defaultSettings = def;
+            _bulletsInMagazine = def._maxBullet;
+            _reloadTime = def._reloadTime;
+        }
+        public int _bulletsInMagazine;
+        public float _reloadTime;
+        public WeaponSO _defaultSettings;
+        public void Setup(Transform firePoint, SpriteRenderer spriteR){
+            firePoint.localPosition = _defaultSettings._firePointPos;
+            spriteR.sprite = _defaultSettings._sprite;
+
+        }
+        public void Reload(){
+            _bulletsInMagazine = _defaultSettings._maxBullet;
+        }
     }
 
 
