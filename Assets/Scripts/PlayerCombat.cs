@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using MyUtils.Interfaces;
 using MyUtils.ScriptableObjects;
 using UnityEditor;
@@ -36,8 +37,10 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
 
     public void Update() {
-        RotateWeaponToMouse();
         HandleInput();
+    }
+    void LateUpdate() {
+        RotateWeaponToMouse();
     }
 
     private void HandleInput() {
@@ -52,7 +55,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
 
     private void RotateWeaponToMouse() {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(new(Input.mousePosition.x, Input.mousePosition.y, -10));
         Vector2 direction = mousePos - transform.position;
         // direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

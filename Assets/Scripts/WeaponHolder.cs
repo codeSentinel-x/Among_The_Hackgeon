@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using MyUtils.ScriptableObjects;
-using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour {

@@ -9,14 +9,18 @@ public class RoomController : MonoBehaviour {
     public DoorChecker[] _doors;
     public GameObject _content;
     public bool _found;
+    public LayerMask _roomLayer;
     public PolygonCollider2D _cameraBoundaries;
     public Action OnPlayerEnter;
 
-    void Awake() {
-        // foreach (var c in _doors) {
-        // RaycastHit2D[] ray = new RaycastHit2D[10];
-        // Physics2D.OverlapBox(c._checker.position, new(2, 2), 0);
-        // }
+    void Start() {
+        foreach (var c in _doors) {
+            var col = Physics2D.OverlapCircle(c._checker.position, 1, _roomLayer);
+            if (col != null) {
+                Debug.Log(col.gameObject.name);
+                c._door._roomToShow1 = col.gameObject.GetComponent<RoomController>();
+            }
+        }
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
