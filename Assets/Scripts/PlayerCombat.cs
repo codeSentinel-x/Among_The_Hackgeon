@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour, IDamageable {
     public List<Weapon> _weapons;
     public int _currentWeaponIndex;
-    public WeaponSO _defaultWeapon;
+    public string _defaultWeaponName;
     public Weapon _currentWeapon;
     public float _rotSpeed;
     public Transform _spriteRenderer;
@@ -31,7 +31,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
         d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
-        _currentWeapon = new(_defaultWeapon);
+        _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         _weapons.Add(_currentWeapon);
         _currentWeaponIndex = _weapons.Count - 1;
@@ -58,10 +58,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._nextShoot > Time.time) return;
         if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
-        var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_defaultWeapon._bulletSetting, _bulletSpeedMult, this.gameObject.layer, "Player");
+        var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
+        b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, "Player");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
+        PlayerUI._I.DecaresBullet();
 
     }
     public void NextWeapon() {
@@ -70,6 +71,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeaponIndex >= _weapons.Count) _currentWeaponIndex = 0;
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+        ReseTBulletDisplay();
+
     }
     public void PreviousWeapon() {
         if (_isReloading) return;
@@ -77,6 +80,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeaponIndex < 0) _currentWeaponIndex = _weapons.Count - 1;
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+        ReseTBulletDisplay();
+
     }
 
 
@@ -87,8 +92,10 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentWeapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
+        ReseTBulletDisplay();
     }
 
+    void ReseTBulletDisplay() => PlayerUI._I.ResetBullets(_currentWeapon._bulletsInMagazine);
 
     private void RotateWeaponToMouse() {
 

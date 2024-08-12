@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_weapon._defaultSettings._bulletSetting, 1,this.gameObject.layer, "Enemy");
+        b.Setup(_weapon._defaultSettings._bulletSetting, 1,gameObject.layer, "Enemy");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(3);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex];

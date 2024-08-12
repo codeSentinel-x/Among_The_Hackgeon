@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1a3f0feb0053c68c955247ffe545d3d, type: 3}
-  m_Name: DefaultWeapon
+  m_Name: Eagle
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -2369867600477939372, guid: 39a3c2b0e0c7e4032989ea9392747c36, type: 3}
+  _sprite: {fileID: -4552326799467902968, guid: 785712ff2b9087e38a22124904109339, type: 3}
   _firePointPos: {x: 0.33, y: 0.14, z: 0}
   _spread: {x: 0, y: 0, z: 0}
-  _maxBullet: 10
+  _maxBullet: 6
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
-  _reloadTime: 1.3
-  _shotDelay: 0
+  _reloadTime: 1.5
+  _shotDelay: 0.2
   _bulletSetting:
-    _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    _damage: 10
-    _speed: 25
+    _sprite: {fileID: -2346302928887187388, guid: 047bf01ec90cd7749bd4bd777dc4710d, type: 3}
+    _damage: 20
+    _speed: 30
     _maxDist: 100

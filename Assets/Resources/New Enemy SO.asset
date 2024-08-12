@@ -21,4 +21,4 @@ MonoBehaviour:
   _maxHealth: 20
   _baseDamage: 5
   _speed: 7
-  _defaultWeapon: {fileID: 11400000, guid: 931f2d4b456310136accdea811b9f4e5, type: 2}
+  _defaultWeapon: {fileID: 11400000, guid: 46b668757744bbf6aa25fe22a9a39210, type: 2}
