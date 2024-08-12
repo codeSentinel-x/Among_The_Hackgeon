@@ -33,14 +33,13 @@ public class Enemy : MonoBehaviour, IDamageable {
         RotateWeaponToPlayer();
         if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
-            Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
+        Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
         if (Vector2.Distance(_target.position, transform.position) > _minPlayerDist) {
             _moveDirection = _target.position - transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
-
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.x - 20, _currentRoom.transform.position.x + 20), Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 20, _currentRoom.transform.position.y + 20));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 10, _currentRoom.transform.position.y + 10));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
         }
@@ -54,7 +53,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_weapon._defaultSettings._bulletSetting, 1,gameObject.layer, "Enemy");
+        b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(3);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex];

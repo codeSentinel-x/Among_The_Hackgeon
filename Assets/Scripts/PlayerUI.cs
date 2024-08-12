@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,5 +49,17 @@ public class PlayerUI : MonoBehaviour {
 
         }
         p.fillAmount = 0;
+    }
+
+    //TODO add this to player combat and player movement;
+    public void RefreshHealth(float newValue, float maxVal){
+        var t = transform.Find("HEALTH_DISPLAY");
+        t.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
+        t.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Health {newValue}/{maxVal}";
+    }
+    public void RefreshDash(float newValue, float maxVal){
+        var t = transform.Find("DASH_DISPLAY");
+        t.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
+        t.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Dash {newValue}/{maxVal}";
     }
 }
