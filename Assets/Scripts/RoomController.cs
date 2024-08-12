@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using MyUtils.Enums;
 using UnityEngine;
 
@@ -34,6 +32,11 @@ public class RoomController : MonoBehaviour {
         contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
+        SpawnEnemy();
+    }
+    private void SpawnEnemy() {
+        var g = Instantiate(GameDataManager._I._enemyPref, transform.position, Quaternion.identity);
+        g.GetComponentInChildren<Enemy>()._currentRoom = this;
     }
 
     public void ShowRoom() {

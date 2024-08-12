@@ -1,10 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
-using UnityEngine.PlayerLoop;
 
 public class PlayerMovement : MonoBehaviour {
     public float _speed;

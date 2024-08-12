@@ -1,12 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using MyUtils.Classes;
 using MyUtils.Interfaces;
-using MyUtils.ScriptableObjects;
-using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour, IDamageable {
