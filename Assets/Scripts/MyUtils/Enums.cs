@@ -1,6 +1,6 @@
 namespace MyUtils.Enums {
     public enum RoomType {
-        RandomGenerated,
+        EnemyRoom,
         StartRoom,
         ResetRoom,
         BossRoom,

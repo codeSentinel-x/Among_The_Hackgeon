@@ -59,7 +59,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
         var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_defaultWeapon._bulletSetting, _bulletSpeedMult);
+        b.Setup(_defaultWeapon._bulletSetting, _bulletSpeedMult, this.gameObject.layer, "Player");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
 

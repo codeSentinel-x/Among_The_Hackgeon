@@ -15,13 +15,13 @@ MonoBehaviour:
   _sprite: {fileID: -4552326799467902968, guid: 785712ff2b9087e38a22124904109339, type: 3}
   _firePointPos: {x: 0.33, y: 0.14, z: 0}
   _spread: {x: 0, y: 0, z: 0}
-  _maxBullet: 7
+  _maxBullet: 6
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
   _reloadTime: 1.5
   _shotDelay: 0.2
   _bulletSetting:
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-    _damage: 8
-    _speed: 80
+    _damage: 20
+    _speed: 30
     _maxDist: 100

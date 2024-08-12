@@ -1,8 +1,9 @@
 using System.Collections;
 using MyUtils.Classes;
+using MyUtils.Interfaces;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IDamageable {
     public RoomController _currentRoom;
     public EnemySO _defaultSetting;
     public Weapon _weapon;
@@ -16,14 +17,20 @@ public class Enemy : MonoBehaviour {
     private Rigidbody2D _rgb;
     private bool _isReloading;
     public Transform _spriteRenderer;
+    private int _delayIndex;
+    private float _nextShootTime;
+    private float _currentHealth;
+
     public void Awake() {
+        _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(_firePoint, _weaponSR);
         _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
     }
     void Update() {
         RotateWeaponToPlayer();
-        Shoot();
+        if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
         if (Vector2.Distance(_target.position, transform.position) > _minPlayerDist) {
             _moveDirection = _target.position - transform.position;
@@ -31,7 +38,7 @@ public class Enemy : MonoBehaviour {
 
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.x - 22, _currentRoom.transform.position.x + 22), Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 22, _currentRoom.transform.position.y + 22));
+            Vector2 newVec = new(Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.x - 20, _currentRoom.transform.position.x + 20), Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 22, _currentRoom.transform.position.y + 22));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
         }
@@ -45,9 +52,12 @@ public class Enemy : MonoBehaviour {
         if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_weapon._defaultSettings._bulletSetting, 1);
+        b.Setup(_weapon._defaultSettings._bulletSetting, 1,this.gameObject.layer, "Enemy");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(3);
+        _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex];
+        _delayIndex++;
+        if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
 
     }
     private IEnumerator Reload() {
@@ -72,5 +82,10 @@ public class Enemy : MonoBehaviour {
     void ChangeLocalScale(int x) {
         _weaponHolder.transform.GetChild(0).localScale = new(x, 1, 1);
         _spriteRenderer.localScale = new(Mathf.Abs(_spriteRenderer.localScale.x) * x, _spriteRenderer.localScale.y, 1);
+    }
+
+    public void Damage(float v) {
+        _currentHealth -= v;
+        if (_currentHealth <= 0) Destroy(transform.parent.gameObject);
     }
 }

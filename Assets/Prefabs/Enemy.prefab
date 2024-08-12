@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6789350029700619017}
   - component: {fileID: 2212849917875160668}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5267954342870288268}
   - component: {fileID: 536393858931233444}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: TestWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3896446088640308682}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5663967704981641847}
   - component: {fileID: 4504967065483618133}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,9 +304,9 @@ GameObject:
   - component: {fileID: 3306028210717784519}
   - component: {fileID: 1984787251895578705}
   - component: {fileID: 8704012171492629739}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Scripts
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   _weaponSR: {fileID: 536393858931233444}
   _moveDirection: {x: 0, y: 0}
   _nextMoveDirectionChange: 0
-  _minPlayerDist: 8
+  _minPlayerDist: 20
   _spriteRenderer: {fileID: 6789350029700619017}
 --- !u!1 &7160603080686389294
 GameObject:
@@ -437,7 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2423118073687566562}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 418354343324590112}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}

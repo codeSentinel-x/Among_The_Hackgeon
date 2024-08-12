@@ -7,6 +7,7 @@ public class RoomController : MonoBehaviour {
     public DoorChecker[] _doors;
     public GameObject _content;
     public bool _found;
+    public Transform[] _spawnPoints;
     public LayerMask _roomLayer;
     public PolygonCollider2D _cameraBoundaries;
     public Action OnPlayerEnter;
@@ -35,8 +36,10 @@ public class RoomController : MonoBehaviour {
         SpawnEnemy();
     }
     private void SpawnEnemy() {
-        var g = Instantiate(GameDataManager._I._enemyPref, transform.position, Quaternion.identity);
-        g.GetComponentInChildren<Enemy>()._currentRoom = this;
+        foreach(var c in _spawnPoints){
+            var g = Instantiate(GameDataManager._I._enemyPref, c.position, Quaternion.identity);
+            g.GetComponentInChildren<Enemy>()._currentRoom = this;
+        }
     }
 
     public void ShowRoom() {

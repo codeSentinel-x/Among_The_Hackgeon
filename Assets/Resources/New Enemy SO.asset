@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: New Enemy SO
   m_EditorClassIdentifier: 
   _aiType: 0
-  _maxHealth: 100
+  _shootDelays:
+  - 0.5
+  - 0.3
+  - 0.6
+  - 0.3
+  _maxHealth: 20
   _baseDamage: 5
   _speed: 7
-  _defaultWeapon: {fileID: 0}
+  _defaultWeapon: {fileID: 11400000, guid: 931f2d4b456310136accdea811b9f4e5, type: 2}
