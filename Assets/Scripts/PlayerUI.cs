@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour {
     public Transform _bulletDisplayContent;
     public Transform _weaponDisplayContent;
-        public static PlayerUI _I;
+    public static PlayerUI _I;
 
     void Awake() {
         _I = this;
@@ -35,13 +35,18 @@ public class PlayerUI : MonoBehaviour {
         DecaresBullet(_bulletDisplayContent.childCount);
         IncreaseBullet(val);
     }
-    public void ChangeWeapon(Sprite sprite){
-        _weaponDisplayContent.Find("WEAPON_IMAGE").GetComponent<Image>().sprite = sprite; 
+    public void ChangeWeapon(Sprite sprite) {
+        _weaponDisplayContent.GetComponent<Image>().sprite = sprite;
     }
-    public IEnumerator DisplayReload(float time){
-        for(int i = 0; i < time; i += 40){
-            yield return new  WaitForSeconds(time/40);
-            i 
+    public IEnumerator DisplayReload(float time) {
+        Image p = _weaponDisplayContent.Find("PANEL").GetComponent<Image>();
+        float val = 0;
+        for (int i = 0; i < 40; i++) {
+            val += time / 40;
+            p.fillAmount = Mathf.InverseLerp(0, time, val);
+            yield return new WaitForSeconds(time / 40);
+
         }
+        p.fillAmount = 0;
     }
 }

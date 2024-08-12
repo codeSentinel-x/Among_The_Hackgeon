@@ -1,3 +1,4 @@
+using System;
 using MyUtils.Enums;
 using MyUtils.Interfaces;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class DoorController : MonoBehaviour {
     void Awake() {
         Initialize();
         _roomToShow2 = GetComponentInParent<RoomController>();
+    }
+    void Close() {
+        // GetComponent<SpriteRenderer>().
     }
     public void Initialize() {
         switch (_doorType) {

@@ -24,21 +24,23 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void Awake() {
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(_firePoint, _weaponSR);
-        _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _target = PlayerController._I.transform;
         _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
+        _weapon._bulletsInMagazine = 0;
     }
     void Update() {
         RotateWeaponToPlayer();
         if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
+            Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
         if (Vector2.Distance(_target.position, transform.position) > _minPlayerDist) {
             _moveDirection = _target.position - transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
 
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.x - 20, _currentRoom.transform.position.x + 20), Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 22, _currentRoom.transform.position.y + 22));
+            Vector2 newVec = new(Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.x - 20, _currentRoom.transform.position.x + 20), Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 20, _currentRoom.transform.position.y + 20));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
         }

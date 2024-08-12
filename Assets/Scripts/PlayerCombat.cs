@@ -5,16 +5,18 @@ using MyUtils.Interfaces;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour, IDamageable {
-    public List<Weapon> _weapons;
-    public int _currentWeaponIndex;
-    public string _defaultWeaponName;
-    public Weapon _currentWeapon;
-    public float _rotSpeed;
+
+    [Header("Setup")]
+    public Transform _weaponHolder;
+    public Transform _firePoint;
     public Transform _spriteRenderer;
     public SpriteRenderer _weaponSpriteR;
-    public Transform _firePoint;
-    public Transform _weaponHolder;
-    public Transform _bulletPref;
+    public string _defaultWeaponName;
+    public float _rotSpeed;
+
+    private Weapon _currentWeapon;
+    private int _currentWeaponIndex = 0;
+    private List<Weapon> _weapons = new();
     private float _maxHealth;
     private float _damageIgnore;
     private float _damageReduction;
@@ -23,6 +25,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _reloadSpeedMult;
     private float _bulletSpeedMult;
     private float _shootDelayMult;
+
     void Awake() {
         var d = GetComponent<PlayerController>()._data;
         d._maxHealth._OnStatValueChanged += (x) => _maxHealth = x;
@@ -31,13 +34,18 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
         d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
+
+    }
+    void Start() {
         _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         _weapons.Add(_currentWeapon);
+        _weapons.Add(new(GameDataManager.LoadByName("Eagle")));
+
         _currentWeaponIndex = _weapons.Count - 1;
-    }
-    void Start() {
         _currentHealth = _maxHealth;
+        ReseTBulletDisplay();
+        PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
     }
 
     public void Update() {
@@ -49,7 +57,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
     private void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
-        if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+        if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
         if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
         if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
     }
@@ -72,6 +80,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         ReseTBulletDisplay();
+        PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
+
 
     }
     public void PreviousWeapon() {
@@ -81,6 +91,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         ReseTBulletDisplay();
+        PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
 
     }
 
@@ -88,6 +99,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         _isReloading = true;
+        StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
         yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
         _currentWeapon.Reload();
         Debug.Log("Reloaded");

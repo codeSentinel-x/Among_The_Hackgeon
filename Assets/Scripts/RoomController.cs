@@ -10,6 +10,7 @@ public class RoomController : MonoBehaviour {
     public Transform[] _spawnPoints;
     public LayerMask _roomLayer;
     public PolygonCollider2D _cameraBoundaries;
+    private bool _wasInvoked;
     public Action OnPlayerEnter;
 
     void Start() {
@@ -33,12 +34,17 @@ public class RoomController : MonoBehaviour {
         contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
-        SpawnEnemy();
+        if (_roomType == RoomType.EnemyRoom && !_wasInvoked) SpawnEnemy();
     }
     private void SpawnEnemy() {
-        foreach(var c in _spawnPoints){
+        _wasInvoked = true;
+        foreach (var c in _spawnPoints) {
             var g = Instantiate(GameDataManager._I._enemyPref, c.position, Quaternion.identity);
-            g.GetComponentInChildren<Enemy>()._currentRoom = this;
+            var e = g.GetComponentInChildren<Enemy>();
+            e._currentRoom = this;
+        }
+        foreach (var d in _doors) {
+            // d._door.
         }
     }
 

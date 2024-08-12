@@ -19,7 +19,7 @@ MonoBehaviour:
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
   _reloadTime: 1.3
-  _shotDelay: 0
+  _shotDelay: 0.1
   _bulletSetting:
     _sprite: {fileID: -2346302928887187388, guid: 047bf01ec90cd7749bd4bd777dc4710d, type: 3}
     _damage: 10
