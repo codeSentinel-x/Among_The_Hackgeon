@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb4ae7acbc42fed3483d688987f903c4, type: 3}
-  m_Name: Default
+  m_Name: DesertEagle
   m_EditorClassIdentifier: 
-  _sprite: {fileID: -2369867600477939372, guid: 39a3c2b0e0c7e4032989ea9392747c36, type: 3}
+  _sprite: {fileID: -4552326799467902968, guid: 785712ff2b9087e38a22124904109339, type: 3}
   _firePointPos: {x: 0.33, y: 0.14, z: 0}
   _spread: {x: 0, y: 0, z: 0}
-  _maxBullet: 10
+  _maxBullet: 20
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
-  _reloadTime: 2
-  _shotDelay: 0.1
+  _reloadTime: 3
+  _shotDelay: 0.2
   _bulletSetting:
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     _damage: 6

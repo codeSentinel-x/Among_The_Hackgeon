@@ -10,7 +10,8 @@ using UnityEditor;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour, IDamageable {
-
+    public List<Weapon> _weapons;
+    public int _currentWeaponIndex;
     public WeaponSO _defaultWeapon;
     public Weapon _currentWeapon;
     public float _rotSpeed;
@@ -23,9 +24,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _damageIgnore;
     private float _damageReduction;
     private float _currentHealth;
-    private int _bullets;
     private bool _isReloading;
-    private int _maxBullet;
     private float _reloadSpeedMult;
     private float _bulletSpeedMult;
     private float _shootDelayMult;
@@ -39,6 +38,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
         _currentWeapon = new(_defaultWeapon);
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+        _weapons.Add(_currentWeapon);
+        _currentWeaponIndex = _weapons.Count - 1;
     }
     void Start() {
         _currentHealth = _maxHealth;
@@ -54,18 +55,34 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
         if (Input.GetKeyDown(KeyCode.R)) StartCoroutine(Reload());
+        if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
+        if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
     }
     public void Shoot() {
         if (_isReloading) return;
+        if (_currentWeapon._nextShoot > Time.time) return;
         if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
-        var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, transform.rotation).GetComponentInChildren<BulletMono>();
-        b.Setup(_defaultWeapon._bulletSetting);
+        var b = Instantiate(_defaultWeapon._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
+        b.Setup(_defaultWeapon._bulletSetting, _bulletSpeedMult);
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        _currentWeapon._bulletsInMagazine -= 1;
+        _currentWeapon.Shoot(_shootDelayMult);
+
     }
-
-
+    public void NextWeapon() {
+        if (_isReloading) return;
+        _currentWeaponIndex += 1;
+        if (_currentWeaponIndex >= _weapons.Count) _currentWeaponIndex = 0;
+        _currentWeapon = _weapons[_currentWeaponIndex];
+        _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+    }
+    public void PreviousWeapon() {
+        if (_isReloading) return;
+        _currentWeaponIndex -= 1;
+        if (_currentWeaponIndex < 0) _currentWeaponIndex = _weapons.Count - 1;
+        _currentWeapon = _weapons[_currentWeaponIndex];
+        _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+    }
 
 
     private IEnumerator Reload() {

@@ -25,9 +25,9 @@ public class BulletMono : MonoBehaviour {
         else Destroy(transform.parent.gameObject);
 
     }
-    public void Setup(BulletSetting s) {
+    public void Setup(BulletSetting s, float bSMult) {
         _bulletDamage = s._damage;
-        _speed = s._speed;
+        _speed = s._speed * bSMult;
         _maxDist = s._maxDist;
 
     }

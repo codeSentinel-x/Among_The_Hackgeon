@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Structs;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace MyUtils.ScriptableObjects {
 
@@ -13,7 +14,8 @@ namespace MyUtils.ScriptableObjects {
         public int _maxBullet;
         public int _bulletUsage;
         public Transform _bulletPref;
-        public BulletSetting _bulletSetting;
         public float _reloadTime;
+        public float _shotDelay;
+        public BulletSetting _bulletSetting;
     }
 }

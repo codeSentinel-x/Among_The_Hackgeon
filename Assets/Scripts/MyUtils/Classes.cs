@@ -143,8 +143,8 @@ namespace MyUtils.Classes {
         public string _name;
     }
     [Serializable]
-    public class Weapon{
-        public Weapon(WeaponSO def){
+    public class Weapon {
+        public Weapon(WeaponSO def) {
             _defaultSettings = def;
             _bulletsInMagazine = def._maxBullet;
             _reloadTime = def._reloadTime;
@@ -152,13 +152,18 @@ namespace MyUtils.Classes {
         public int _bulletsInMagazine;
         public float _reloadTime;
         public WeaponSO _defaultSettings;
-        public void Setup(Transform firePoint, SpriteRenderer spriteR){
+        public float _nextShoot;
+        public void Setup(Transform firePoint, SpriteRenderer spriteR) {
             firePoint.localPosition = _defaultSettings._firePointPos;
             spriteR.sprite = _defaultSettings._sprite;
 
         }
-        public void Reload(){
+        public void Reload() {
             _bulletsInMagazine = _defaultSettings._maxBullet;
+        }
+        public void Shoot(float mult) {
+            _nextShoot = Time.time + _defaultSettings._shotDelay * mult;
+            _bulletsInMagazine -= 1;
         }
     }
 
