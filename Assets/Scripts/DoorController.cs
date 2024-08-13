@@ -70,6 +70,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
     private bool _opened;
+    private bool _discovered;
     void Start() {
         _gMD = GameDataManager._I;
         _stage = _gMD._destroyableDoorSprites.Length;
@@ -78,7 +79,11 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     }
     public void CloseDoor() {
         //TODO
-        throw new System.NotImplementedException();
+        if (_opened) {
+            _col.isTrigger = false;
+            _renderer.enabled = true;
+            _renderer.sprite = _gMD._closedDoorSprite;
+        }
     }
 
     public void Damage(float v) {
@@ -91,12 +96,13 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     }
 
     public void HideDoor() {
-        //TODO
+        //TODO g
         throw new System.NotImplementedException();
     }
 
     public void OpenDoor() {
         _opened = true;
+        _discovered = true; ;
         _col.isTrigger = true;
         _renderer.enabled = false;
         var d = GetComponent<DoorController>();
@@ -107,6 +113,10 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void ShowDoor() {
         //TODO
-        throw new System.NotImplementedException();
+        _opened = true;
+        _discovered = true; ;
+        _col.isTrigger = true;
+        _renderer.enabled = false;
+        // throw new System.NotImplementedException();
     }
 }

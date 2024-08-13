@@ -40,7 +40,5 @@ public class BulletMono : MonoBehaviour {
         IDamageable unit = col.gameObject.GetComponent<IDamageable>();
         unit?.Damage(_bulletDamage);
         Destroy(transform.parent.gameObject);
-
-
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Classes;
@@ -13,7 +14,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public SpriteRenderer _weaponSpriteR;
     public string _defaultWeaponName;
     public float _rotSpeed;
-
+    public static Action<float> _onPlayerHealthChange;
     private Weapon _currentWeapon;
     private int _currentWeaponIndex = 0;
     private List<Weapon> _weapons = new();
@@ -27,25 +28,12 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _shootDelayMult;
 
     void Awake() {
-        var d = GetComponent<PlayerController>()._data;
-        d._maxHealth._OnStatValueChanged += (x) => _maxHealth = x;
-        d._damageIgnore._OnStatValueChanged += (x) => _damageIgnore = x;
-        d._damageReduction._OnStatValueChanged += (x) => _damageReduction = x;
-        d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
-        d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
-        d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
-
+        SubscribeStats();
+        
     }
-    void Start() {
-        _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
-        _currentWeapon.Setup(_firePoint, _weaponSpriteR);
-        _weapons.Add(_currentWeapon);
-        _weapons.Add(new(GameDataManager.LoadByName("Eagle")));
 
-        _currentWeaponIndex = _weapons.Count - 1;
-        _currentHealth = _maxHealth;
-        ReseTBulletDisplay();
-        PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
+    void Start() {
+        InitializeWeapon();
     }
 
     public void Update() {
@@ -54,7 +42,29 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     void LateUpdate() {
         RotateWeaponToMouse();
     }
+    void SubscribeStats() {
+        var d = GetComponent<PlayerController>()._data;
+        d._maxHealth._OnStatValueChanged += (x) => { _maxHealth = x; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
+        d._damageIgnore._OnStatValueChanged += (x) => _damageIgnore = x;
+        d._damageReduction._OnStatValueChanged += (x) => _damageReduction = x;
+        d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
+        d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
+        d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
+    }
 
+    
+    void InitializeWeapon() {
+        _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
+        _currentWeapon.Setup(_firePoint, _weaponSpriteR);
+        _weapons.Add(_currentWeapon);
+        _weapons.Add(new(GameDataManager.LoadByName("Eagle")));
+
+        _currentWeaponIndex = _weapons.Count - 1;
+        _currentHealth = _maxHealth;
+        PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
+        ReseTBulletDisplay();
+        PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
+    }
     private void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
@@ -132,6 +142,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentHealth -= v2;
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After reduction {v2}");
+        _onPlayerHealthChange?.Invoke(v);
+    }
+    public void RestoreHealth(float v) {
+        _currentHealth += v;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+        _onPlayerHealthChange?.Invoke(v);
+
     }
 
     private void Die() {

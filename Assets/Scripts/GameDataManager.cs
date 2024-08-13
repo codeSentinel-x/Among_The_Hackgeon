@@ -5,6 +5,7 @@ public class GameDataManager : MonoBehaviour {
 
     public static GameDataManager _I;
     public Sprite[] _destroyableDoorSprites;
+    public Sprite _closedDoorSprite;
     public Transform _enemyPref;
     public Sprite _bulletSprite;
     void Awake() {
