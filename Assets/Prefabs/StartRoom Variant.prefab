@@ -32,6 +32,14 @@ PrefabInstance:
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6736701328648153228, guid: 1595b27903f973cdba1ab99c746530e7, type: 3}
+      propertyPath: _doorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463450674479803308, guid: 1595b27903f973cdba1ab99c746530e7, type: 3}
+      propertyPath: _doorType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8547786923235794224, guid: 1595b27903f973cdba1ab99c746530e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
