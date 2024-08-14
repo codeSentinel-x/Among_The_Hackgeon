@@ -9,8 +9,8 @@ public class DoorController : MonoBehaviour {
     [HideInInspector] public RoomController _roomToShow2;
 
     void Awake() {
-        Initialize();
         _roomToShow2 = GetComponentInParent<RoomController>();
+        Initialize();
     }
     void Close() {
         // GetComponent<SpriteRenderer>().
@@ -18,7 +18,8 @@ public class DoorController : MonoBehaviour {
     public void Initialize() {
         switch (_doorType) {
             case DoorOpenType.OpenOnShoot: {
-                    gameObject.AddComponent<DoorOnShoot>();
+                    var c = gameObject.AddComponent<DoorOnShoot>();
+                    if (_roomToShow2._roomType == RoomType.EnemyRoom && !_roomToShow2._wasInvoked) _roomToShow2._onPlayerEnter += c.CloseDoor;
                     break;
                 }
             case DoorOpenType.OpenOnBlank: {
@@ -71,14 +72,17 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     private SpriteRenderer _renderer;
     private bool _opened;
     private bool _discovered;
+    private bool _hidden;
     void Start() {
         _gMD = GameDataManager._I;
         _stage = _gMD._destroyableDoorSprites.Length;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
+        RoomController._onRoomClear += ShowDoor;
     }
     public void CloseDoor() {
         //TODO
+        _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
             _renderer.enabled = true;
@@ -87,7 +91,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     }
 
     public void Damage(float v) {
-        if (_opened) return;
+        if (_opened || _hidden) return;
         if (_stage == 0) { OpenDoor(); return; }
         _stage--;
         _renderer.sprite = _gMD._destroyableDoorSprites[_stage];
@@ -113,8 +117,9 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void ShowDoor() {
         //TODO
+        _hidden = false;
+        if (!_discovered) return;
         _opened = true;
-        _discovered = true; ;
         _col.isTrigger = true;
         _renderer.enabled = false;
         // throw new System.NotImplementedException();

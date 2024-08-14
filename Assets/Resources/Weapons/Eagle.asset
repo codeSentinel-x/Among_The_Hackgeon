@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: -4552326799467902968, guid: 785712ff2b9087e38a22124904109339, type: 3}
   _firePointPos: {x: 0.33, y: 0.14, z: 0}
-  _spread: {x: 0, y: 0, z: 0}
+  _spread: 2
   _maxBullet: 6
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}

@@ -26,7 +26,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _reloadSpeedMult;
     private float _bulletSpeedMult;
     private float _shootDelayMult;
-
+    private float _invincibleTime;
+    private float _invincibleAfterDash;
     void Awake() {
         SubscribeStats();
 
@@ -50,10 +51,15 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
         d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
+        d._invincibleAfterDash._OnStatValueChanged += (x) => _invincibleAfterDash = x;
+        PlayerMovement._onDashStart += RefreshInvincible;
 
         _onPlayerHealthChange += (x) => PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
     }
 
+    void RefreshInvincible() {
+        _invincibleTime = Time.time + _invincibleAfterDash;
+    }
 
     void InitializeWeapon() {
         _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
@@ -141,6 +147,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
 
     public void Damage(float v) {
+        if (Time.time < _invincibleTime) { Debug.Log("Player is invincible"); return; }
         var v1 = v - _damageIgnore;
         var v2 = v1 - v1 * _damageReduction;
         _currentHealth -= v2;

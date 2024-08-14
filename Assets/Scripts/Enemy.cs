@@ -88,6 +88,10 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Damage(float v) {
         _currentHealth -= v;
-        if (_currentHealth <= 0) Destroy(transform.parent.gameObject);
+        if (_currentHealth <= 0) Die();
+    }
+    public void Die() {
+        _currentRoom._enemies.Remove(this);
+        Destroy(transform.parent.gameObject);
     }
 }

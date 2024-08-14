@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     private float _currentStamina;
     private float _staminaCounter;
     public static Action<float> _onStaminaChange;
+    public static Action _onDashStart;
     void Awake() {
         _rgb = GetComponent<Rigidbody2D>();
         var p = GetComponent<PlayerController>();
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour {
             StartCoroutine(StopMoving(_dashDuration));
             _staminaCounter = _staminaRegDelay;
             PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
-
+            _onDashStart?.Invoke();
             _onStaminaChange?.Invoke(_currentStamina);
         }
     }

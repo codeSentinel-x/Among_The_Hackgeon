@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiType: 0
   _shootDelays:
-  - 0.5
-  - 0.3
-  - 0.6
-  - 0.3
+  - 0.1
+  - 0.2
+  - 0.1
+  - 0.1
   _maxHealth: 20
   _baseDamage: 5
   _speed: 3

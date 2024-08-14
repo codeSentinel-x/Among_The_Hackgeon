@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: -2369867600477939372, guid: 39a3c2b0e0c7e4032989ea9392747c36, type: 3}
   _firePointPos: {x: 0.33, y: 0.14, z: 0}
-  _spread: {x: 0, y: 0, z: 0}
+  _spread: 10
   _maxBullet: 4
   _bulletUsage: 1
   _bulletPref: {fileID: 4195708727716394671, guid: 235b32ccb6ca8cb0a884fc3e6839ec48, type: 3}
-  _reloadTime: 1.5
-  _shotDelay: 2
+  _reloadTime: 0.7
+  _shotDelay: 0.5
   _bulletSetting:
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     _damage: 10
