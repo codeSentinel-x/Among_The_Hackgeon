@@ -169,7 +169,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      desertEagle1_0: -4552326799467902968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

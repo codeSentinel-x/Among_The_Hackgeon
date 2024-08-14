@@ -7,6 +7,7 @@ public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
     public RoomController _roomToShow1;
     [HideInInspector] public RoomController _roomToShow2;
+    public bool _isVertical;
 
     void Awake() {
         _roomToShow2 = GetComponentInParent<RoomController>();
@@ -19,6 +20,7 @@ public class DoorController : MonoBehaviour {
         switch (_doorType) {
             case DoorOpenType.OpenOnShoot: {
                     var c = gameObject.AddComponent<DoorOnShoot>();
+                    c._isVertical = _isVertical;
                     if (_roomToShow2._roomType == RoomType.EnemyRoom && !_roomToShow2._wasInvoked) _roomToShow2._onPlayerEnter += c.CloseDoor;
                     break;
                 }
@@ -66,12 +68,14 @@ public class DoorBasic : MonoBehaviour {
 }
 [RequireComponent(typeof(SpriteRenderer))]
 public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
+    
     public Collider2D _col;
     public int _stage;
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
     private bool _opened;
     private bool _discovered;
+    public bool _isVertical;
     private bool _hidden;
     void Start() {
         _gMD = GameDataManager._I;
@@ -86,7 +90,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         if (_opened) {
             _col.isTrigger = false;
             _renderer.enabled = true;
-            _renderer.sprite = _gMD._closedDoorSprite;
+            _renderer.sprite = _isVertical? _gMD._closedVerticalDoorSprite : _gMD._closedHorizontalDoorSprite;
         }
     }
 
