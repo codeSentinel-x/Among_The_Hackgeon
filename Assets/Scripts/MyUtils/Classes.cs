@@ -147,19 +147,27 @@ namespace MyUtils.Classes {
             _defaultSettings = def;
             _bulletsInMagazine = def._maxBullet;
             _reloadTime = def._reloadTime;
+            _allBullets = 5 * _bulletsInMagazine;
         }
         public int _bulletsInMagazine;
+        public int _allBullets;
         public float _reloadTime;
         public WeaponSO _defaultSettings;
         public float _nextShoot;
-        
+
         public void Setup(Transform firePoint, SpriteRenderer spriteR) {
             firePoint.localPosition = _defaultSettings._firePointPos;
             spriteR.sprite = _defaultSettings._sprite;
-
         }
         public void Reload() {
-            _bulletsInMagazine = _defaultSettings._maxBullet;
+            if (_allBullets >= _defaultSettings._maxBullet) {
+                _bulletsInMagazine = _defaultSettings._maxBullet;
+                _allBullets -= _bulletsInMagazine;
+            }
+            else {
+                _bulletsInMagazine = _allBullets;
+                _allBullets = 0;
+            }
         }
         public void Shoot(float mult) {
             _nextShoot = Time.time + _defaultSettings._shotDelay * mult;

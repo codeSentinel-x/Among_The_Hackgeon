@@ -71,7 +71,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentHealth = _maxHealth;
         PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
-        ReseTBulletDisplay();
+        ResetBulletDisplay();
     }
     private void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
@@ -90,7 +90,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, "Player");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
-        PlayerUI._I.DecaresBullet();
+        PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
 
     }
     public void NextWeapon() {
@@ -99,7 +99,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeaponIndex >= _weapons.Count) _currentWeaponIndex = 0;
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
-        ReseTBulletDisplay();
+        ResetBulletDisplay();
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
 
 
@@ -110,7 +110,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeaponIndex < 0) _currentWeaponIndex = _weapons.Count - 1;
         _currentWeapon = _weapons[_currentWeaponIndex];
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
-        ReseTBulletDisplay();
+        ResetBulletDisplay();
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
 
     }
@@ -118,16 +118,17 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
+        if (_currentWeapon._bulletsInMagazine == _currentWeapon._defaultSettings._maxBullet) yield return null;
         _isReloading = true;
         StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
         yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
         _currentWeapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        ReseTBulletDisplay();
+        ResetBulletDisplay();
     }
 
-    void ReseTBulletDisplay() => PlayerUI._I.ResetBullets(_currentWeapon._bulletsInMagazine);
+    void ResetBulletDisplay() => PlayerUI._I.ResetBullets(_currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
 
     private void RotateWeaponToMouse() {
 
