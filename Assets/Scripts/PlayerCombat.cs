@@ -29,7 +29,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
     void Awake() {
         SubscribeStats();
-        
+
     }
 
     void Start() {
@@ -50,9 +50,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
         d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
         d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
+
+        _onPlayerHealthChange += (x) => PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
     }
 
-    
+
     void InitializeWeapon() {
         _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
@@ -62,8 +64,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentWeaponIndex = _weapons.Count - 1;
         _currentHealth = _maxHealth;
         PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
-        ReseTBulletDisplay();
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
+        ReseTBulletDisplay();
     }
     private void HandleInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
@@ -76,7 +78,9 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._nextShoot > Time.time) return;
         if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
         Debug.Log("Piu");
-        var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
+        float sp = UnityEngine.Random.Range(0f, _currentWeapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
+        Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
+        var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, "Player");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);

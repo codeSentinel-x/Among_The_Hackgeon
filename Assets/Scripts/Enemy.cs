@@ -27,7 +27,8 @@ public class Enemy : MonoBehaviour, IDamageable {
         _target = PlayerController._I.transform;
         _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
-        _weapon._bulletsInMagazine = 0;
+        _weapon._bulletsInMagazine = Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
+        _nextShootTime = Time.time + Random.Range(0.2f, 0.8f);
     }
     void Update() {
         RotateWeaponToPlayer();

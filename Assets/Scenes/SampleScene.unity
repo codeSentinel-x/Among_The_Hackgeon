@@ -757,7 +757,7 @@ MonoBehaviour:
       _baseValue: 0.05
       _description: 
     _staminaRegenerationDelay:
-      _baseValue: 2
+      _baseValue: 1
       _description: 
     _stamRegPerSecMult:
       _baseValue: 5
@@ -904,6 +904,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletDisplayContent: {fileID: 0}
   _weaponDisplayContent: {fileID: 0}
+  _dashDisplay: {fileID: 0}
+  _healthDisplay: {fileID: 0}
 --- !u!114 &410632652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2123,6 +2125,7 @@ MonoBehaviour:
   _destroyableDoorSprites:
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  _closedDoorSprite: {fileID: 0}
   _enemyPref: {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}
   _bulletSprite: {fileID: 3098933925591197577, guid: 51f98ea6cfb629d879f49435067e1f88, type: 3}
 --- !u!4 &1323413207
@@ -2297,7 +2300,7 @@ GameObject:
   - component: {fileID: 1430503585}
   - component: {fileID: 1430503584}
   m_Layer: 3
-  m_Name: Panel
+  m_Name: BAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

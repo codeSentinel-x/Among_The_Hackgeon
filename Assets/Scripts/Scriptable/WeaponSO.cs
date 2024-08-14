@@ -5,7 +5,7 @@ using UnityEngine;
     public class WeaponSO : ScriptableObject {
         public Sprite _sprite;
         public Vector3 _firePointPos;
-        public Vector3 _spread;
+        public float _spread;
         public int _maxBullet;
         public int _bulletUsage;
         public Transform _bulletPref;

@@ -152,6 +152,7 @@ namespace MyUtils.Classes {
         public float _reloadTime;
         public WeaponSO _defaultSettings;
         public float _nextShoot;
+        
         public void Setup(Transform firePoint, SpriteRenderer spriteR) {
             firePoint.localPosition = _defaultSettings._firePointPos;
             spriteR.sprite = _defaultSettings._sprite;

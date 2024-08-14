@@ -14,11 +14,12 @@ public class PlayerUI : MonoBehaviour {
     void Awake() {
         _I = this;
         _dashDisplay = transform.Find("DASH_DISPLAY");
-        _healthDisplay = transform.Find("HEALTH_DISPLAY");
+        _healthDisplay = transform.Find("HEALTH_DISPLAY ");
         _bulletDisplayContent = transform.Find("BULLET_DISPLAY");
         _weaponDisplayContent = transform.Find("WEAPON_DISPLAY");
     }
     public void DecaresBullet(int val = 1) {
+        if (_bulletDisplayContent.childCount == 0) return;
         List<GameObject> toDestr = new();
         for (int i = 0; i < val; i++) {
             toDestr.Add(_bulletDisplayContent.GetChild(i).gameObject);
@@ -58,10 +59,10 @@ public class PlayerUI : MonoBehaviour {
     //TODO test implementation
     public void RefreshHealth(float newValue, float maxVal) {
         _healthDisplay.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
-        _healthDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Health {newValue}/{maxVal}";
+        _healthDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Health {newValue:f1}/{maxVal:f1}";
     }
     public void RefreshDash(float newValue, float maxVal) {
         _dashDisplay.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
-        _dashDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Dash {newValue}/{maxVal}";
+        _dashDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Dash {newValue:f1}/{maxVal:f1}";
     }
 }

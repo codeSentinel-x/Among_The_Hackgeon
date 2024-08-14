@@ -10,15 +10,17 @@ public class BulletMono : MonoBehaviour {
     public LayerMask _layerToIgnore;
     public string _tagToIgnore;
     private Collider2D col;
+    private Rigidbody2D _rgb;
     void Awake() {
         _startPos = transform.position;
         col = GetComponent<Collider2D>();
+        _rgb = col.GetComponent<Rigidbody2D>();
     }
 
-    void Update() {
+    void FixedUpdate() {
         float dist = Vector3.Distance(_startPos, transform.position);
         if (dist < _maxDist) {
-            transform.localPosition += _speed * Time.deltaTime * Vector3.up;
+            _rgb.velocity = _speed * transform.up; //* transform.rotation;
         }
         else Destroy(transform.parent.gameObject);
 
@@ -36,6 +38,7 @@ public class BulletMono : MonoBehaviour {
         if (col.collider.isTrigger) return;
         if (col.gameObject.layer == gameObject.layer) return;
         if (col.gameObject.CompareTag(_tagToIgnore)) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
+        if (col.gameObject.CompareTag("Bullet")) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
 
         IDamageable unit = col.gameObject.GetComponent<IDamageable>();
         unit?.Damage(_bulletDamage);

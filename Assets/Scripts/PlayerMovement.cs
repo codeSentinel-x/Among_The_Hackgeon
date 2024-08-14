@@ -28,10 +28,13 @@ public class PlayerMovement : MonoBehaviour {
         p._data._dashStaminaUsage._OnStatValueChanged += (x) => _dashStaminaUsage = x;
         p._data._staminaRegenerationDelay._OnStatValueChanged += (x) => _staminaRegDelay = x;
         TickCounter._onTick += (x) => {
-            if(_currentStamina < _maxStamina){
+            if (_currentStamina < _maxStamina) {
                 _currentStamina += 1;
             }
         };
+    }
+    void Start() {
+        PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
     }
 
 
@@ -45,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
         if (_currentStamina < _maxStamina) {
             if (_staminaCounter <= 0) {
                 _currentStamina += Time.deltaTime * _stamRegPerSec;
+                PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
                 _onStaminaChange?.Invoke(_currentStamina);
             }
             else {
@@ -58,11 +62,14 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Mouse1)) if (_dashToMouse) DashToMouse(Camera.main.ScreenToWorldPoint(Input.mousePosition)); else DashForward();
     }
     private void DashForward() {
+        if (_dir == Vector2.zero) return;
         if (_currentStamina >= _dashStaminaUsage) {
             _currentStamina -= _dashStaminaUsage;
             _rgb.AddForce(_dir.normalized * _dashPower, ForceMode2D.Impulse);
             StartCoroutine(StopMoving(_dashDuration));
             _staminaCounter = _staminaRegDelay;
+            PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
+
             _onStaminaChange?.Invoke(_currentStamina);
         }
     }
