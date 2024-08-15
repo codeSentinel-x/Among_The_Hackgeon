@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 10, _currentRoom.transform.position.y + 10));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 11, _currentRoom.transform.position.x + 11), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 8, _currentRoom.transform.position.y + 8));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
         }

@@ -56,3 +56,6 @@ TagManager:
   - name: WallsDown
     uniqueID: 1934229111
     locked: 0
+  - name: mask
+    uniqueID: 4275071789
+    locked: 0
