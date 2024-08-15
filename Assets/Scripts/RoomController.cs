@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class RoomController : MonoBehaviour {
     public RoomType _roomType;
-    public DoorChecker[] _doors;
-    public GameObject _content;
+    public Transform _checkerTransform;
+    public Transform _doorsTransform;
+    private List<DoorChecker> _doors = new();
+    public GameObject _roomMask;
     public bool _found;
     public Transform[] _spawnPoints;
     public LayerMask _roomLayer;
@@ -16,6 +18,12 @@ public class RoomController : MonoBehaviour {
     public static Action _onRoomClear;
     public List<Enemy> _enemies;
     void Start() {
+        if (_roomType == RoomType.Tunnel) return;
+        if (_doorsTransform.Find("U") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("U").GetComponent<DoorController>() });
+        if (_doorsTransform.Find("R") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("R").GetComponent<DoorController>() });
+        if (_doorsTransform.Find("D") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("D").GetComponent<DoorController>() });
+        if (_doorsTransform.Find("L") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("L").GetComponent<DoorController>() });
+        
         foreach (var c in _doors) {
             var col = Physics2D.OverlapCircle(c._checker.position, 1, _roomLayer);
             if (col != null) {
@@ -32,6 +40,7 @@ public class RoomController : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
+            if (_wasInvoked) return;
             SetupRoom(other.gameObject.GetComponent<PlayerController>());
             _onPlayerEnter?.Invoke();
         }
@@ -60,11 +69,12 @@ public class RoomController : MonoBehaviour {
     public void ShowRoom() {
         if (_found) return;
         _found = true;
-        _content.SetActive(true);
+        _roomMask?.SetActive(false);
     }
 }
 [Serializable]
 public struct DoorChecker {
     public Rigidbody2D _checker;
     public DoorController _door;
+
 }

@@ -21,7 +21,7 @@ public class DoorController : MonoBehaviour {
             case DoorOpenType.OpenOnShoot: {
                     var c = gameObject.AddComponent<DoorOnShoot>();
                     c._pos = _pos;
-                    if (_roomToShow2._roomType == RoomType.EnemyRoom && !_roomToShow2._wasInvoked) _roomToShow2._onPlayerEnter += c.CloseDoor;
+                    // if (_roomToShow2._roomType == RoomType.EnemyRoom && !_roomToShow2._wasInvoked) _roomToShow2._onPlayerEnter += c.CloseDoor;
                     break;
                 }
             case DoorOpenType.OpenOnBlank: {

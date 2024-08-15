@@ -5,6 +5,7 @@ namespace MyUtils.Enums {
         ResetRoom,
         BossRoom,
         ExitRoom,
+        Tunnel,
     }
     public enum DoorOpenType {
         OpenOnShoot,
