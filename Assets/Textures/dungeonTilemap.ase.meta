@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: dungeonTilemap
     originalName: 
-    pivot: {x: 0.5, y: -0.2}
+    pivot: {x: 0.53333336, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 224
-      height: 160
+      width: 240
+      height: 218
     spriteID: 0aa6438445de96ab2a2becc7b90c95d8
     spriteBone: []
     spriteOutline: []
@@ -153,10 +153,10 @@ ScriptedImporter:
     - name: dungeonTilemap
       frameIndex: 0
       cellRect:
-        x: 16
-        y: 32
-        width: 224
-        height: 160
+        x: 0
+        y: 0
+        width: 240
+        height: 218
       spriteId: 0aa6438445de96ab2a2becc7b90c95d8
     linkedCells: []
     parentIndex: -1
