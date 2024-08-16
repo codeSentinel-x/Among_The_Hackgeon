@@ -18,12 +18,14 @@ public class RoomController : MonoBehaviour {
     public Action _onPlayerEnter;
     public static Action _onRoomClear;
     public List<Enemy> _enemies;
-    void Start() {
+    void Awake() {
+
         if (_roomType == RoomType.Tunnel) return;
-        if (_doorsTransform.Find("U") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("U").GetComponent<DoorController>() });
-        if (_doorsTransform.Find("R") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("R").GetComponent<DoorController>() });
-        if (_doorsTransform.Find("D") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("D").GetComponent<DoorController>() });
-        if (_doorsTransform.Find("L") != null) _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = _doorsTransform.Find("L").GetComponent<DoorController>() });
+        //TODO fix this and make this more readable
+        if (_doorsTransform.Find("U") != null) { var c = _doorsTransform.Find("U").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_doorsTransform.Find("R") != null) { var c = _doorsTransform.Find("R").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_doorsTransform.Find("D") != null) { var c = _doorsTransform.Find("D").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_doorsTransform.Find("L") != null) { var c = _doorsTransform.Find("L").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
 
         foreach (var c in _doors) {
             var col = Physics2D.OverlapCircle(c._checker.position, 1, _roomLayer);
@@ -42,18 +44,15 @@ public class RoomController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             _lightsHolder.gameObject.SetActive(true);
-            if (_wasInvoked) return;
-            SetupRoom(other.gameObject.GetComponent<PlayerController>());
+            // if (_wasInvoked) return;
+            var p = other.gameObject.GetComponent<PlayerController>();
+            p._currentRoom?.OnPlayerExit();
+            SetupRoom(p);
             _onPlayerEnter?.Invoke();
         }
     }
-    void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Player")) {
-            _lightsHolder.gameObject.SetActive(false);
-            // if (_wasInvoked) return;
-            // SetupRoom(other.gameObject.GetComponent<PlayerController>());
-            // _onPlayerEnter?.Invoke();
-        }
+    public void OnPlayerExit() {
+        _lightsHolder.gameObject.SetActive(false);
     }
 
     private void SetupRoom(PlayerController contr) {

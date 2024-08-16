@@ -8,10 +8,10 @@ public class DoorController : MonoBehaviour {
     public RoomController _roomToShow1;
     [HideInInspector] public RoomController _roomToShow2;
     public DoorPosition _pos;
-
-    void Awake() {
-        _roomToShow2 = GetComponentInParent<RoomController>();
-        Initialize();
+    public bool _openedByDefault;
+    void Start() {
+        // _roomToShow2 = transform.parent.GetComponent<RoomController>();
+        // Initialize();
     }
     void Close() {
         // GetComponent<SpriteRenderer>().
@@ -21,7 +21,9 @@ public class DoorController : MonoBehaviour {
             case DoorOpenType.OpenOnShoot: {
                     var c = gameObject.AddComponent<DoorOnShoot>();
                     c._pos = _pos;
-                    // if (_roomToShow2._roomType == RoomType.EnemyRoom && !_roomToShow2._wasInvoked) _roomToShow2._onPlayerEnter += c.CloseDoor;
+                    c._opened = _openedByDefault;
+                    Debug.Log(_roomToShow2.name);
+                    if (_roomToShow2._roomType == RoomType.EnemyRoom) _roomToShow2._onPlayerEnter += () => { if (!_roomToShow2._wasInvoked) c.CloseDoor(); };
                     break;
                 }
             case DoorOpenType.OpenOnBlank: {
@@ -76,7 +78,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     public int _stage;
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
-    private bool _opened;
+    public bool _opened;
     private bool _discovered;
     public DoorPosition _pos;
     private bool _hidden;
@@ -89,10 +91,11 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     }
     public void CloseDoor() {
         //TODO
+        Debug.Log("Clossing");
         _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
-            _renderer.enabled = true;
+            // _renderer.enabled = true;
             _renderer.sprite = _pos switch {
                 _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
                 _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
@@ -140,7 +143,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         if (!_discovered) return;
         _opened = true;
         _col.isTrigger = true;
-        _renderer.enabled = false;
+        // _renderer.enabled = false;
         // throw new System.NotImplementedException();
     }
 }
