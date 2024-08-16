@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour {
     public Transform _weaponDisplayContent;
     public Transform _dashDisplay;
     public Transform _allBUlletDisplay;
+    public Transform _blankDisplay;
     public Transform _healthDisplay;
     public static PlayerUI _I;
 
@@ -19,6 +20,7 @@ public class PlayerUI : MonoBehaviour {
         _bulletDisplayContent = transform.Find("BULLET_DISPLAY");
         _weaponDisplayContent = transform.Find("WEAPON_DISPLAY");
         _allBUlletDisplay = transform.Find("ALL_BULLET_DISPLAY");
+        _blankDisplay = transform.Find("BLANK_DISPLAY");
     }
     public void DecaresBullet(int a, int val, int maxVal) {
         if (_bulletDisplayContent.childCount == 0) return;
@@ -60,7 +62,32 @@ public class PlayerUI : MonoBehaviour {
         }
         p.fillAmount = 0;
     }
+    public void DecaresBlank(int a, int val, int maxVal) {
+        if (_blankDisplay.childCount == 0) return;
+        List<GameObject> toDestr = new();
+        for (int i = 0; i < a; i++) {
+            toDestr.Add(_blankDisplay.GetChild(i).gameObject);
+        }
+        if (toDestr.Count > 0) {
+            foreach (GameObject obj in toDestr) {
+                Destroy(obj);
+            }
+        }
+        _allBUlletDisplay.GetComponent<TextMeshProUGUI>().text = $"{val}/{maxVal}";
 
+    }
+    public void IncreaseBlank(int val, int maxVal) {
+        for (int i = 0; i < val; i++) {
+            RectTransform g = new GameObject("bullet", typeof(RectTransform)).GetComponent<RectTransform>();
+            g.SetParent(_blankDisplay, false);
+            g.gameObject.AddComponent<Image>().sprite = GameDataManager._I._bulletSprite;
+        }
+        _allBUlletDisplay.GetComponent<TextMeshProUGUI>().text = $"{val}/{maxVal}";
+    }
+    public void ResetBlanks(int val, int maxVal) {
+        DecaresBlank(_blankDisplay.childCount, val, maxVal);
+        IncreaseBlank(val, maxVal);
+    }
 
     public void RefreshHealth(float newValue, float maxVal) {
         _healthDisplay.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);

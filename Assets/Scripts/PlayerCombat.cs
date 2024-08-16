@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public Transform _spriteRenderer;
     public SpriteRenderer _weaponSpriteR;
     public string _defaultWeaponName;
+    public Transform _blankParticle;
+    public float _blankAmount;
     public float _rotSpeed;
     public static Action<float> _onPlayerHealthChange;
     private Weapon _currentWeapon;
@@ -78,6 +80,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
         if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
         if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
+        if (Input.GetKeyDown(KeyCode.Q)) UseBlank();
     }
     public void Shoot() {
         if (_isReloading) return;
@@ -178,5 +181,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         _onPlayerHealthChange?.Invoke(_currentHealth);
 
+    }
+    public void UseBlank() {
+        if (_blankAmount <= 0) return;
+        _blankAmount -= 1;
+        Instantiate(_blankParticle, transform.position, Quaternion.identity);
+        foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }
     }
 }
