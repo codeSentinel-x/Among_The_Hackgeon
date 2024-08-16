@@ -35,14 +35,28 @@ public class PlayerController : MonoBehaviour {
     public void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (_currentItemInRange != null) {
-                if (_currentItemInRange._itemType == ItemType.Weapon) {
-                    GetComponent<PlayerCombat>().AddWeapon(GameDataManager.LoadByName(_currentItemInRange._name));
-                }
-                else if (_currentItemInRange._itemType == ItemType.Ammo) {
-                    GetComponent<PlayerCombat>().AddAmmo();
-                }
-                else if (_currentItemInRange._itemType == ItemType.Healing) {
-                    GetComponent<PlayerCombat>().RestoreHealth();
+                switch (_currentItemInRange._itemType) {
+                    case ItemType.Ammo: {
+                            GetComponent<PlayerCombat>().AddAmmo();
+                            break;
+                        }
+                    case ItemType.Healing: {
+                            GetComponent<PlayerCombat>().RestoreHealth();
+                            break;
+                        }
+                    case ItemType.Weapon: {
+                            GetComponent<PlayerCombat>().AddWeapon(GameDataManager.LoadByName(_currentItemInRange._name));
+                            break;
+                        }
+                    case ItemType.Special: {
+                            break;
+                        }
+                    case ItemType.Blank: {
+                            GetComponent<PlayerCombat>().AddBlank();
+                            break;
+                        }
+
+                    default: break;
                 }
                 Destroy(_currentItemInRange.gameObject);
             }

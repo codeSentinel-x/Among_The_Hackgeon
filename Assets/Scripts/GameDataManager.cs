@@ -11,6 +11,7 @@ public class GameDataManager : MonoBehaviour {
     public Sprite[] _openedDoorSprite; //0 - up; 1- right, 2 - down; 3 - left
     public Transform _enemyPref;
     public Sprite _bulletSprite;
+    public Sprite _blankSprite;
     void Awake() {
         _I = this;
     }

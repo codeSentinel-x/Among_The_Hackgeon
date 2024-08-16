@@ -6,6 +6,7 @@ public enum ItemType {
     Ammo,
     Healing,
     Weapon,
+    Blank,
     Special
 }
 public class ItemPickUp : MonoBehaviour {

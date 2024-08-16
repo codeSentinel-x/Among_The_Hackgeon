@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public SpriteRenderer _weaponSpriteR;
     public string _defaultWeaponName;
     public Transform _blankParticle;
-    public float _blankAmount;
+    public int _blankAmount;
     public float _rotSpeed;
     public static Action<float> _onPlayerHealthChange;
     private Weapon _currentWeapon;
@@ -72,6 +72,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _currentWeaponIndex = _weapons.Count - 1;
         _currentHealth = _maxHealth;
         PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
+        PlayerUI._I.ResetBlanks(_blankAmount);
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
         ResetBulletDisplay();
     }
@@ -186,6 +187,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_blankAmount <= 0) return;
         _blankAmount -= 1;
         Instantiate(_blankParticle, transform.position, Quaternion.identity);
+        PlayerUI._I.DecaresBlank(1);
         foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }
+    }
+    public void AddBlank(int val = 1) {
+        _blankAmount += val;
+        PlayerUI._I.IncreaseBlank(_blankAmount);
     }
 }

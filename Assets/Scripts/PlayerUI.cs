@@ -62,7 +62,7 @@ public class PlayerUI : MonoBehaviour {
         }
         p.fillAmount = 0;
     }
-    public void DecaresBlank(int a, int val, int maxVal) {
+    public void DecaresBlank(int a) {
         if (_blankDisplay.childCount == 0) return;
         List<GameObject> toDestr = new();
         for (int i = 0; i < a; i++) {
@@ -73,20 +73,19 @@ public class PlayerUI : MonoBehaviour {
                 Destroy(obj);
             }
         }
-        _allBUlletDisplay.GetComponent<TextMeshProUGUI>().text = $"{val}/{maxVal}";
-
     }
-    public void IncreaseBlank(int val, int maxVal) {
+    public void IncreaseBlank(int val) {
         for (int i = 0; i < val; i++) {
-            RectTransform g = new GameObject("bullet", typeof(RectTransform)).GetComponent<RectTransform>();
+            RectTransform g = new GameObject("blank", typeof(RectTransform)).GetComponent<RectTransform>();
             g.SetParent(_blankDisplay, false);
-            g.gameObject.AddComponent<Image>().sprite = GameDataManager._I._bulletSprite;
+            var I = g.gameObject.AddComponent<Image>();
+            I.sprite = GameDataManager._I._blankSprite;
+            I.color = Color.blue;
         }
-        _allBUlletDisplay.GetComponent<TextMeshProUGUI>().text = $"{val}/{maxVal}";
     }
-    public void ResetBlanks(int val, int maxVal) {
-        DecaresBlank(_blankDisplay.childCount, val, maxVal);
-        IncreaseBlank(val, maxVal);
+    public void ResetBlanks(int val) {
+        DecaresBlank(_blankDisplay.childCount);
+        IncreaseBlank(val);
     }
 
     public void RefreshHealth(float newValue, float maxVal) {
