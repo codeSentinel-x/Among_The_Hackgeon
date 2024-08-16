@@ -174,6 +174,14 @@ namespace MyUtils.Classes {
             _bulletsInMagazine -= 1;
         }
     }
+    [Serializable]
+    public class PlayerSaveData{
+        public PlayerData _data;
+        public Vector3 _playerPos;
+        public RoomController[] _rooms;
+        public int _saveIndex;
+        
+    }
 
 
 }
