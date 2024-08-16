@@ -171,7 +171,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2390609581446179468
@@ -417,6 +417,7 @@ MonoBehaviour:
   _defaultSetting: {fileID: 11400000, guid: f0afe61e0826ecd9da7cb6715a2fa5d4, type: 2}
   _weapon:
     _bulletsInMagazine: 0
+    _allBullets: 0
     _reloadTime: 0
     _defaultSettings: {fileID: 11400000, guid: 931f2d4b456310136accdea811b9f4e5, type: 2}
     _nextShoot: 0
@@ -424,10 +425,14 @@ MonoBehaviour:
   _firePoint: {fileID: 418354343324590112}
   _weaponHolder: {fileID: 2423118073687566562}
   _weaponSR: {fileID: 536393858931233444}
+  _objectToSpawn:
+  - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
+  - {fileID: 76299804114678841, guid: 4deb1c0a74aa9202d805fb6db05ca494, type: 3}
   _moveDirection: {x: 0, y: 0}
   _nextMoveDirectionChange: 0
   _minPlayerDist: 20
   _spriteRenderer: {fileID: 6789350029700619017}
+  _dieParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
 --- !u!1 &7160603080686389294
 GameObject:
   m_ObjectHideFlags: 0

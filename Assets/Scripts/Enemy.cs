@@ -1,5 +1,6 @@
 using System.Collections;
 using MyUtils.Classes;
+using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     public Transform _firePoint;
     public Transform _weaponHolder;
     public SpriteRenderer _weaponSR;
+    public Transform[] _objectToSpawn;
     public Vector2 _moveDirection;
     public float _nextMoveDirectionChange;
     public float _minPlayerDist;
@@ -91,8 +93,13 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (_currentHealth <= 0) Die();
     }
     public void Die() {
+        Instantiate(_dieParticle, transform.position, Quaternion.identity);
+        if (Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         _currentRoom._enemies.Remove(this);
         _currentRoom.OnEnemyKill();
         Destroy(transform.parent.gameObject);
+    }
+    public Transform _dieParticle;
+    void OnDestroy() {
     }
 }

@@ -166,7 +166,17 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private void Die() {
         Debug.Log("Player died"); ;
     }
-    public void AddWeapon(WeaponSO _base){
+    public void AddWeapon(WeaponSO _base) {
         _weapons.Add(new(_base));
+    }
+    public void AddAmmo() {
+        _currentWeapon._allBullets += _currentWeapon._defaultSettings._maxBullet;
+        ResetBulletDisplay();
+    }
+    public void RestoreHealth() {
+        _currentHealth += _maxHealth / 5;
+        if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
+        _onPlayerHealthChange?.Invoke(_currentHealth);
+
     }
 }
