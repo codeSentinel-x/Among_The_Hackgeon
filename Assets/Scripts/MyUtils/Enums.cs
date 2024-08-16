@@ -8,6 +8,7 @@ namespace MyUtils.Enums {
         Tunnel,
     }
     public enum DoorOpenType {
+        AlwaysOpen,
         OpenOnShoot,
         OpenOnBlank,
         OpenOnDestroyAllItemOfType,

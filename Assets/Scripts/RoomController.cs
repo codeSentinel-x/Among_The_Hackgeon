@@ -18,6 +18,7 @@ public class RoomController : MonoBehaviour {
     public Action _onPlayerEnter;
     public static Action _onRoomClear;
     public List<Enemy> _enemies;
+    private int _enemyCount;
     void Awake() {
 
         if (_roomType == RoomType.Tunnel) return;
@@ -35,20 +36,30 @@ public class RoomController : MonoBehaviour {
             }
         }
     }
+    bool wasInvokedOnClear;
     void Update() {
-        if (_wasInvoked && _enemies.Count == 0) {
+        if (wasInvokedOnClear) return;
+        if (_wasInvoked && _enemyCount <= 0) {
             _onRoomClear?.Invoke();
-            _enemies.Add(new());
+            _enemies = new();
+            wasInvokedOnClear = true;
         }
+    }
+    public bool IsEmpty() {
+        bool isEmpty = false;
+        _enemies.ForEach(x => {
+            if (x.gameObject.name == "Enemy") { isEmpty = true; };
+        });
+        return isEmpty;
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
+            _onPlayerEnter?.Invoke();
             _lightsHolder.gameObject.SetActive(true);
             // if (_wasInvoked) return;
             var p = other.gameObject.GetComponent<PlayerController>();
             p._currentRoom?.OnPlayerExit();
             SetupRoom(p);
-            _onPlayerEnter?.Invoke();
         }
     }
     public void OnPlayerExit() {
@@ -70,11 +81,14 @@ public class RoomController : MonoBehaviour {
             e._currentRoom = this;
             _enemies.Add(e);
         }
+        _enemyCount = _enemies.Count;
         foreach (var d in _doors) {
             // d._door.
         }
     }
-
+    public void OnEnemyKill() {
+        _enemyCount -= 1;
+    }
     public void ShowRoom() {
         if (_found) return;
         _found = true;

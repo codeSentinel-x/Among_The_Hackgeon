@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public void Die() {
         _currentRoom._enemies.Remove(this);
+        _currentRoom.OnEnemyKill();
         Destroy(transform.parent.gameObject);
     }
 }
