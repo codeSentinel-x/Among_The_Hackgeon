@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 39a3c2b0e0c7e4032989ea9392747c36
+guid: 85de437ebec186eeabcac24c5b4faabc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2369867600477939372
-    second: default_0
+      213: 5167854618075866819
+    second: sniper-rifle-pixel-art_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: default_0
+      name: sniper-rifle-pixel-art_0
       rect:
         serializedVersion: 2
-        x: 59
-        y: 0
-        width: 61
-        height: 60
+        x: 0
+        y: 12
+        width: 120
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4591ec439f98c1fd0800000000000000
-      internalID: -2369867600477939372
+      spriteID: 3c626490568e7b740800000000000000
+      internalID: 5167854618075866819
       vertices: []
       indices: 
       edges: []
@@ -170,7 +170,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      default_0: -2369867600477939372
+      sniper-rifle-pixel-art_0: 5167854618075866819
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,6 +7,7 @@ public class RoomController : MonoBehaviour {
     public Transform _lightsHolder;
     public RoomType _roomType;
     public Transform _checkerTransform;
+    public Transform _maskTransform;
     public Transform _doorsTransform;
     private List<DoorChecker> _doors = new();
     public GameObject _roomMask;

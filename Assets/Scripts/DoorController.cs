@@ -108,6 +108,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
             _ when _pos == DoorPosition.Left => _gMD._destroyableDoorSpritesVerticalLeft[_stage],
             _ => _gMD._openedDoorSprite[0],
         };
+        _col.isTrigger = false;
         RoomController._onRoomClear += OpenDoor;
     }
     public void CloseDoor() {
@@ -129,6 +130,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     public void Damage(float v) {
         if (_opened || _hidden) return;
         if (_stage == 0) { OpenDoor(); return; }
+        _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
             _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight[_stage],
@@ -136,7 +138,6 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
             _ when _pos == DoorPosition.Left => _gMD._destroyableDoorSpritesVerticalLeft[_stage],
             _ => _gMD._openedDoorSprite[0],
         };
-        _stage--;
 
 
 
@@ -159,6 +160,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
+        if (d._roomToShow1._maskTransform != null) d._roomToShow1._maskTransform.gameObject.SetActive(false);
         d._roomToShow1?.ShowRoom();
         d._roomToShow2?.ShowRoom();
         //TODO

@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public Camera _cam;
     public CinemachineConfiner2D _confirmed;
     public RoomController _currentRoom;
+    public ItemPickUp _currentItemInRange;
     void Awake() {
         _I = this;
 
@@ -30,5 +31,13 @@ public class PlayerController : MonoBehaviour {
         _data._reloadSpeedMult.InvokeOnChangeAction();
         _data._bulletSpeedMult.InvokeOnChangeAction();
         _data._shootDelayMult.InvokeOnChangeAction();
+    }
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            if (_currentItemInRange != null) {
+                GetComponent<PlayerCombat>().AddWeapon(GameDataManager.LoadByName(_currentItemInRange._name));
+                Destroy(_currentItemInRange.gameObject);
+            }
+        }
     }
 }

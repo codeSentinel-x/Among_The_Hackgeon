@@ -166,4 +166,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private void Die() {
         Debug.Log("Player died"); ;
     }
+    public void AddWeapon(WeaponSO _base){
+        _weapons.Add(new(_base));
+    }
 }
