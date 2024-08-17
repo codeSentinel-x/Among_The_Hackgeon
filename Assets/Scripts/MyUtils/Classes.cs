@@ -8,22 +8,22 @@ namespace MyUtils.Classes {
     [Serializable]
     public class PlayerData {
         //Movement
-        public PlayerStat _movementSpeed;
-        public PlayerStat _dashPower;
-        public PlayerStat _dashDuration;
-        public PlayerStat _staminaRegenerationDelay;
-        public PlayerStat _stamRegPerSecMult; // stamina regeneration per second multiplier (I am to lazy to time this every time)
-        public PlayerStat _maxStamina;
-        public PlayerStat _dashStaminaUsage;
-        public PlayerStat _invincibleAfterDash;
+        [Tooltip("_movementSpeed")]public PlayerStat _mS; 
+        [Tooltip(" dashPower")]public PlayerStat _dP; 
+        [Tooltip("dashDuration")]public PlayerStat _dD; 
+        [Tooltip("_staminaRegenerationDelay")]public PlayerStat _sRD; 
+        [Tooltip(" stamRegPerSecMult")]public PlayerStat _sRPSM;  // stamina regeneration per second multiplier (I am to lazy to time this every time)
+        [Tooltip("maxStamina")]public PlayerStat _mSt; 
+        [Tooltip("_dashStaminaUsage")]public PlayerStat _dSU; 
+        [Tooltip("invincibleAfterDash")]public PlayerStat _iAD; 
         //Defense
-        public PlayerStat _maxHealth;
-        public PlayerStat _damageIgnore;
-        public PlayerStat _damageReduction;
+        [Tooltip("_maxHealth")]public PlayerStat _mH; 
+        [Tooltip("_damageIgnore")]public PlayerStat _dI; 
+        [Tooltip("_damageIgnore")]public PlayerStat _dR; 
         //Offense
-        public PlayerStat _reloadSpeedMult;
-        public PlayerStat _bulletSpeedMult;
-        public PlayerStat _shootDelayMult;
+        [Tooltip("_reloadSpeedMult")]public PlayerStat _rSM; 
+        [Tooltip("_bulletSpeedMult")]public PlayerStat _bSM; 
+        [Tooltip("shoot delay multiplier")]public PlayerStat _sDM;  
     }
     [Serializable]
     public class PlayerStat {
@@ -175,12 +175,12 @@ namespace MyUtils.Classes {
         }
     }
     [Serializable]
-    public class PlayerSaveData{
+    public class PlayerSaveData {
         public PlayerData _data;
         public Vector3 _playerPos;
         public RoomController[] _rooms;
         public int _saveIndex;
-        
+
     }
 
 

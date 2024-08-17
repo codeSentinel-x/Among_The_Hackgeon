@@ -16,7 +16,7 @@ public class ItemPickUp : MonoBehaviour {
     public Transform _pickupParticle;
     void Awake() {
         if (_itemType == ItemType.Weapon) {
-            GetComponent<SpriteRenderer>().sprite = GameDataManager.LoadByName(_name)._sprite;
+            GetComponent<SpriteRenderer>().sprite = GameDataManager.LoadWeaponByName(_name)._sprite;
         }
     }
     void OnTriggerEnter2D(Collider2D other) {

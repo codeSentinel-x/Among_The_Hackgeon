@@ -21,13 +21,13 @@ public class PlayerMovement : MonoBehaviour {
     void Awake() {
         _rgb = GetComponent<Rigidbody2D>();
         var p = GetComponent<PlayerController>();
-        p._data._dashDuration._OnStatValueChanged += (x) => _dashDuration = x;
-        p._data._movementSpeed._OnStatValueChanged += (x) => _speed = x;
-        p._data._dashPower._OnStatValueChanged += (x) => _dashPower = x;
-        p._data._stamRegPerSecMult._OnStatValueChanged += (x) => _stamRegPerSec = x;
-        p._data._maxStamina._OnStatValueChanged += (x) => { _maxStamina = x; PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); };
-        p._data._dashStaminaUsage._OnStatValueChanged += (x) => _dashStaminaUsage = x;
-        p._data._staminaRegenerationDelay._OnStatValueChanged += (x) => _staminaRegDelay = x;
+        p._data._dD._OnStatValueChanged += (x) => _dashDuration = x;
+        p._data._mS._OnStatValueChanged += (x) => _speed = x;
+        p._data._dP._OnStatValueChanged += (x) => _dashPower = x;
+        p._data._sRPSM._OnStatValueChanged += (x) => _stamRegPerSec = x;
+        p._data._mSt._OnStatValueChanged += (x) => { _maxStamina = x; PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); };
+        p._data._dSU._OnStatValueChanged += (x) => _dashStaminaUsage = x;
+        p._data._sRD._OnStatValueChanged += (x) => _staminaRegDelay = x;
         TickCounter._onTick += (x) => {
             if (_currentStamina < _maxStamina) {
                 _currentStamina += 1;

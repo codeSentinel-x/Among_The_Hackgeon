@@ -9,4 +9,10 @@ namespace MyUtils.Structs {
         public float _speed;
         public float _maxDist;
     }
+    [Serializable]
+    public struct StatChangeObject {
+        public string _name;
+        public float _multiplier;
+        public float _modifier;
+    }
 }

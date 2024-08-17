@@ -47,13 +47,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     void SubscribeStats() {
         var d = GetComponent<PlayerController>()._data;
-        d._maxHealth._OnStatValueChanged += (x) => { _maxHealth = x; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
-        d._damageIgnore._OnStatValueChanged += (x) => _damageIgnore = x;
-        d._damageReduction._OnStatValueChanged += (x) => _damageReduction = x;
-        d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
-        d._bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
-        d._shootDelayMult._OnStatValueChanged += (x) => _shootDelayMult = x;
-        d._invincibleAfterDash._OnStatValueChanged += (x) => _invincibleAfterDash = x;
+        d._mH._OnStatValueChanged += (x) => { _maxHealth = x; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
+        d._dI._OnStatValueChanged += (x) => _damageIgnore = x;
+        d._dR._OnStatValueChanged += (x) => _damageReduction = x;
+        d._rSM._OnStatValueChanged += (x) => _reloadSpeedMult = x;
+        d._bSM._OnStatValueChanged += (x) => _bulletSpeedMult = x;
+        d._sDM._OnStatValueChanged += (x) => _shootDelayMult = x;
+        d._iAD._OnStatValueChanged += (x) => _invincibleAfterDash = x;
         PlayerMovement._onDashStart += RefreshInvincible;
 
         _onPlayerHealthChange += (x) => PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
@@ -64,10 +64,10 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
 
     void InitializeWeapon() {
-        _currentWeapon = new(GameDataManager.LoadByName(_defaultWeaponName));
+        _currentWeapon = new(GameDataManager.LoadWeaponByName(_defaultWeaponName));
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         _weapons.Add(_currentWeapon);
-        _weapons.Add(new(GameDataManager.LoadByName("Eagle")));
+        _weapons.Add(new(GameDataManager.LoadWeaponByName("Eagle")));
 
         _currentWeaponIndex = _weapons.Count - 1;
         _currentHealth = _maxHealth;

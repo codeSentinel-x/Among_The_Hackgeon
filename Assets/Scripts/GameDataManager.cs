@@ -15,6 +15,7 @@ public class GameDataManager : MonoBehaviour {
     void Awake() {
         _I = this;
     }
-    public static WeaponSO LoadByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");
+    public static WeaponSO LoadWeaponByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");
+    public static SpecialItemSO LoadItemByName(string name) => Resources.Load<SpecialItemSO>($"Items/{name}");
 
 }
