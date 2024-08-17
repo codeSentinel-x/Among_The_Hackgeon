@@ -428,6 +428,7 @@ MonoBehaviour:
   _objectToSpawn:
   - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
   - {fileID: 76299804114678841, guid: 4deb1c0a74aa9202d805fb6db05ca494, type: 3}
+  - {fileID: 5951837233147493547, guid: 056e3b1949969441a94a816b266bd3d8, type: 3}
   _moveDirection: {x: 0, y: 0}
   _nextMoveDirectionChange: 0
   _minPlayerDist: 20
