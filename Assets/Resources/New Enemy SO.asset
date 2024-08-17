@@ -12,12 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a496ecbff9931d7918a858ad98335fc3, type: 3}
   m_Name: New Enemy SO
   m_EditorClassIdentifier: 
+  _reloadSpeed:
+    _min: 2.5
+    _max: 5
+  _firstShootDelay:
+    _min: 1
+    _max: 2
   _aiType: 0
   _shootDelays:
-  - 0.2
-  - 0.3
-  - 0.2
+  - _min: 0.2
+    _max: 0.3
+  - _min: 0.7
+    _max: 0.9
+  - _min: 0.4
+    _max: 0.5
   _maxHealth: 20
-  _baseDamage: 5
-  _speed: 3
+  _baseDamage:
+    _min: 4
+    _max: 6
+  _speed:
+    _min: 2
+    _max: 5
   _defaultWeapon: {fileID: 11400000, guid: 46b668757744bbf6aa25fe22a9a39210, type: 2}

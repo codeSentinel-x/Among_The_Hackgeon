@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using MyUtils.Classes;
+using System.Collections.Generic;
 
 
 
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public CinemachineConfiner2D _confirmed;
     public RoomController _currentRoom;
     public ItemPickUp _currentItemInRange;
+    public List<SpecialItemPickUp> _inventory;
     void Awake() {
         _I = this;
 

@@ -15,4 +15,12 @@ namespace MyUtils.Structs {
         public float _multiplier;
         public float _modifier;
     }
+    [Serializable]
+    public struct MinMax{
+        public float _min;
+        public float _max;
+        public float GetValue(){
+            return UnityEngine.Random.Range(_min, _max);
+        }
+    }
 }

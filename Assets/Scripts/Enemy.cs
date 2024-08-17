@@ -2,10 +2,12 @@ using System.Collections;
 using MyUtils.Classes;
 using MyUtils.Functions;
 using MyUtils.Interfaces;
+using MyUtils.Structs;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable {
     public RoomController _currentRoom;
+
     public EnemySO _defaultSetting;
     public Weapon _weapon;
     public Transform _target;
@@ -30,7 +32,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
         _weapon._bulletsInMagazine = Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
-        _nextShootTime = Time.time + Random.Range(0.2f, 0.8f);
+        _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
     }
     void Update() {
         RotateWeaponToPlayer();
@@ -48,18 +50,20 @@ public class Enemy : MonoBehaviour, IDamageable {
         }
     }
     void FixedUpdate() {
-        _rgb.velocity = _moveDirection.normalized * _defaultSetting._speed;
+        _rgb.velocity = _moveDirection.normalized * _defaultSetting._speed.GetValue();
     }
     public void Shoot() {
         if (_isReloading) return;
         if (_weapon._nextShoot > Time.time) return;
         if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); _weapon._allBullets += 30; Debug.Log("No bullets"); return; }
         // Debug.Log("Piu");
-        var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
+        float sp = UnityEngine.Random.Range(0f, _weapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
+        Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
+        var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(1);
-        _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex];
+        _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
 
@@ -67,7 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         _isReloading = true;
-        yield return new WaitForSeconds(_weapon._reloadTime);
+        yield return new WaitForSeconds(_defaultSetting._reloadSpeed.GetValue());
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
