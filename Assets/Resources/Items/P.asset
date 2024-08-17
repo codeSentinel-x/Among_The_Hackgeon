@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a496ecbff9931d7918a858ad98335fc3, type: 3}
-  m_Name: New Enemy SO
+  m_Script: {fileID: 11500000, guid: 8fb0e67d75f750d279822cdd2a341c9a, type: 3}
+  m_Name: P
   m_EditorClassIdentifier: 
-  _aiType: 0
-  _shootDelays:
-  - 0.2
-  - 0.3
-  - 0.2
-  _maxHealth: 20
-  _baseDamage: 5
-  _speed: 3
-  _defaultWeapon: {fileID: 11400000, guid: 46b668757744bbf6aa25fe22a9a39210, type: 2}
+  _sprite: {fileID: 21300000, guid: 0484cab53fbd8efbc94c9af13c108850, type: 3}
+  _statsToChange:
+  - _name: 5
+    _multiplier: 1.25
+    _modifier: 0
+  - _name: 8
+    _multiplier: 1.25
+    _modifier: 0

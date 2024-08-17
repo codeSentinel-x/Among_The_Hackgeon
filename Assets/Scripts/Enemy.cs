@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         RotateWeaponToPlayer();
         if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
-        Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
+        // Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
         if (Vector2.Distance(_target.position, transform.position) > _minPlayerDist) {
             _moveDirection = _target.position - transform.position;
             _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
@@ -53,12 +53,12 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void Shoot() {
         if (_isReloading) return;
         if (_weapon._nextShoot > Time.time) return;
-        if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
-        Debug.Log("Piu");
+        if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); _weapon._allBullets += 30; Debug.Log("No bullets"); return; }
+        // Debug.Log("Piu");
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, _weaponHolder.rotation).GetComponentInChildren<BulletMono>();
         b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        _weapon.Shoot(3);
+        _weapon.Shoot(1);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex];
         _delayIndex++;
         if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         _isReloading = true;
-        yield return new WaitForSeconds(_weapon._reloadTime * 3);
+        yield return new WaitForSeconds(_weapon._reloadTime);
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;

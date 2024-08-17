@@ -80,7 +80,12 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         ResetBulletDisplay();
     }
     private void HandleInput() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
+        if (_currentWeapon._defaultSettings._auto) {
+            if (Input.GetKey(KeyCode.Mouse0)) Shoot();
+        }
+        else {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
+        }
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
         if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
         if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
