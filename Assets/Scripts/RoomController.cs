@@ -21,13 +21,16 @@ public class RoomController : MonoBehaviour {
     public List<Enemy> _enemies;
     private int _enemyCount;
     void Awake() {
+        _lightsHolder.gameObject.SetActive(false);
 
         if (_roomType == RoomType.Tunnel) return;
         //TODO fix this and make this more readable
-        if (_doorsTransform.Find("U") != null) { var c = _doorsTransform.Find("U").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
-        if (_doorsTransform.Find("R") != null) { var c = _doorsTransform.Find("R").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
-        if (_doorsTransform.Find("D") != null) { var c = _doorsTransform.Find("D").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
-        if (_doorsTransform.Find("L") != null) { var c = _doorsTransform.Find("L").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+
+        //FIXME change this to check for room in range and than spawn good door prefab on good position !!!!!!!!!!!!!!!!!!!!
+        if (_checkerTransform.Find("U") != null) { var c = _doorsTransform.Find("U").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_checkerTransform.Find("R") != null) { var c = _doorsTransform.Find("R").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_checkerTransform.Find("D") != null) { var c = _doorsTransform.Find("D").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
+        if (_checkerTransform.Find("L") != null) { var c = _doorsTransform.Find("L").GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow2 = this; c.Initialize(); }
 
         foreach (var c in _doors) {
             var col = Physics2D.OverlapCircle(c._checker.position, 1, _roomLayer);
