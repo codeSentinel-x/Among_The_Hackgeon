@@ -90,10 +90,10 @@ public class PlayerUI : MonoBehaviour {
 
     public void RefreshHealth(float newValue, float maxVal) {
         _healthDisplay.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
-        _healthDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Health {newValue:f1}/{maxVal:f1}";
+        _healthDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Health {newValue:f0}/{maxVal:f0}";
     }
     public void RefreshDash(float newValue, float maxVal) {
         _dashDisplay.GetChild(0).GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, maxVal, newValue);
-        _dashDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Dash {newValue:f1}/{maxVal:f1}";
+        _dashDisplay.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"Dash {newValue:f0}/{maxVal:f0}";
     }
 }

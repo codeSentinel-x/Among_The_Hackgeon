@@ -5,6 +5,25 @@ using MyUtils.Classes;
 using MyUtils.Structs;
 using UnityEngine;
 
+public enum StatType {
+    _movementSpeed,
+    _dashPower,
+    _dashDuration,
+    _staminaRegenerationDelay,
+    _stamRegPerSecMult,  // stamina regeneration per second multiplier (I am to lazy to time this every time)
+    _maxStamina,
+    _dashStaminaUsage,
+    _invincibleAfterDash,
+    //Defense
+    _maxHealth,
+    _damageIgnore,
+    _damageReduction,
+    //Offense
+    _reloadSpeedMult,
+    __bulletSpeedMult,
+    _shootDelayMultiplier,
+
+}
 public class SpecialItemPickUp : MonoBehaviour {
 
     public string _name;
@@ -16,7 +35,7 @@ public class SpecialItemPickUp : MonoBehaviour {
     public void Apply() {
         foreach (var s in _defaultSetting._statsToChange) {
 
-            var f = PlayerController._I._data.GetType().GetField(s._name);
+            var f = PlayerController._I._data.GetType().GetField(s._name.ToString());
             var p = f.GetValue(PlayerController._I._data) as PlayerStat;
             var v = p.GetValue();
             if (s._modifier != 0) p.AddModifier(s._modifier);
@@ -27,7 +46,7 @@ public class SpecialItemPickUp : MonoBehaviour {
     public void Clear() {
         foreach (var s in _defaultSetting._statsToChange) {
 
-            var f = PlayerController._I._data.GetType().GetField(s._name);
+            var f = PlayerController._I._data.GetType().GetField(s.ToString());
             var p = f.GetValue(PlayerController._I._data) as PlayerStat;
             var v = p.GetValue();
             if (s._modifier != 0) p.RemoveMultiplier(s._modifier);

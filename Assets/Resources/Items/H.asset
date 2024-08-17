@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fb0e67d75f750d279822cdd2a341c9a, type: 3}
-  m_Name: F_B
+  m_Name: H
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: db7a89e1a4c464d9a83133b1da1f22b7, type: 3}
+  _sprite: {fileID: 21300000, guid: 0484cab53fbd8efbc94c9af13c108850, type: 3}
   _statsToChange:
-  - _name: 0
-    _multiplier: 1.2
+  - _name: 5
+    _multiplier: 1.25
     _modifier: 0
-  - _name: 6
-    _multiplier: 0.9
+  - _name: 8
+    _multiplier: 1.25
     _modifier: 0

@@ -8,22 +8,22 @@ namespace MyUtils.Classes {
     [Serializable]
     public class PlayerData {
         //Movement
-        [Tooltip("_movementSpeed")]public PlayerStat _mS; 
-        [Tooltip(" dashPower")]public PlayerStat _dP; 
-        [Tooltip("dashDuration")]public PlayerStat _dD; 
-        [Tooltip("_staminaRegenerationDelay")]public PlayerStat _sRD; 
-        [Tooltip(" stamRegPerSecMult")]public PlayerStat _sRPSM;  // stamina regeneration per second multiplier (I am to lazy to time this every time)
-        [Tooltip("maxStamina")]public PlayerStat _mSt; 
-        [Tooltip("_dashStaminaUsage")]public PlayerStat _dSU; 
-        [Tooltip("invincibleAfterDash")]public PlayerStat _iAD; 
+        [Tooltip("")] public PlayerStat _movementSpeed;
+        [Tooltip(" ")] public PlayerStat _dashPower;
+        [Tooltip("")] public PlayerStat _dashDuration;
+        [Tooltip("")] public PlayerStat _staminaRegenerationDelay;
+        [Tooltip(" ")] public PlayerStat _stamRegPerSecMult;  // stamina regeneration per second multiplier (I am to lazy to time this every time)
+        [Tooltip("")] public PlayerStat _maxStamina;
+        [Tooltip("")] public PlayerStat _dashStaminaUsage;
+        [Tooltip("")] public PlayerStat _invincibleAfterDash;
         //Defense
-        [Tooltip("_maxHealth")]public PlayerStat _mH; 
-        [Tooltip("_damageIgnore")]public PlayerStat _dI; 
-        [Tooltip("_damageIgnore")]public PlayerStat _dR; 
+        [Tooltip("")] public PlayerStat _maxHealth;
+        [Tooltip("")] public PlayerStat _damageIgnore;
+        [Tooltip("")] public PlayerStat _damageReduction;
         //Offense
-        [Tooltip("_reloadSpeedMult")]public PlayerStat _rSM; 
-        [Tooltip("_bulletSpeedMult")]public PlayerStat _bSM; 
-        [Tooltip("shoot delay multiplier")]public PlayerStat _sDM;  
+        [Tooltip("")] public PlayerStat _reloadSpeedMult;
+        [Tooltip("")] public PlayerStat __bulletSpeedMult;
+        [Tooltip("")] public PlayerStat _shootDelayMultiplier;
     }
     [Serializable]
     public class PlayerStat {

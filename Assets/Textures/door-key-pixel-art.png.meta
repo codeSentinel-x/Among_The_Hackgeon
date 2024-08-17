@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db7a89e1a4c464d9a83133b1da1f22b7
+guid: 2913e6bd4e03c1f5f8f1c0a5b731b410
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7577157307430936141
-    second: fast-sneakers-boots-pixel-art_0
+      213: -8933177093548826403
+    second: door-key-pixel-art_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fast-sneakers-boots-pixel-art_0
+      name: door-key-pixel-art_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 7
-        width: 59
-        height: 45
+        x: 17
+        y: 2
+        width: 26
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d4e1da4fc68772960800000000000000
-      internalID: 7577157307430936141
+      spriteID: dd0ad5f63caf60480800000000000000
+      internalID: -8933177093548826403
       vertices: []
       indices: 
       edges: []
@@ -170,7 +170,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      fast-sneakers-boots-pixel-art_0: 7577157307430936141
+      door-key-pixel-art_0: -8933177093548826403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

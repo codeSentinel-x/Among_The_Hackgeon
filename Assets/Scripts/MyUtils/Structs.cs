@@ -11,7 +11,7 @@ namespace MyUtils.Structs {
     }
     [Serializable]
     public struct StatChangeObject {
-        public string _name;
+        public StatType _name;
         public float _multiplier;
         public float _modifier;
     }

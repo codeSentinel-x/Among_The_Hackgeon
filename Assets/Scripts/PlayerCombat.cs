@@ -30,6 +30,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _shootDelayMult;
     private float _invincibleTime;
     private float _invincibleAfterDash;
+    private float _currentHealthRatio;
+
     void Awake() {
         SubscribeStats();
 
@@ -47,16 +49,16 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     void SubscribeStats() {
         var d = GetComponent<PlayerController>()._data;
-        d._mH._OnStatValueChanged += (x) => { _maxHealth = x; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
-        d._dI._OnStatValueChanged += (x) => _damageIgnore = x;
-        d._dR._OnStatValueChanged += (x) => _damageReduction = x;
-        d._rSM._OnStatValueChanged += (x) => _reloadSpeedMult = x;
-        d._bSM._OnStatValueChanged += (x) => _bulletSpeedMult = x;
-        d._sDM._OnStatValueChanged += (x) => _shootDelayMult = x;
-        d._iAD._OnStatValueChanged += (x) => _invincibleAfterDash = x;
+        d._maxHealth._OnStatValueChanged += (x) => { _maxHealth = x; _currentHealth = _maxHealth * _currentHealthRatio; _onPlayerHealthChange?.Invoke(_currentHealth); };
+        d._damageIgnore._OnStatValueChanged += (x) => _damageIgnore = x;
+        d._damageReduction._OnStatValueChanged += (x) => _damageReduction = x;
+        d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
+        d.__bulletSpeedMult._OnStatValueChanged += (x) => _bulletSpeedMult = x;
+        d._shootDelayMultiplier._OnStatValueChanged += (x) => _shootDelayMult = x;
+        d._invincibleAfterDash._OnStatValueChanged += (x) => _invincibleAfterDash = x;
         PlayerMovement._onDashStart += RefreshInvincible;
 
-        _onPlayerHealthChange += (x) => PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
+        _onPlayerHealthChange += (x) => { _currentHealthRatio = _currentHealth / _maxHealth; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
     }
 
     void RefreshInvincible() {
@@ -71,6 +73,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
         _currentWeaponIndex = _weapons.Count - 1;
         _currentHealth = _maxHealth;
+        _currentHealthRatio = 1;
         PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth);
         PlayerUI._I.ResetBlanks(_blankAmount);
         PlayerUI._I.ChangeWeapon(_currentWeapon._defaultSettings._sprite);
@@ -192,6 +195,6 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     public void AddBlank(int val = 1) {
         _blankAmount += val;
-        PlayerUI._I.IncreaseBlank(_blankAmount);
+        PlayerUI._I.IncreaseBlank(val);
     }
 }
