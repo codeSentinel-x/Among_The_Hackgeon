@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable/Enemy")]
 public class EnemySO : ScriptableObject {
 
+    public float _playerDist;
     public MinMax _reloadSpeed;
     public MinMax _firstShootDelay;
     public EnemyAIType _aiType;

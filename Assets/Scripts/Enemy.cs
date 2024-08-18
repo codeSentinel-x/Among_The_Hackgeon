@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     private int _delayIndex;
     private float _nextShootTime;
     private float _currentHealth;
+    private float _currentSpeed;
 
     public void Awake() {
         _weapon = new(_defaultSetting._defaultWeapon);
@@ -33,24 +34,24 @@ public class Enemy : MonoBehaviour, IDamageable {
         _rgb = GetComponent<Rigidbody2D>();
         _weapon._bulletsInMagazine = Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
+        _currentSpeed = _defaultSetting._speed.GetValue();
     }
     void Update() {
         RotateWeaponToPlayer();
         if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
-        // Debug.Log($"Move direction: {Vector2.Distance(_target.position, transform.position)}");
-        if (Vector2.Distance(_target.position, transform.position) > _minPlayerDist) {
+        if (Vector2.Distance(_target.position, transform.position) > _defaultSetting._playerDist) {
             _moveDirection = _target.position - transform.position;
-            _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
+            _nextMoveDirectionChange = Time.time + Random.Range(1f, 3f);
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 11, _currentRoom.transform.position.x + 11), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 8, _currentRoom.transform.position.y + 8));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
             _moveDirection = newVec - (Vector2)transform.position;
-            _nextMoveDirectionChange = Time.time + Random.Range(2f, 5f);
+            _nextMoveDirectionChange = Time.time + Random.Range(1f, 3f);
         }
     }
     void FixedUpdate() {
-        _rgb.velocity = _moveDirection.normalized * _defaultSetting._speed.GetValue();
+        _rgb.velocity = _moveDirection.normalized * _currentSpeed;
     }
     public void Shoot() {
         if (_isReloading) return;
