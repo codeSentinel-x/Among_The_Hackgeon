@@ -25,9 +25,6 @@ public class RoomController : MonoBehaviour {
         _lightsHolder.gameObject.SetActive(false);
 
         if (_roomType == RoomType.Tunnel) return;
-        //TODO fix this and make this more readable
-
-        //FIXME change this to check for room in range and than spawn good door prefab on good position !!!!!!!!!!!!!!!!!!!!
         if (_checkerTransform.Find("U") != null) { var c = Instantiate(_doorPrefab[0], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; c._roomToShow2 = this; c.Initialize(); }
         if (_checkerTransform.Find("R") != null) { var c = Instantiate(_doorPrefab[1], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; c._roomToShow2 = this; c.Initialize(); }
         if (_checkerTransform.Find("D") != null) { var c = Instantiate(_doorPrefab[2], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; c._roomToShow2 = this; c.Initialize(); }
