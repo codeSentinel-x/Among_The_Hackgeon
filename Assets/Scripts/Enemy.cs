@@ -2,7 +2,6 @@ using System.Collections;
 using MyUtils.Classes;
 using MyUtils.Functions;
 using MyUtils.Interfaces;
-using MyUtils.Structs;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable {
@@ -28,7 +27,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Awake() {
         _weapon = new(_defaultSetting._defaultWeapon);
-        _weapon.Setup(_firePoint, _weaponSR);
+        _weapon.Setup(null, _weaponSR);
         _target = PlayerController._I.transform;
         _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
@@ -95,6 +94,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     public void Damage(float v) {
         _currentHealth -= v;
+        Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
     }
     public void Die() {

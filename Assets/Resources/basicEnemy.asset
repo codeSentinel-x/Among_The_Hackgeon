@@ -34,4 +34,4 @@ MonoBehaviour:
   _speed:
     _min: 2
     _max: 5
-  _defaultWeapon: {fileID: 11400000, guid: 46b668757744bbf6aa25fe22a9a39210, type: 2}
+  _defaultWeapon: {fileID: 11400000, guid: 38d63e0cae06ac797b1feb761143cacd, type: 2}

@@ -156,7 +156,7 @@ namespace MyUtils.Classes {
         public float _nextShoot;
 
         public void Setup(Transform firePoint, SpriteRenderer spriteR) {
-            firePoint.localPosition = _defaultSettings._firePointPos;
+            if (firePoint!=null) firePoint.localPosition = _defaultSettings._firePointPos;
             spriteR.sprite = _defaultSettings._sprite;
         }
         public void Reload() {

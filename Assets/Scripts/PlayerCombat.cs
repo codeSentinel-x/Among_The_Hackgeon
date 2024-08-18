@@ -164,6 +164,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         var v1 = v - _damageIgnore;
         var v2 = v1 - v1 * _damageReduction;
         _currentHealth -= v2;
+        Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After reduction {v2}");
         _onPlayerHealthChange?.Invoke(v);

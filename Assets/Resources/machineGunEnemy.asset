@@ -37,6 +37,18 @@ MonoBehaviour:
     _max: 0.8
   - _min: 0.2
     _max: 0.7
+  - _min: 0.2
+    _max: 0.5
+  - _min: 0.2
+    _max: 0.4
+  - _min: 0.2
+    _max: 0.3
+  - _min: 0.1
+    _max: 0.3
+  - _min: 0.1
+    _max: 0.2
+  - _min: 0
+    _max: 2
   _maxHealth: 50
   _baseDamage:
     _min: 4

@@ -81,7 +81,7 @@ public class RoomController : MonoBehaviour {
     private void SpawnEnemy() {
         _wasInvoked = true;
         foreach (var c in _spawnPoints) {
-            var g = Instantiate(GameDataManager._I._enemyPref, c.position, Quaternion.identity);
+            var g = Instantiate(GameDataManager._I._enemyPref.GetEnemy(1), c.position, Quaternion.identity);
             var e = g.GetComponentInChildren<Enemy>();
             e._currentRoom = this;
             _enemies.Add(e);
@@ -97,7 +97,7 @@ public class RoomController : MonoBehaviour {
     public void ShowRoom() {
         if (_found) return;
         _found = true;
-        _roomMask?.SetActive(false);
+        if (_roomMask != null) _roomMask.SetActive(false);
     }
 }
 [Serializable]
