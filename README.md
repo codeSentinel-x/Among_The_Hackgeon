@@ -14,6 +14,6 @@
 <h3>-Other sprites (mostly generated using https://app.recraft.ai)</h3>
 <h3>-Item pickup system,</h3>
 <h3>-And much more!</h3>
-[Screenshot from 2024-08-16 23-53-59](https://github.com/user-attachments/assets/8459b7e9-a6b9-4f2f-9172-0de5e93fdc89)
+![Screenshot from 2024-08-16 23-53-59](https://github.com/user-attachments/assets/8459b7e9-a6b9-4f2f-9172-0de5e93fdc89)
 ![Screenshot from 2024-08-16 23-53-38](https://github.com/user-attachments/assets/bfb8868f-df7c-45a9-96cb-00a4bf625f59)
 ![Screenshot from 2024-08-16 23-53-21](https://github.com/user-attachments/assets/df51c8cc-04c9-4bd2-acc9-9c9dfebaa399)
