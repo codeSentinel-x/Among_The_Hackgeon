@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Uzi
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 64244d5b850b6ff48822080acbc4a7c9, type: 3}
-  _firePointPos: {x: -0.586, y: 0.023, z: 0}
+  _firePointPos: {x: -0.4, y: 0.03, z: 0}
   _spread: 10
   _maxBullet: 20
   _bulletUsage: 1
