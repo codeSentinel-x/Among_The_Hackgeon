@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType {
@@ -7,7 +5,8 @@ public enum ItemType {
     Healing,
     Weapon,
     Blank,
-    Special
+    Special,
+    Key,
 }
 public class ItemPickUp : MonoBehaviour {
     public string _name;

@@ -1,5 +1,4 @@
 using System;
-using NUnit.Framework;
 using UnityEngine;
 
 public class GameDataManager : MonoBehaviour {
@@ -15,6 +14,11 @@ public class GameDataManager : MonoBehaviour {
     public Sprite _blankSprite;
     public Transform _damageParticle;
     public Canvas _endCanvas;
+    public Transform[] _weaponsPrefab;
+    public Transform[] _specialItemPrefab;
+    public Transform[] _UtilityItemPrefab;
+    public Transform _chestPrefab;
+    public Transform _bossKeyPrefab;
     void Awake() {
         _I = this;
     }

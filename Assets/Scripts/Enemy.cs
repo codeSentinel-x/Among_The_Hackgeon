@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using MyUtils.Classes;
 using MyUtils.Functions;
@@ -44,7 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }

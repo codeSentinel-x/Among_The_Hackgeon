@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Mono.Cecil.Cil;
 using MyUtils.Enums;
 using UnityEngine;
 
@@ -69,6 +68,9 @@ public class RoomController : MonoBehaviour {
                 _onRoomClear?.Invoke(this);
                 _enemies = new();
                 wasInvokedOnClear = true;
+                if (_roomDifficulty == 5) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
+                else if (_roomDifficulty >= 3) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity);
+
             }
             else {
                 SpawnEnemy();

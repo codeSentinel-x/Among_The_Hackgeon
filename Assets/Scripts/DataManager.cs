@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using MyUtils.Classes;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class DataManager : MonoBehaviour {
     public static DataManager _I;

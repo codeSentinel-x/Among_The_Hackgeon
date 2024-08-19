@@ -17,6 +17,7 @@ namespace MyUtils.Enums {
         OpenOnPlayerStat,
         OpenOnDefeatEnemy,
         OpenOnCustomItemHold,
+        BossRoom,
     }
     public enum DoorState {
         Hidden,

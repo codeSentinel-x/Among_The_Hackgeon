@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Sniper
   _amount: 0
-  _itemType: 1
+  _itemType: 2
   _pickupParticle: {fileID: 2986811945462086756, guid: e176a1441d4934c98884521857631dcf, type: 3}
 --- !u!212 &527085203165473706
 SpriteRenderer:

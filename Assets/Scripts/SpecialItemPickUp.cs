@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using MyUtils.Classes;
-using MyUtils.Structs;
 using UnityEngine;
 
 public enum StatType {
