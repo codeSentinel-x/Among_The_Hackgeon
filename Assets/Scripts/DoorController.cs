@@ -100,7 +100,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
-    private bool _discovered = true;
+    private bool _discovered = false;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
@@ -122,7 +122,9 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._openedDoorSprite[0],
         };
         _col.isTrigger = false;
-        RoomController._onRoomClear += OpenDoor;
+        _opened = false;
+        _discovered = false;
+        RoomController._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
     }
     public void CloseDoor() {
         //TODO
@@ -181,13 +183,17 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
     }
 
     public void ShowDoor() {
-        //TODO
         _hidden = false;
         if (!_discovered) return;
         _opened = true;
         _col.isTrigger = true;
-        // _renderer.enabled = false;
-        // throw new System.NotImplementedException();
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._openedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._openedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._openedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._openedDoorSprite[3],
+            _ => _gMD._openedDoorSprite[0],
+        };
     }
 }
 public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
@@ -196,14 +202,14 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
-    private bool _discovered = true;
+    private bool _discovered;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
         _gMD = GameDataManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
-        RoomController._onRoomClear += OpenDoor;
+        RoomController._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
         _col.isTrigger = false;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
@@ -213,6 +219,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._closedDoorSprite[0],
         };
         _opened = false;
+        _discovered = false;
     }
     public void CloseDoor() {
         //TODO
@@ -260,6 +267,14 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
         if (!_discovered) return;
         _opened = true;
         _col.isTrigger = true;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._openedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._openedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._openedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._openedDoorSprite[3],
+            _ => _gMD._openedDoorSprite[0],
+        };
+
         // _renderer.enabled = false;
         // throw new System.NotImplementedException();
     }

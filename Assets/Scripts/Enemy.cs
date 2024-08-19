@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using MyUtils.Classes;
 using MyUtils.Functions;
@@ -6,7 +7,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable {
     public RoomController _currentRoom;
-
     public EnemySO _defaultSetting;
     public Weapon _weapon;
     public Transform _target;
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _target = PlayerController._I.transform;
         _currentHealth = _defaultSetting._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
-        _weapon._bulletsInMagazine = Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
+        _weapon._bulletsInMagazine = UnityEngine.Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
         _currentSpeed = _defaultSetting._speed.GetValue();
     }
@@ -41,12 +41,12 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (_nextMoveDirectionChange > Time.time) return;
         if (Vector2.Distance(_target.position, transform.position) > _defaultSetting._playerDist) {
             _moveDirection = _target.position - transform.position;
-            _nextMoveDirectionChange = Time.time + Random.Range(1f, 3f);
+            _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), transform.position.y - Mathf.Clamp(UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
             _moveDirection = newVec - (Vector2)transform.position;
-            _nextMoveDirectionChange = Time.time + Random.Range(1f, 3f);
+            _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }
     }
     void FixedUpdate() {
@@ -99,12 +99,12 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
-        if (Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
+        if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         _currentRoom._enemies.Remove(this);
-        _currentRoom.OnEnemyKill();
         Destroy(transform.parent.gameObject);
     }
     public Transform _dieParticle;
     void OnDestroy() {
+        _currentRoom.EnemiesDie();
     }
 }

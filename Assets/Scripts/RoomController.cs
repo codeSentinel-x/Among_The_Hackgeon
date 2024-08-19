@@ -18,11 +18,14 @@ public class RoomController : MonoBehaviour {
     // public PolygonCollider2D _cameraBoundaries;
     public bool _wasInvoked;
     public Action _onPlayerEnter;
-    public static Action _onRoomClear;
+    public static Action<RoomController> _onRoomClear;
     public List<Enemy> _enemies;
     private int _enemyCount;
     public Transform[] _doorPrefab;
+    public int _roomDifficulty;
+    public int _wave;
     void Awake() {
+        wasInvokedOnClear = true;
         _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _doors = new();
@@ -41,14 +44,35 @@ public class RoomController : MonoBehaviour {
             }
 
         }
+        if (_roomType == RoomType.EnemyRoom) {
+            int count = Mathf.Clamp(UnityEngine.Random.Range(1, 1 + UnityEngine.Random.Range(_roomDifficulty, _roomDifficulty + 3)), _roomDifficulty, int.MaxValue);
+            _spawnPoints = new Transform[count];
+            for (int i = 0; i < count; i++) {
+                var g = new GameObject("spawnPoint");
+                g.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-10f, 10f), UnityEngine.Random.Range(-6f, 6f));
+                g.transform.SetParent(transform, true);
+                _spawnPoints[i] = g.transform;
+
+            }
+        }
     }
     bool wasInvokedOnClear;
     void Update() {
+
+    }
+    public void EnemiesDie() {
         if (wasInvokedOnClear) return;
-        if (_wasInvoked && _enemyCount <= 0) {
-            _onRoomClear?.Invoke();
-            _enemies = new();
-            wasInvokedOnClear = true;
+        _enemyCount -= 1;
+        if (_enemyCount <= 0) {
+            _wave -= 1;
+            if (_wave == 0) {
+                _onRoomClear?.Invoke(this);
+                _enemies = new();
+                wasInvokedOnClear = true;
+            }
+            else {
+                SpawnEnemy();
+            }
         }
     }
     public bool IsEmpty() {
@@ -80,7 +104,9 @@ public class RoomController : MonoBehaviour {
         if (_roomType == RoomType.EnemyRoom && !_wasInvoked) SpawnEnemy();
     }
     private void SpawnEnemy() {
+        if (_wave == 0) _wave = Mathf.Clamp(UnityEngine.Random.Range(1, 1 + UnityEngine.Random.Range(_roomDifficulty, _roomDifficulty + 2)), 1, 4);
         _wasInvoked = true;
+        wasInvokedOnClear = false;
         foreach (var c in _spawnPoints) {
             var g = Instantiate(GameDataManager._I._enemyPref.GetEnemy(1), c.position, Quaternion.identity);
             var e = g.GetComponentInChildren<Enemy>();
@@ -88,12 +114,10 @@ public class RoomController : MonoBehaviour {
             _enemies.Add(e);
         }
         _enemyCount = _enemies.Count;
+
         foreach (var d in _doors) {
             // d._door.
         }
-    }
-    public void OnEnemyKill() {
-        _enemyCount -= 1;
     }
     public void ShowRoom() {
         if (_found) return;
