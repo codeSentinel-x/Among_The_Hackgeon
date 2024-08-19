@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
-    public List<RoomController> _roomToShow;
+    public RoomController _roomToShow;
+    public RoomController _tunnelToShow;
     public DoorPosition _pos;
     public bool _openedByDefault;
     public bool _initialized;
@@ -21,29 +22,29 @@ public class DoorController : MonoBehaviour {
     public void Initialize() {
         if (_initialized) return;
         _initialized = true;
+        _doorType = UnityEngine.Random.Range(0f, 1f) > 0.7f ? DoorOpenType.OpenOnShoot : DoorOpenType.AlwaysOpen;
         switch (_doorType) {
             case DoorOpenType.AlwaysOpen: {
                     var c = gameObject.AddComponent<AlwaysOpenDoor>();
                     c._pos = _pos;
                     c._opened = false;
-                    foreach (var x in _roomToShow) {
-                        if (x._roomType == RoomType.EnemyRoom)
-                            x._onPlayerEnter += () => {
-                                if (!x._wasInvoked) c.CloseDoor();
-                            };
-                    }
+
+                    if (_roomToShow._roomType == RoomType.EnemyRoom)
+                        _roomToShow._onPlayerEnter += () => {
+                            if (!_roomToShow._wasInvoked) c.CloseDoor();
+                        };
+
                     break;
                 }
             case DoorOpenType.OpenOnShoot: {
                     var c = gameObject.AddComponent<DoorOnShoot>();
                     c._pos = _pos;
                     c._opened = false;
-                    foreach (var x in _roomToShow) {
-                        if (x._roomType == RoomType.EnemyRoom)
-                            x._onPlayerEnter += () => {
-                                if (!x._wasInvoked) c.CloseDoor();
-                            };
-                    }
+                    if (_roomToShow._roomType == RoomType.EnemyRoom)
+                        _roomToShow._onPlayerEnter += () => {
+                            if (!_roomToShow._wasInvoked) c.CloseDoor();
+                        };
+
                     break;
                 }
             case DoorOpenType.OpenOnBlank: {
@@ -172,9 +173,10 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
-        if (d._roomToShow1._maskTransform != null) d._roomToShow1._maskTransform.gameObject.SetActive(false);
-        d._roomToShow1?.ShowRoom();
-        d._roomToShow2?.ShowRoom();
+        if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
+        d._tunnelToShow.ShowRoom();
+        d._roomToShow.ShowRoom();
+
         //TODO
     }
 
@@ -246,9 +248,9 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
-        if (d._roomToShow1._maskTransform != null) d._roomToShow1._maskTransform.gameObject.SetActive(false);
-        d._roomToShow1?.ShowRoom();
-        d._roomToShow2?.ShowRoom();
+        if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
+        d._tunnelToShow.ShowRoom();
+        d._roomToShow.ShowRoom();
         //TODO
     }
 
