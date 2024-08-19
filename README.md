@@ -1,5 +1,5 @@
-<h1>Welcome to my project created for arcade game jam</h1>
-<h2>This is amazing gungeon, where your goal is to find a way to escape</h2>
+<h1>Welcome to my project (Among the hackgeon) created for arcade game jam</h1>
+<h2>This is amazing dungeon game, where your goal is to find a way to escape</h2>
 <h3>Dungeon is looped and reset every 5 minutes (not implemented), fight enemies, look for hidden thing and much more. Good luck</h3>
 <h3>Current content:</h3>
 <h3>-Player movement</h3>
@@ -13,6 +13,14 @@
 <h3>-Tilemap created by me,</h3>
 <h3>-Other sprites (mostly generated using https://app.recraft.ai)</h3>
 <h3>-Item pickup system,</h3>
+<h3>-And much more!</h3>
+
+<h2>What's new></h2>
+<h3>-Enemies now spawn in waves</h3>
+<h3>-Rooms now have their own difficulty</h3>
+<h3>-Difficult rooms spawn chest when cleared</h3>
+<h3>-Now you can explore almost full dungeon!</h3>
+<h3>-More Unity Particle System!!!!</h3>
 <h3>-And much more!</h3>
 
 ![Screenshot from 2024-08-16 23-53-59](https://github.com/user-attachments/assets/8459b7e9-a6b9-4f2f-9172-0de5e93fdc89)

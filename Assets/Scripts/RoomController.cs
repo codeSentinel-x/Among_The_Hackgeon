@@ -112,6 +112,7 @@ public class RoomController : MonoBehaviour {
         wasInvokedOnClear = false;
         foreach (var c in _spawnPoints) {
             var g = Instantiate(GameDataManager._I._enemyPref.GetEnemy(1), c.position, Quaternion.identity);
+            Instantiate(GameDataManager._I._spawnParticle, c.position, Quaternion.identity);
             var e = g.GetComponentInChildren<Enemy>();
             e._currentRoom = this;
             _enemies.Add(e);

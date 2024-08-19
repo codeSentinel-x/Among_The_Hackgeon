@@ -12,6 +12,7 @@ public class GameDataManager : MonoBehaviour {
     public Sprite[] _openedDoorSprite; //0 - up; 1- right, 2 - down; 3 - left
     [Header("Enemy and other things")]
     public EnemyPrefabGetter _enemyPref;
+    public Transform _spawnParticle;
     public Sprite _bulletSprite;
     public Sprite _blankSprite;
     public Transform _damageParticle;
