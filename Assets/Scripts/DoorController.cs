@@ -1,14 +1,16 @@
 using System;
+using System.Collections.Generic;
 using MyUtils.Enums;
 using MyUtils.Interfaces;
+using Unity.Collections;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
-    public RoomController _roomToShow1;
-    [HideInInspector] public RoomController _roomToShow2;
+    public List<RoomController> _roomToShow;
     public DoorPosition _pos;
     public bool _openedByDefault;
+    public bool _initialized;
     void Start() {
         // _roomToShow2 = transform.parent.GetComponent<RoomController>();
         // Initialize();
@@ -17,21 +19,31 @@ public class DoorController : MonoBehaviour {
         // GetComponent<SpriteRenderer>().
     }
     public void Initialize() {
+        if (_initialized) return;
+        _initialized = true;
         switch (_doorType) {
             case DoorOpenType.AlwaysOpen: {
                     var c = gameObject.AddComponent<AlwaysOpenDoor>();
                     c._pos = _pos;
-                    c._opened = _openedByDefault;
-                    Debug.Log(_roomToShow2.name);
-                    if (_roomToShow2._roomType == RoomType.EnemyRoom) _roomToShow2._onPlayerEnter += () => { if (!_roomToShow2._wasInvoked) c.CloseDoor(); };
+                    c._opened = false;
+                    foreach (var x in _roomToShow) {
+                        if (x._roomType == RoomType.EnemyRoom)
+                            x._onPlayerEnter += () => {
+                                if (!x._wasInvoked) c.CloseDoor();
+                            };
+                    }
                     break;
                 }
             case DoorOpenType.OpenOnShoot: {
                     var c = gameObject.AddComponent<DoorOnShoot>();
                     c._pos = _pos;
-                    c._opened = _openedByDefault;
-                    Debug.Log(_roomToShow2.name);
-                    if (_roomToShow2._roomType == RoomType.EnemyRoom) _roomToShow2._onPlayerEnter += () => { if (!_roomToShow2._wasInvoked) c.CloseDoor(); };
+                    c._opened = false;
+                    foreach (var x in _roomToShow) {
+                        if (x._roomType == RoomType.EnemyRoom)
+                            x._onPlayerEnter += () => {
+                                if (!x._wasInvoked) c.CloseDoor();
+                            };
+                    }
                     break;
                 }
             case DoorOpenType.OpenOnBlank: {
@@ -176,7 +188,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         // throw new System.NotImplementedException();
     }
 }
-public class AlwaysOpenDoor : MonoBehaviour, IDoor {
+public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
     private GameDataManager _gMD;
@@ -190,6 +202,15 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor {
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
         RoomController._onRoomClear += OpenDoor;
+        _col.isTrigger = false;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._closedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._closedDoorSprite[3],
+            _ => _gMD._closedDoorSprite[0],
+        };
+        _opened = false;
     }
     public void CloseDoor() {
         //TODO
@@ -225,6 +246,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
+        if (d._roomToShow1._maskTransform != null) d._roomToShow1._maskTransform.gameObject.SetActive(false);
         d._roomToShow1?.ShowRoom();
         d._roomToShow2?.ShowRoom();
         //TODO
@@ -238,5 +260,11 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor {
         _col.isTrigger = true;
         // _renderer.enabled = false;
         // throw new System.NotImplementedException();
+    }
+
+    public void Damage(float v) {
+        if (_opened || _hidden) return;
+        OpenDoor(); return;
+
     }
 }

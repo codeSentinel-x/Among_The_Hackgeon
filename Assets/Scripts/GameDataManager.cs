@@ -14,7 +14,7 @@ public class GameDataManager : MonoBehaviour {
     public Sprite _bulletSprite;
     public Sprite _blankSprite;
     public Transform _damageParticle;
-    public Canvas 
+    public Canvas _endCanvas;
     void Awake() {
         _I = this;
     }
