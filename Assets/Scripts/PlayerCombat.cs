@@ -6,6 +6,7 @@ using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerCombat : MonoBehaviour, IDamageable {
 
     [Header("Setup")]
@@ -105,7 +106,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
         PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
-        PlaySound(GameDataManager._I._shootAudio);
+        PlaySound(GameDataManager._I.GetWeaponSound(WeaponType.Single));
 
     }
     public void NextWeapon() {
@@ -173,13 +174,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After reduction {v2}");
         _onPlayerHealthChange?.Invoke(v);
-        PlaySound(GameDataManager._I._playerDamage);
+        PlaySound(GameDataManager._I._playerDamageSound);
     }
     public void RestoreHealth(float v) {
         _currentHealth += v;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         _onPlayerHealthChange?.Invoke(v);
-        PlaySound(GameDataManager._I._playerHeal);
+        PlaySound(GameDataManager._I._playerHealSound);
     }
 
     private void Die() {
@@ -211,8 +212,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         PlayerUI._I.IncreaseBlank(val);
     }
     private AudioSource _audioSource;
-    public void PlaySound(AudioClip[] clips) {
-        _audioSource.clip = MyRandom.GetFromArray<AudioClip>(clips);
+    public void PlaySound(AudioClip clip) {
+        _audioSource.clip = clip;
         _audioSource.Play();
 
     }

@@ -1,6 +1,12 @@
 using System;
 using UnityEngine;
 
+public enum WeaponType {
+    Single,
+    Sniper,
+    Auto,
+    MachineGun,
+}
 public class GameDataManager : MonoBehaviour {
 
     public static GameDataManager _I;
@@ -28,17 +34,36 @@ public class GameDataManager : MonoBehaviour {
     public Transform _chestPrefab;
     public Transform _bossKeyPrefab;
     [Header("Audio")]
-    public AudioClip[] _shootAudio;
-    public AudioClip[] _doorOpenAudio;
-    public AudioClip[] _music;
-    public AudioClip[] _enemySpawn;
-    public AudioClip[] _enemyDie;
-    public AudioClip[] _playerDamage;
-    public AudioClip[] _dashSound;
-    public AudioClip _loopReset;
-    public AudioClip[] _reloadSound;
-    public AudioClip[] _playerHeal;
 
+    public AudioClip[] _shootSounds;
+    public AudioClip _doorOpenSound;
+    public AudioClip _enemySpawnSound;
+    public AudioClip _enemyDieSound;
+    public AudioClip _playerDamageSound;
+    public AudioClip _dashSound;
+    public AudioClip _loopResetSound;
+    public AudioClip _reloadSound;
+    public AudioClip _playerHealSound;
+    public AudioClip _blankSound;
+    public AudioClip _weaponChangeSound;
+
+    public AudioClip GetWeaponSound(WeaponType type) {
+        switch (type) {
+            case WeaponType.Single: {
+                    return _shootSounds[0];
+                }
+            case WeaponType.Sniper: {
+                    return _shootSounds[1];
+                }
+            case WeaponType.Auto: {
+                    return _shootSounds[2];
+                }
+            case WeaponType.MachineGun: {
+                    return _shootSounds[3];
+                }
+            default: return null;
+        }
+    }
     GameObject _dungeon;
     GameObject _player;
 

@@ -40719,13 +40719,37 @@ MonoBehaviour:
   - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
   _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
   _bossKeyPrefab: {fileID: 0}
-  _shootAudio: []
-  _doorOpenAudio: []
-  _music: []
-  _enemySpawn: []
-  _enemyDie: []
-  _playerDamage: []
-  _loopReset: {fileID: 0}
+  _shootAudio:
+  - {fileID: 8300000, guid: 50238a32333496c46bf4f0eef34ca63c, type: 3}
+  _doorOpenAudio:
+  - {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
+  _music:
+  - {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
+  _enemySpawn:
+  - {fileID: 8300000, guid: 3fb5208c19ed6c34fba23b1d81a67377, type: 3}
+  _enemyDie:
+  - {fileID: 8300000, guid: b4156ac6286bbf7478ae9be59517bae0, type: 3}
+  _playerDamage:
+  - {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
+  _dashSound:
+  - {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
+  _loopReset: {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
+  _reloadSound:
+  - {fileID: 8300000, guid: f84a2bf3a6b43994a970dab1c4bc6fe8, type: 3}
+  - {fileID: 8300000, guid: 8661ec677881a5a4ea46398c20eb9e79, type: 3}
+  - {fileID: 8300000, guid: 5034636124c582b4893800f869124732, type: 3}
+  - {fileID: 8300000, guid: ace79a9e0d4a65547af6715539b6e0c0, type: 3}
+  - {fileID: 8300000, guid: c11fb3b3ced9fff40a645a5a5d1157a1, type: 3}
+  - {fileID: 8300000, guid: 8ef9910cbbea2eb419a97151cec5d358, type: 3}
+  - {fileID: 8300000, guid: 26356ca5317d05a479bb9799dceb503d, type: 3}
+  - {fileID: 8300000, guid: c4f24bb3e1531b44796fc33c46287cea, type: 3}
+  - {fileID: 8300000, guid: 4fa2aa5edbbdb1f4885ff9fcd341bbaf, type: 3}
+  - {fileID: 8300000, guid: 805da20df04b72f45b83e70b9f9befdd, type: 3}
+  - {fileID: 8300000, guid: 835650bb09b06a64283da59cab58afde, type: 3}
+  - {fileID: 8300000, guid: 5fe71794958af0c4e8238336c5fd0994, type: 3}
+  - {fileID: 8300000, guid: 4eedb1249b4340b4bb4ec3aa4d13e693, type: 3}
+  _playerHeal:
+  - {fileID: 8300000, guid: 1ce7890406010c443a54576a00835e5a, type: 3}
 --- !u!4 &1323413207
 Transform:
   m_ObjectHideFlags: 0
