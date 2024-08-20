@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameDataManager : MonoBehaviour {
 
     public static GameDataManager _I;
+    public Transform _dungeonPrefab;
+    public Transform _playerPrefab;
     [Header("Door sprites")]
     public Sprite[] _destroyableDoorSpritesHorizontal;
     public Sprite[] _destroyableDoorSpritesVerticalLeft;
@@ -13,6 +15,7 @@ public class GameDataManager : MonoBehaviour {
     [Header("Enemy and other things")]
     public EnemyPrefabGetter _enemyPref;
     public Transform _spawnParticle;
+    public Transform _loopResetParticle;
     public Sprite _bulletSprite;
     public Sprite _blankSprite;
     public Transform _damageParticle;
@@ -31,8 +34,14 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip[] _enemyDie;
     public AudioClip[] _playerDamage;
     public AudioClip _loopReset;
+
+    GameObject _dungeon;
+    GameObject _player;
     void Awake() {
+        _dungeon = Instantiate(_dungeonPrefab, Vector3.zero, Quaternion.identity).gameObject;
+        _player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).gameObject;
         _I = this;
+        Timer._reload += () => { Destroy(_dungeon); Destroy(_player); _dungeon = Instantiate(_dungeonPrefab, Vector3.zero, Quaternion.identity).gameObject; _player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).gameObject; };
     }
     public static WeaponSO LoadWeaponByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");
     public static SpecialItemSO LoadItemByName(string name) => Resources.Load<SpecialItemSO>($"Items/{name}");

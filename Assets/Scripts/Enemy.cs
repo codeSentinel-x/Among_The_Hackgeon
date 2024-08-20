@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using MyUtils.Classes;
 using MyUtils.Functions;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     private float _currentSpeed;
 
     public void Awake() {
+        Timer._objectToDestroy.Add(gameObject);
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
         _target = PlayerController._I.transform;
@@ -105,5 +107,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     public Transform _dieParticle;
     void OnDestroy() {
         _currentRoom.EnemiesDie();
+
     }
 }

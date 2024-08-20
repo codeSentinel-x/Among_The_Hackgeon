@@ -48,11 +48,11 @@ public class DoorController : MonoBehaviour {
                     var c = gameObject.AddComponent<BoosRoomDoor>();
                     c._pos = _pos;
                     c._opened = false;
-                    if (_roomToShow._roomType == RoomType.EnemyRoom)
-                        _roomToShow._onPlayerEnter += () => {
-                            if (!_roomToShow._wasInvoked) c.CloseDoor();
-                        };
-
+                    // if (_roomToShow._roomType == RoomType.EnemyRoom)
+                    // _roomToShow._onPlayerEnter += () => {
+                    // if (!_roomToShow._wasInvoked) c.CloseDoor();
+                    // };
+                    // 
                     //gameObject.AddComponent<DoorOnShoot>();
                     break;
                 }
@@ -128,7 +128,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         _col.isTrigger = false;
         _opened = false;
         _discovered = false;
-        RoomController._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
     }
     public void CloseDoor() {
         //TODO
@@ -213,7 +213,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
         _gMD = GameDataManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
-        RoomController._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
         _col.isTrigger = false;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
@@ -302,7 +302,7 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
         _gMD = GameDataManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
-        RoomController._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
+        // GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
         _col.isTrigger = false;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
