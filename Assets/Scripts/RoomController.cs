@@ -36,10 +36,11 @@ public class RoomController : MonoBehaviour {
         if (_checkerTransform.Find("L") != null) { var c = Instantiate(_doorPrefab[3], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
 
         foreach (var c in _doors) {
-            var col = Physics2D.OverlapCircle(c._checker.position, 1, _roomLayer);
+            var col = Physics2D.OverlapCircle(c._checker.position, 2, _roomLayer);
             if (col != null) {
                 Debug.Log(col.gameObject.name);
                 c._door._tunnelToShow = col.gameObject.GetComponent<RoomController>();
+                Debug.Log(col.gameObject.name);
                 c._door.Initialize();
             }
 

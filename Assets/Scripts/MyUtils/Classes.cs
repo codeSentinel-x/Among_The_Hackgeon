@@ -147,7 +147,7 @@ namespace MyUtils.Classes {
             _defaultSettings = def;
             _bulletsInMagazine = def._maxBullet;
             _reloadTime = def._reloadTime;
-            _allBullets = 5 * _bulletsInMagazine;
+            _allBullets = 10 * _bulletsInMagazine;
         }
         public int _bulletsInMagazine;
         public int _allBullets;
@@ -156,7 +156,7 @@ namespace MyUtils.Classes {
         public float _nextShoot;
 
         public void Setup(Transform firePoint, SpriteRenderer spriteR) {
-            if (firePoint!=null) firePoint.localPosition = _defaultSettings._firePointPos;
+            if (firePoint != null) firePoint.localPosition = _defaultSettings._firePointPos;
             spriteR.sprite = _defaultSettings._sprite;
         }
         public void Reload() {

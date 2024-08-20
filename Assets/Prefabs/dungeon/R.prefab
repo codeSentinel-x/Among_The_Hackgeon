@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5410872948335295845}
   - component: {fileID: 6077897207876202413}
   - component: {fileID: 677956134310486366}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: R
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -175,7 +175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doorType: 0
-  _roomToShow1: {fileID: 0}
-  _roomToShow2: {fileID: 0}
+  _roomToShow: {fileID: 0}
+  _tunnelToShow: {fileID: 0}
   _pos: 1
   _openedByDefault: 1
+  _initialized: 0
