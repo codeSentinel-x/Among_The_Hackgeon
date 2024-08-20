@@ -23,6 +23,6 @@ MonoBehaviour:
   _bulletSetting:
     _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     _damage: 12
-    _speed: 8
+    _speed: 12
     _maxDist: 100
   _auto: 0

@@ -34,10 +34,14 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip[] _enemySpawn;
     public AudioClip[] _enemyDie;
     public AudioClip[] _playerDamage;
+    public AudioClip[] _dashSound;
     public AudioClip _loopReset;
+    public AudioClip[] _reloadSound;
+    public AudioClip[] _playerHeal;
 
     GameObject _dungeon;
     GameObject _player;
+
     void Awake() {
         _dungeon = Instantiate(_dungeonPrefab, Vector3.zero, Quaternion.identity).gameObject;
         _player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).gameObject;

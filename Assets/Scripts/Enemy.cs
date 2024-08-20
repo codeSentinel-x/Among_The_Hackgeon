@@ -24,7 +24,13 @@ public class Enemy : MonoBehaviour, IDamageable {
     private float _nextShootTime;
     private float _currentHealth;
     private float _currentSpeed;
+    public AudioSource _audioSource;
 
+    public void PlaySound(AudioClip[] clips) {
+        _audioSource.clip = MyRandom.GetFromArray<AudioClip>(clips);
+        _audioSource.Play();
+
+    }
     public void Awake() {
         Timer._objectToDestroy.Add(gameObject);
         _weapon = new(_defaultSetting._defaultWeapon);
@@ -35,6 +41,9 @@ public class Enemy : MonoBehaviour, IDamageable {
         _weapon._bulletsInMagazine = UnityEngine.Random.Range(0, _weapon._defaultSettings._maxBullet + 1);
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
         _currentSpeed = _defaultSetting._speed.GetValue();
+        _audioSource = GetComponent<AudioSource>();
+
+        PlaySound(GameDataManager._I._enemySpawn);
     }
     void Update() {
         RotateWeaponToPlayer();
@@ -45,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable {
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }
         else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 7, _currentRoom.transform.position.y + 7));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 6, _currentRoom.transform.position.y + 6));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 3f);
         }
@@ -68,6 +77,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
+        PlaySound(GameDataManager._I._shootAudio);
 
     }
     private IEnumerator Reload() {
@@ -98,12 +108,15 @@ public class Enemy : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
+        PlaySound(GameDataManager._I._playerDamage);
+
     }
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         _currentRoom._enemies.Remove(this);
         Destroy(transform.parent.gameObject);
+        PlaySound(GameDataManager._I._enemyDie);
     }
     public Transform _dieParticle;
     void OnDestroy() {

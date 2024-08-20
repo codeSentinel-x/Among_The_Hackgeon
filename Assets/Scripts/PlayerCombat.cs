@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Classes;
+using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
     void Awake() {
         SubscribeStats();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -103,6 +105,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
         PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
+        PlaySound(GameDataManager._I._shootAudio);
 
     }
     public void NextWeapon() {
@@ -138,6 +141,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Debug.Log("Reloaded");
         _isReloading = false;
         ResetBulletDisplay();
+        PlaySound(GameDataManager._I._reloadSound);
+
     }
 
     void ResetBulletDisplay() => PlayerUI._I.ResetBullets(_currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
@@ -168,12 +173,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After reduction {v2}");
         _onPlayerHealthChange?.Invoke(v);
+        PlaySound(GameDataManager._I._playerDamage);
     }
     public void RestoreHealth(float v) {
         _currentHealth += v;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         _onPlayerHealthChange?.Invoke(v);
-
+        PlaySound(GameDataManager._I._playerHeal);
     }
 
     private void Die() {
@@ -203,5 +209,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public void AddBlank(int val = 1) {
         _blankAmount += val;
         PlayerUI._I.IncreaseBlank(val);
+    }
+    private AudioSource _audioSource;
+    public void PlaySound(AudioClip[] clips) {
+        _audioSource.clip = MyRandom.GetFromArray<AudioClip>(clips);
+        _audioSource.Play();
+
     }
 }

@@ -51,8 +51,8 @@ MonoBehaviour:
     _max: 2
   _maxHealth: 80
   _baseDamage:
-    _min: 8
-    _max: 12
+    _min: 10
+    _max: 15
   _speed:
     _min: 3
     _max: 6
