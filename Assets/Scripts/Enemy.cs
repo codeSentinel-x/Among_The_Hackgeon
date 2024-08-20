@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
+        b._bulletDamage = _defaultSetting._baseDamage.GetValue();
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(1);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();

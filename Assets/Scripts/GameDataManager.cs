@@ -15,6 +15,7 @@ public class GameDataManager : MonoBehaviour {
     [Header("Enemy and other things")]
     public EnemyPrefabGetter _enemyPref;
     public Transform _spawnParticle;
+    public Transform _collisionParticle;
     public Transform _loopResetParticle;
     public Sprite _bulletSprite;
     public Sprite _blankSprite;

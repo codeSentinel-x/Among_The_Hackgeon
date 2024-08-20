@@ -1,9 +1,10 @@
 using MyUtils.Interfaces;
 using MyUtils.Structs;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BulletMono : MonoBehaviour {
-    public int _bulletDamage = 10;
+    public float _bulletDamage = 10;
     public float _speed = 4;
     private Vector3 _startPos;
     public float _maxDist = 5;
@@ -41,7 +42,12 @@ public class BulletMono : MonoBehaviour {
         if (col.gameObject.CompareTag("Bullet")) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
 
         IDamageable unit = col.gameObject.GetComponent<IDamageable>();
-        unit?.Damage(_bulletDamage);
+        if (unit != null) {
+            unit.Damage(_bulletDamage);
+        }
+        else {
+            Instantiate(GameDataManager._I._collisionParticle, transform.position, quaternion.identity);
+        }
         Destroy(transform.parent.gameObject);
     }
 }

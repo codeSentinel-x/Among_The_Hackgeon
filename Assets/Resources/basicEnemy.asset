@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerDist: 10
   _reloadSpeed:
-    _min: 2.5
-    _max: 5
+    _min: 1
+    _max: 2
   _firstShootDelay:
     _min: 1
     _max: 2
@@ -23,15 +23,17 @@ MonoBehaviour:
   _shootDelays:
   - _min: 0.2
     _max: 0.3
-  - _min: 0.7
-    _max: 0.9
   - _min: 0.4
     _max: 0.5
-  _maxHealth: 20
+  - _min: 0.3
+    _max: 0.5
+  - _min: 0.1
+    _max: 0.2
+  _maxHealth: 100
   _baseDamage:
-    _min: 4
-    _max: 6
+    _min: 10
+    _max: 15
   _speed:
-    _min: 2
-    _max: 5
+    _min: 3
+    _max: 6
   _defaultWeapon: {fileID: 11400000, guid: 38d63e0cae06ac797b1feb761143cacd, type: 2}

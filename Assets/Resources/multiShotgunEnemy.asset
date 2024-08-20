@@ -57,11 +57,11 @@ MonoBehaviour:
     _max: 0
   - _min: 0
     _max: 0
-  _maxHealth: 50
+  _maxHealth: 150
   _baseDamage:
     _min: 4
     _max: 6
   _speed:
-    _min: 3
-    _max: 6
+    _min: 4
+    _max: 7
   _defaultWeapon: {fileID: 11400000, guid: f5a8f72fa9b5107caa0448fa3888b77d, type: 2}
