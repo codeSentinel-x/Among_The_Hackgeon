@@ -82,6 +82,7 @@ public class RoomController : MonoBehaviour {
                 wasInvokedOnClear = true;
                 if (_roomDifficulty == 5) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
                 else if (_roomDifficulty >= 3) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity);
+                _onCombatEnd?.Invoke();
 
             }
             else {
@@ -115,7 +116,7 @@ public class RoomController : MonoBehaviour {
         // contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
-        if (_roomType == RoomType.EnemyRoom && !_wasInvoked) SpawnEnemy();
+        if (_roomType == RoomType.EnemyRoom && !_wasInvoked) { SpawnEnemy(); _onCombatStart?.Invoke(); }
         if (_roomType == RoomType.BossRoom && !_wasInvoked) SpawnBoss();
     }
     private void SpawnEnemy() {

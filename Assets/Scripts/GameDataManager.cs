@@ -48,7 +48,7 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip _playerHealSound;
     public AudioClip _blankSound;
     public AudioClip _weaponChangeSound;
-
+    public AudioClip _pickupSound;
     public AudioClip GetWeaponSound(WeaponType type) {
         switch (type) {
             case WeaponType.Single: {

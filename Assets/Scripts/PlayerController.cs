@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour {
     public void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (_currentItemInRange != null) {
+                GetComponent<AudioSource>().clip = GameDataManager._I._pickupSound;
+                GetComponent<AudioSource>().Play();
                 switch (_currentItemInRange._itemType) {
                     case ItemType.Ammo: {
                             GetComponent<PlayerCombat>().AddAmmo();

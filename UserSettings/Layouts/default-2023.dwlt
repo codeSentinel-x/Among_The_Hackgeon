@@ -410,23 +410,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1002
-      height: 620
-    m_Scale: {x: 0.521875, y: 0.521875}
-    m_Translation: {x: 500.99997, y: 310}
+      width: 896
+      height: 510
+    m_Scale: {x: 0.46666667, y: 0.46666667}
+    m_Translation: {x: 448, y: 255}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -959.9999
-      y: -594.01196
-      width: 1919.9999
-      height: 1188.0239
+      x: -960
+      y: -546.4286
+      width: 1920
+      height: 1092.8572
     m_MinimalGUI: 1
-  m_defaultScale: 0.521875
-  m_LastWindowPixelSize: {x: 1002, y: 641}
+  m_defaultScale: 0.46666667
+  m_LastWindowPixelSize: {x: 896, y: 531}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -2381,7 +2381,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 156}
     m_SelectedIDs: 92a40000
     m_LastClickedID: 42130
-    m_ExpandedIDs: 00000000ec900000ee900000f0900000f2900000f4900000f6900000f8900000
+    m_ExpandedIDs: 000000006ca400006ea4000070a4000072a4000074a4000076a4000078a40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2410,7 +2410,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 508cf6ff
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ec900000ee900000f0900000f2900000f4900000f6900000f8900000
+    m_ExpandedIDs: 000000006ca400006ea4000070a4000072a4000074a4000076a4000078a40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2609,7 +2609,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 156}
     m_SelectedIDs: 94a30000
     m_LastClickedID: 41876
-    m_ExpandedIDs: 00000000ec900000ee900000f0900000f2900000f4900000f6900000f8900000
+    m_ExpandedIDs: 000000006ca400006ea4000070a4000072a4000074a4000076a4000078a40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2638,7 +2638,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ec900000ee900000f0900000f2900000f4900000f6900000f8900000
+    m_ExpandedIDs: 000000006ca400006ea4000070a4000072a4000074a4000076a4000078a40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

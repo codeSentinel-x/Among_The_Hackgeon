@@ -136,7 +136,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        PlaySound(GameDataManager._I._reloadSound);
+        PlaySound(GameDataManager._I._reloadEndSound);
     }
     private void RotateWeaponToPlayer() {
 
