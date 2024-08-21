@@ -27,6 +27,7 @@ public class Timer : MonoBehaviour {
     public void LoadScene() {
         _time = 333f;
         _spawned = false;
+        Destroy(BossUI._I.transform.parent.gameObject);
         foreach (var v in _objectToDestroy) if (v != null) Destroy(v.transform.parent.gameObject);
         _objectToDestroy = new();
         _reload?.Invoke();

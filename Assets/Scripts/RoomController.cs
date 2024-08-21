@@ -135,6 +135,7 @@ public class RoomController : MonoBehaviour {
     }
 
     private void SpawnBoss() {
+        Timer._I._time += 222f;
         _wasInvoked = true;
         wasInvokedOnClear = false;
         var g = Instantiate(GameDataManager._I._bossPrefab, transform.position, Quaternion.identity);

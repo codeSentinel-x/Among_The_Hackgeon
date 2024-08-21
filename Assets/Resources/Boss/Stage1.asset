@@ -28,7 +28,7 @@ MonoBehaviour:
     _max: 0.2
   - _min: 0.1
     _max: 0.2
-  _maxHealth: 100
+  _maxHealth: 250
   _baseDamage:
     _min: 10
     _max: 15
@@ -36,6 +36,6 @@ MonoBehaviour:
     _min: 5
     _max: 8
   _defaultWeapon: {fileID: 11400000, guid: 9030cf760b86f3b6ba7d31bb46d0884d, type: 2}
-  _countOfEnemiesToSpawn: 5
+  _countOfEnemiesToSpawn: 1
   _enemyToSpawn:
   - {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}

@@ -44,21 +44,21 @@ public class Boss : MonoBehaviour, IDamageable {
         _audioSource = GetComponent<AudioSource>();
         _sprites = GetComponentsInChildren<SpriteRenderer>();
         PlaySound(GameDataManager._I._enemySpawnSound);
+        _target = PlayerController._I.transform;
     }
     public int _enemiesCount;
     public void NextStage(bool increase = true) {
+        if (increase) _stage++;
         _currentStageSO = _defaultSetting[_stage];
         StartInvincible();
         _weapon = new(_currentStageSO._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
-        _target = PlayerController._I.transform;
         _currentHealth = _currentStageSO._maxHealth;
         _rgb = GetComponent<Rigidbody2D>();
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _currentStageSO._firstShootDelay.GetValue();
         _currentSpeed = _currentStageSO._speed.GetValue();
         StartCoroutine(SpawnEnemies());
-        if (increase) _stage++;
 
     }
     public IEnumerator SpawnEnemies() {
@@ -81,14 +81,14 @@ public class Boss : MonoBehaviour, IDamageable {
     public void StartInvincible() {
         _isInvincible = true;
         foreach (var r in _sprites) {
-            r.color = new Color(r.color.r, r.color.g, r.color.g, 0.1f);
+            r.color = new Color(r.color.r, r.color.g, r.color.b, 0.1f);
         }
         BossUI._I.ChangeName(true, _enemiesCount);
     }
     public void StopInvincible() {
         _isInvincible = false;
         foreach (var r in _sprites) {
-            r.color = new Color(r.color.r, r.color.g, r.color.g, 1f);
+            r.color = new Color(r.color.r, r.color.g, r.color.b, 1f);
         }
         BossUI._I.ChangeName(false, 0);
 
@@ -159,7 +159,10 @@ public class Boss : MonoBehaviour, IDamageable {
         if (_isInvincible) return;
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
-        if (_currentHealth <= 0) { NextStage(); Debug.Log("NextStage"); }
+        if (_currentHealth <= 0) {
+            if (_stage < 5) { NextStage(); Debug.Log("NextStage"); }
+            else Die();
+        }
         PlaySound(GameDataManager._I._playerDamageSound);
         BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
 
@@ -168,11 +171,14 @@ public class Boss : MonoBehaviour, IDamageable {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         Destroy(transform.parent.gameObject);
+        _currentRoom._onRoomClear?.Invoke(_currentRoom);
         PlaySound(GameDataManager._I._enemyDieSound);
     }
     public Transform _dieParticle;
     void OnDestroy() {
-        _currentRoom.EnemiesDie();
+
+        // _currentRoom.EnemiesDie();
+
 
     }
 }

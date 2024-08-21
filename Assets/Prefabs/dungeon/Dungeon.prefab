@@ -34244,7 +34244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightsHolder: {fileID: 7523753507044348509}
-  _roomType: 0
+  _roomType: 3
   _checkerTransform: {fileID: 5736395514665493363}
   _maskTransform: {fileID: 0}
   _doorsTransform: {fileID: 3641342447472990721}

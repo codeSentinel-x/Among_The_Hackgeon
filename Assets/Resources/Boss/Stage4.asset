@@ -12,21 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aafcf880f45c2fcb757bfea9634dab, type: 3}
   m_Name: Stage4
   m_EditorClassIdentifier: 
-  _playerDist: 0
+  _playerDist: 10
   _reloadSpeed:
-    _min: 0
-    _max: 0
+    _min: 1
+    _max: 2
   _firstShootDelay:
     _min: 0
     _max: 0
-  _shootDelays: []
-  _maxHealth: 0
+  _shootDelays:
+  - _min: 0
+    _max: 0
+  - _min: 0.1
+    _max: 0.2
+  - _min: 0.1
+    _max: 0.2
+  - _min: 0.1
+    _max: 0.2
+  _maxHealth: 100
   _baseDamage:
-    _min: 0
-    _max: 0
+    _min: 10
+    _max: 15
   _speed:
-    _min: 0
-    _max: 0
-  _defaultWeapon: {fileID: 0}
-  _countOfEnemiesToSpawn: 0
-  _enemyToSpawn: []
+    _min: 5
+    _max: 8
+  _defaultWeapon: {fileID: 11400000, guid: 9030cf760b86f3b6ba7d31bb46d0884d, type: 2}
+  _countOfEnemiesToSpawn: 5
+  _enemyToSpawn:
+  - {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}
