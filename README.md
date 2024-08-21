@@ -1,6 +1,6 @@
 <h1>Welcome to my project (Among the hackgeon) created for arcade game jam</h1>
 <h2>This is amazing dungeon game, where your goal is to find a way to escape</h2>
-<h3>Dungeon is looped and reset every 5 minutes (not implemented), fight enemies, look for hidden thing and much more. Good luck</h3>
+<h3>Dungeon is looped and reset every 333 seconds, fight enemies, look for hidden thing and much more. Good luck</h3>
 <h3>Current content:</h3>
 <h3>-Player movement</h3>
 <h3>-Player shooting</h3>
@@ -13,17 +13,28 @@
 <h3>-Tilemap created by me,</h3>
 <h3>-Other sprites (mostly generated using https://app.recraft.ai)</h3>
 <h3>-dangerApproaching, hit and hit-by-wood sounds are from https://pixabay.com</h3>
+<h3>-other sound effects are from https://assetstore.unity.com/packages/audio/sound-fx/weapons/free-laser-weapons-214929</h3>
+<h3>-soundtrack is from https://assetstore.unity.com/packages/audio/music/soft-rpg-music-pack-212935</h3>
 <h3>-Item pickup system,</h3>
-<h3>-And much more!</h3>
-
-<h2>What's new></h2>
 <h3>-Enemies now spawn in waves</h3>
 <h3>-Rooms now have their own difficulty</h3>
 <h3>-Difficult rooms spawn chest when cleared</h3>
-<h3>-Now you can explore almost full dungeon!</h3>
+<h3>-And much more!</h3>
+
+<h2>What's new?</h2>
+<h3>-Now you can fight with Mega Hackongus(Boss) and explore full dungeon! (boss room is still slightly bugged)</h3>
+<h3>-Added default soundtrack, combat soundtrack and sound effects</h3>
+<h3>-Added Loop</h3>
+<h3>-Fixed a lot od bugs and performance issues</h3>
 <h3>-More Unity Particle System!!!!</h3>
 <h3>-And much more!</h3>
 
-![Screenshot from 2024-08-16 23-53-59](https://github.com/user-attachments/assets/8459b7e9-a6b9-4f2f-9172-0de5e93fdc89)
-![Screenshot from 2024-08-16 23-53-38](https://github.com/user-attachments/assets/bfb8868f-df7c-45a9-96cb-00a4bf625f59)
-![Screenshot from 2024-08-16 23-53-21](https://github.com/user-attachments/assets/df51c8cc-04c9-4bd2-acc9-9c9dfebaa399)
+![Screenshot 1](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/8screenshot_from_2024-08-21_22-04-33.png)
+![Screenshot 2](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/7screenshot_from_2024-08-21_22-05-08.png)
+![Screenshot 3](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/6screenshot_from_2024-08-21_22-05-52.png)
+![Screenshot 4](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/5screenshot_from_2024-08-21_22-06-24.png)
+![Screenshot 5](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/4screenshot_from_2024-08-21_22-07-24.png)
+![Screenshot 6](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/3screenshot_from_2024-08-21_22-10-40.png)
+![Screenshot 7](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/2screenshot_from_2024-08-21_22-11-09.png)
+![Screenshot 8](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/1screenshot_from_2024-08-21_22-12-40.png)
+![Screenshot 9]()

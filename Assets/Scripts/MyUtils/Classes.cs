@@ -142,6 +142,19 @@ namespace MyUtils.Classes {
         public string _name;
     }
     [Serializable]
+    public class GameSettings {
+        [Range(0, 1f)] public float _musicVolume;
+        [Range(0, 1f)] public float _soundsVolume;
+        [Range(0.1f, 3f)] public float _enemySpeedMultiplier;
+        [Range(0.1f, 3f)] public float _playerSpeedMultiplier;
+        [Range(0.1f, 3f)] public float _enemyMaxHealthMultiplier;
+        [Range(0.1f, 3f)] public float _specialItemSpawnChange;
+        [Range(0.1f, 3f)] public float _enemyDamageMultiplier;
+        [Range(0.1f, 3f)] public float _playerDamageMultiplier;
+        [Range(0.1f, 3f)] public float _playerDamageReductionMultiplier;
+        [Range(0.1f, 3f)] public float _enemyDamageReductionMultiplier;
+    }
+    [Serializable]
     public class Weapon {
         public Weapon(WeaponSO def) {
             _defaultSettings = def;

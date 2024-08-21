@@ -38864,7 +38864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &970487747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39965,7 +39965,7 @@ MonoBehaviour:
   _sceneName: SampleScene
   _display: {fileID: 447415448}
   _time: 0
-  _resetTime: 15
+  _resetTime: 333
 --- !u!4 &1519329394
 Transform:
   m_ObjectHideFlags: 0

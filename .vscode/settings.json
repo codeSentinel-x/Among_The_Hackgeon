@@ -59,8 +59,10 @@
     "dotnet.defaultSolution": "SlackGameJam.sln",
     "cSpell.words": [
         "destr",
+        "hackgeon",
         "Hackongus",
         "Mult",
-        "stam"
+        "stam",
+        "Tilemap"
     ]
 }
