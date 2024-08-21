@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +13,12 @@ public class BossUI : MonoBehaviour {
         // _healthText = transform.Find("HEALTH").GetChild(0).GetComponent<TextMeshProUGUI>();
         // _nameDisplay = transform.Find("NAME_DISPLAY").GetChild(0).GetComponent<TextMeshProUGUI>();
     }
-    public void ChangeName(bool invincible, int enemiesCount) {
+    public void ChangeName(bool invincible, int enemiesCount, int stage) {
         if (invincible) {
-            _nameDisplay.text = $"Mega Hackongus (INVINCIBLE) Enemies left:{enemiesCount}";
+            _nameDisplay.text = $"(INVINCIBLE) Mega Hackongus Enemies left:{enemiesCount} Stage: {stage+1}/ 5";
         }
         else {
-            _nameDisplay.text = "Mega Hackongus";
+            _nameDisplay.text = $"Mega Hackongus Stage: {stage+1}/ 5";
         }
     }
     public void UpdateHealth(float current, float max) {

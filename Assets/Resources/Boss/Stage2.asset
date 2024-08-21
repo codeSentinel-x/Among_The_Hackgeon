@@ -17,8 +17,8 @@ MonoBehaviour:
     _min: 2
     _max: 3
   _firstShootDelay:
-    _min: 0
-    _max: 0
+    _min: 1
+    _max: 2
   _shootDelays:
   - _min: 0.01
     _max: 0.01
@@ -43,7 +43,7 @@ MonoBehaviour:
   _speed:
     _min: 6
     _max: 9
-  _defaultWeapon: {fileID: 11400000, guid: f20aee24eddd36dacaf0abbd631a2139, type: 2}
-  _countOfEnemiesToSpawn: 4
+  _defaultWeapon: {fileID: 11400000, guid: 9030cf760b86f3b6ba7d31bb46d0884d, type: 2}
+  _countOfEnemiesToSpawn: 1
   _enemyToSpawn:
   - {fileID: 7086293667160900216, guid: a558a77254589727f9f34e8ff605bc32, type: 3}

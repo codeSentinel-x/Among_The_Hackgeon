@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour {
     public string _sceneName;

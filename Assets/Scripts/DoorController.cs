@@ -376,7 +376,7 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
     }
 
     public void Damage(float v) {
-        if (!PlayerController._I._hasKey) return;
+        if (!PlayerController._hasKey) return;
         if (_opened || _hidden) return;
         OpenDoor(); return;
 

@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using MyUtils.Classes;
 using MyUtils.Functions;
 using MyUtils.Interfaces;
-using MyUtils.Structs;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource), typeof(BoxCollider2D), typeof(Rigidbody2D))]
@@ -49,6 +46,7 @@ public class Boss : MonoBehaviour, IDamageable {
     public int _enemiesCount;
     public void NextStage(bool increase = true) {
         if (increase) _stage++;
+        _delayIndex = 0;
         _currentStageSO = _defaultSetting[_stage];
         StartInvincible();
         _weapon = new(_currentStageSO._defaultWeapon);
@@ -58,6 +56,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _currentStageSO._firstShootDelay.GetValue();
         _currentSpeed = _currentStageSO._speed.GetValue();
+        BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
         StartCoroutine(SpawnEnemies());
 
     }
@@ -68,7 +67,7 @@ public class Boss : MonoBehaviour, IDamageable {
             e._currentRoom = _currentRoom;
             e._spawnedByBoss = true;
             _enemiesCount += 1;
-            BossUI._I.ChangeName(true, _enemiesCount);
+            BossUI._I.ChangeName(true, _enemiesCount, _stage);
             yield return new WaitForSeconds(0.5f);
             //TODO here!!!
 
@@ -76,21 +75,21 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     bool _isInvincible = false;
     public void ChangeName() {
-        if (_enemiesCount > 0) BossUI._I.ChangeName(true, _enemiesCount);
+        if (_enemiesCount > 0) BossUI._I.ChangeName(true, _enemiesCount, _stage);
     }
     public void StartInvincible() {
         _isInvincible = true;
         foreach (var r in _sprites) {
             r.color = new Color(r.color.r, r.color.g, r.color.b, 0.1f);
         }
-        BossUI._I.ChangeName(true, _enemiesCount);
+        BossUI._I.ChangeName(true, _enemiesCount, _stage);
     }
     public void StopInvincible() {
         _isInvincible = false;
         foreach (var r in _sprites) {
             r.color = new Color(r.color.r, r.color.g, r.color.b, 1f);
         }
-        BossUI._I.ChangeName(false, 0);
+        BossUI._I.ChangeName(false, 0, _stage);
 
     }
     void Update() {

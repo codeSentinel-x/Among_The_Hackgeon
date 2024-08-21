@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
-    public bool _hasKey;
+    public static bool _hasKey;
     public static PlayerController _I;
     public PlayerData _data;
     public Camera _cam;
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
                             break;
                         }
                     case ItemType.Key: {
-                            GetComponent<PlayerController>()._hasKey = true;
+                            _hasKey = true;
                             break;
                         }
 

@@ -17,25 +17,45 @@ MonoBehaviour:
     _min: 1
     _max: 2
   _firstShootDelay:
-    _min: 0
-    _max: 0
+    _min: 1
+    _max: 2
   _shootDelays:
+  - _min: 0.9
+    _max: 1.1
+  - _min: 0.8
+    _max: 1
+  - _min: 0.7
+    _max: 0.9
+  - _min: 0.6
+    _max: 0.8
+  - _min: 0.5
+    _max: 0.7
+  - _min: 0.4
+    _max: 0.6
+  - _min: 0.3
+    _max: 0.5
+  - _min: 0.2
+    _max: 0.4
+  - _min: 0.2
+    _max: 0.3
+  - _min: 0.2
+    _max: 0.2
+  - _min: 0.2
+    _max: 0.2
+  - _min: 0.1
+    _max: 0.2
+  - _min: 0.1
+    _max: 0.2
   - _min: 0
-    _max: 0
-  - _min: 0.1
-    _max: 0.2
-  - _min: 0.1
-    _max: 0.2
-  - _min: 0.1
-    _max: 0.2
-  _maxHealth: 100
+    _max: 0.1
+  _maxHealth: 325
   _baseDamage:
     _min: 10
     _max: 15
   _speed:
-    _min: 5
-    _max: 8
-  _defaultWeapon: {fileID: 11400000, guid: 9030cf760b86f3b6ba7d31bb46d0884d, type: 2}
-  _countOfEnemiesToSpawn: 5
+    _min: 10
+    _max: 14
+  _defaultWeapon: {fileID: 11400000, guid: cc39a92e0c377792ba8d1d1d70d4df3e, type: 2}
+  _countOfEnemiesToSpawn: 1
   _enemyToSpawn:
-  - {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}
+  - {fileID: 7086293667160900216, guid: 81b0f03827074c545ab9a9a5f114cd11, type: 3}
