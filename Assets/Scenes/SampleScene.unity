@@ -40662,7 +40662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dungeonPrefab: {fileID: 829686269852257082, guid: 971e530cabc34a38692c0604640c2dec, type: 3}
   _playerPrefab: {fileID: 7462096845699156335, guid: b74d20172d774d6ec90f5919aed76a6d, type: 3}
-  _bossPrefab: {fileID: 0}
+  _bossPrefab: {fileID: 2342019759983836315, guid: 99ba89fa811cd649f95abf507bdee851, type: 3}
   _destroyableDoorSpritesHorizontal:
   - {fileID: 1417840712, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
   - {fileID: 274438417, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
@@ -40720,17 +40720,21 @@ MonoBehaviour:
   - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
   _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
   _bossKeyPrefab: {fileID: 0}
-  _shootSounds: []
-  _doorOpenSound: {fileID: 0}
-  _enemySpawnSound: {fileID: 0}
-  _enemyDieSound: {fileID: 0}
-  _playerDamageSound: {fileID: 0}
-  _dashSound: {fileID: 0}
-  _loopResetSound: {fileID: 0}
-  _reloadSound: {fileID: 0}
-  _playerHealSound: {fileID: 0}
-  _blankSound: {fileID: 0}
-  _weaponChangeSound: {fileID: 0}
+  _shootSounds:
+  - {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  - {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  - {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  - {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _doorOpenSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _enemySpawnSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _enemyDieSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _playerDamageSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _dashSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _loopResetSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _playerHealSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _blankSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
+  _weaponChangeSound: {fileID: 8300000, guid: 1c807b6ba8fb9544d9c02bf47d9ce979, type: 3}
 --- !u!4 &1323413207
 Transform:
   m_ObjectHideFlags: 0

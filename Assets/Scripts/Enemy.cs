@@ -118,13 +118,13 @@ public class Enemy : MonoBehaviour, IDamageable {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         if (!_spawnedByBoss) _currentRoom._enemies.Remove(this);
-        else Boss._I._enemiesCount -= 1;
+        else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
         PlaySound(GameDataManager._I._enemyDieSound);
     }
     public Transform _dieParticle;
     void OnDestroy() {
-        _currentRoom.EnemiesDie();
+        if (!_spawnedByBoss) _currentRoom.EnemiesDie();
 
     }
 }

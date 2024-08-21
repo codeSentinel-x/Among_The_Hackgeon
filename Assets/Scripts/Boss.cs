@@ -37,18 +37,17 @@ public class Boss : MonoBehaviour, IDamageable {
         _audioSource.Play();
 
     }
-    public void Awake() {
+    public void Start() {
         _I = this;
-        NextStage();
+        NextStage(false);
         Timer._objectToDestroy.Add(gameObject);
         _audioSource = GetComponent<AudioSource>();
         _sprites = GetComponentsInChildren<SpriteRenderer>();
         PlaySound(GameDataManager._I._enemySpawnSound);
     }
     public int _enemiesCount;
-    public void NextStage() {
+    public void NextStage(bool increase = true) {
         _currentStageSO = _defaultSetting[_stage];
-
         StartInvincible();
         _weapon = new(_currentStageSO._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
@@ -58,32 +57,41 @@ public class Boss : MonoBehaviour, IDamageable {
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _currentStageSO._firstShootDelay.GetValue();
         _currentSpeed = _currentStageSO._speed.GetValue();
-        _stage++;
+        StartCoroutine(SpawnEnemies());
+        if (increase) _stage++;
 
     }
     public IEnumerator SpawnEnemies() {
         for (int i = 0; i < _currentStageSO._countOfEnemiesToSpawn; i++) {
-            var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponent<Enemy>();
+            var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponentInChildren<Enemy>();
             Instantiate(GameDataManager._I._spawnParticle, e.transform.position, Quaternion.identity);
             e._currentRoom = _currentRoom;
+            e._spawnedByBoss = true;
             _enemiesCount += 1;
+            BossUI._I.ChangeName(true, _enemiesCount);
             yield return new WaitForSeconds(0.5f);
             //TODO here!!!
 
         }
     }
     bool _isInvincible = false;
+    public void ChangeName() {
+        if (_enemiesCount > 0) BossUI._I.ChangeName(true, _enemiesCount);
+    }
     public void StartInvincible() {
         _isInvincible = true;
         foreach (var r in _sprites) {
-            r.color = new Color(r.color.r, r.color.g, r.color.g, 0.5f);
+            r.color = new Color(r.color.r, r.color.g, r.color.g, 0.1f);
         }
+        BossUI._I.ChangeName(true, _enemiesCount);
     }
     public void StopInvincible() {
         _isInvincible = false;
         foreach (var r in _sprites) {
             r.color = new Color(r.color.r, r.color.g, r.color.g, 1f);
         }
+        BossUI._I.ChangeName(false, 0);
+
     }
     void Update() {
         RotateWeaponToPlayer();
@@ -151,8 +159,9 @@ public class Boss : MonoBehaviour, IDamageable {
         if (_isInvincible) return;
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
-        if (_currentHealth <= 0) NextStage();
+        if (_currentHealth <= 0) { NextStage(); Debug.Log("NextStage"); }
         PlaySound(GameDataManager._I._playerDamageSound);
+        BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
 
     }
     public void Die() {

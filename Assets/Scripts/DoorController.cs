@@ -348,9 +348,12 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
-        if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
-        d._tunnelToShow.ShowRoom();
-        d._roomToShow.ShowRoom();
+        if (d._tunnelToShow != null) {
+            if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
+            d._tunnelToShow.ShowRoom();
+            d._roomToShow.ShowRoom();
+
+        }
         //TODO
     }
 
