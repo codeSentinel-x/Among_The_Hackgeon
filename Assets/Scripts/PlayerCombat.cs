@@ -134,6 +134,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         if (_currentWeapon._bulletsInMagazine == _currentWeapon._defaultSettings._maxBullet) yield return null;
+        PlaySound(GameDataManager._I._reloadStartSound);
         _isReloading = true;
         StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
         yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
@@ -141,7 +142,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Debug.Log("Reloaded");
         _isReloading = false;
         ResetBulletDisplay();
-        PlaySound(GameDataManager._I._reloadSound);
+        PlaySound(GameDataManager._I._reloadEndSound);
 
     }
 
@@ -204,6 +205,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _blankAmount -= 1;
         Instantiate(_blankParticle, transform.position, Quaternion.identity);
         PlayerUI._I.DecaresBlank(1);
+        PlaySound(GameDataManager._I._blankSound);
         foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }
     }
     public void AddBlank(int val = 1) {

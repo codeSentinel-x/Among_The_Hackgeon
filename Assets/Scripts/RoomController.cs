@@ -18,6 +18,8 @@ public class RoomController : MonoBehaviour {
     public bool _wasInvoked;
     public Action _onPlayerEnter;
     public Action<RoomController> _onRoomClear;
+    public static Action _onCombatStart;
+    public static Action _onCombatEnd;
     public List<Enemy> _enemies;
     private int _enemyCount;
     public Transform[] _doorPrefab;

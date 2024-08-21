@@ -43,7 +43,8 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip _playerDamageSound;
     public AudioClip _dashSound;
     public AudioClip _loopResetSound;
-    public AudioClip _reloadSound;
+    public AudioClip _reloadStartSound;
+    public AudioClip _reloadEndSound;
     public AudioClip _playerHealSound;
     public AudioClip _blankSound;
     public AudioClip _weaponChangeSound;
