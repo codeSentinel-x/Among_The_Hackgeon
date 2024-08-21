@@ -37,4 +37,4 @@
 ![Screenshot 6](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/3screenshot_from_2024-08-21_22-10-40.png)
 ![Screenshot 7](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/2screenshot_from_2024-08-21_22-11-09.png)
 ![Screenshot 8](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/1screenshot_from_2024-08-21_22-12-40.png)
-![Screenshot 9]()
+![Screenshot 9](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/0screenshot_from_2024-08-21_22-12-47.png)
