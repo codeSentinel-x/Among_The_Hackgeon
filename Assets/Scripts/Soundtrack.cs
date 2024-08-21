@@ -7,6 +7,7 @@ public class Soundtrack : MonoBehaviour {
     public AudioClip[] _defaultSound;
     public AudioClip[] _combatSound;
     public AudioSource _normalSource;
+    public AudioSource _loopSource;
     public AudioSource _combatSource;
     public bool _isCombat;
     void Awake() {
@@ -22,6 +23,18 @@ public class Soundtrack : MonoBehaviour {
         if (!_normalSource.isPlaying && !_isCombat) {
             PlayNormal();
         }
+    }
+    public void PlayLoopResetApproach() {
+        _loopSource.clip = GameDataManager._I._approachingLoopReset;
+        _normalSource.volume = .2f;
+        _combatSource.volume = .2f;
+        _loopSource.Play();
+    }
+    public void PlayLoopReset() {
+        _normalSource.volume = .5f;
+        _combatSource.volume = .5f;
+        _loopSource.clip = GameDataManager._I._loopResetSound;
+        _loopSource.Play();
     }
     public void PlayCombat() {
         _normalSource.Stop();

@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     }
     public void Awake() {
-        Timer._objectToDestroy.Add(gameObject);
+        Timer._objectToDestroy.Add(transform.parent.gameObject);
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
         _target = PlayerController._I.transform;
@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
-        if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
+        if (UnityEngine.Random.Range(0f, 1f) < 0.3f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         if (!_spawnedByBoss) _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);

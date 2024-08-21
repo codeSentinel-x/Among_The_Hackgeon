@@ -110,6 +110,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     public void NextWeapon() {
         if (_isReloading) return;
+        PlaySound(GameDataManager._I._weaponChangeSound);
         _currentWeaponIndex += 1;
         if (_currentWeaponIndex >= _weapons.Count) _currentWeaponIndex = 0;
         _currentWeapon = _weapons[_currentWeaponIndex];
@@ -121,6 +122,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     public void PreviousWeapon() {
         if (_isReloading) return;
+        PlaySound(GameDataManager._I._weaponChangeSound);
         _currentWeaponIndex -= 1;
         if (_currentWeaponIndex < 0) _currentWeaponIndex = _weapons.Count - 1;
         _currentWeapon = _weapons[_currentWeaponIndex];

@@ -12,6 +12,7 @@
 <h3>-Amazing UI,</h3>
 <h3>-Tilemap created by me,</h3>
 <h3>-Other sprites (mostly generated using https://app.recraft.ai)</h3>
+<h3>-dangerApproaching, hit and hit-by-wood sounds are from https://pixabay.com</h3>
 <h3>-Item pickup system,</h3>
 <h3>-And much more!</h3>
 
