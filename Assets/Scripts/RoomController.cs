@@ -114,6 +114,7 @@ public class RoomController : MonoBehaviour {
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
         if (_roomType == RoomType.EnemyRoom && !_wasInvoked) SpawnEnemy();
+        if (_roomType == RoomType.BossRoom && !_wasInvoked) SpawnBoss();
     }
     private void SpawnEnemy() {
         if (_wave == 0) _wave = Mathf.Clamp(UnityEngine.Random.Range(1, 1 + UnityEngine.Random.Range(_roomDifficulty, _roomDifficulty + 2)), 1, 4);
@@ -131,6 +132,18 @@ public class RoomController : MonoBehaviour {
         foreach (var d in _doors) {
             // d._door.
         }
+    }
+
+    private void SpawnBoss() {
+        _wasInvoked = true;
+        wasInvokedOnClear = false;
+        var g = Instantiate(GameDataManager._I._bossPrefab, transform.position, Quaternion.identity);
+        Instantiate(GameDataManager._I._spawnParticle, transform.position, Quaternion.identity);
+        var e = g.GetComponentInChildren<Boss>();
+        e._currentRoom = this;
+
+        _enemyCount = 1;
+
     }
     public void ShowRoom() {
         if (_found) return;

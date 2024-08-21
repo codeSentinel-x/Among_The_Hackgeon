@@ -12,6 +12,7 @@ public class GameDataManager : MonoBehaviour {
     public static GameDataManager _I;
     public Transform _dungeonPrefab;
     public Transform _playerPrefab;
+    public Transform _bossPrefab;
     [Header("Door sprites")]
     public Sprite[] _destroyableDoorSpritesHorizontal;
     public Sprite[] _destroyableDoorSpritesVerticalLeft;

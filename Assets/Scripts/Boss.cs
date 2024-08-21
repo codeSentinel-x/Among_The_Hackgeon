@@ -9,6 +9,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource), typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Boss : MonoBehaviour, IDamageable {
+    public static Boss _I;
     public RoomController _currentRoom;
     public BossSO[] _defaultSetting;
     public Weapon _weapon;
@@ -30,29 +31,25 @@ public class Boss : MonoBehaviour, IDamageable {
     public AudioSource _audioSource;
     public int _stage = 0;
     private BossSO _currentStageSO;
+    public SpriteRenderer[] _sprites;
     public void PlaySound(AudioClip clip) {
         _audioSource.clip = clip;
         _audioSource.Play();
 
     }
     public void Awake() {
+        _I = this;
         NextStage();
         Timer._objectToDestroy.Add(gameObject);
         _audioSource = GetComponent<AudioSource>();
-
+        _sprites = GetComponentsInChildren<SpriteRenderer>();
         PlaySound(GameDataManager._I._enemySpawnSound);
     }
-    public int _enemiesCount; 
+    public int _enemiesCount;
     public void NextStage() {
         _currentStageSO = _defaultSetting[_stage];
-        for(int i = 0; i < _currentStageSO._countOfEnemiesToSpawn; i++){
-            var e = Instantiate(GameDataManager._I._enemyPref.GetEnemy(1), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponent<Enemy>();
-            Instantiate(GameDataManager._I._spawnParticle, e.transform.position, Quaternion.identity);
-            e._currentRoom = _currentRoom;
-            _enemiesCount += 1;
-            //TODO here!!!
-            
-        }
+
+        StartInvincible();
         _weapon = new(_currentStageSO._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
         _target = PlayerController._I.transform;
@@ -64,8 +61,34 @@ public class Boss : MonoBehaviour, IDamageable {
         _stage++;
 
     }
+    public IEnumerator SpawnEnemies() {
+        for (int i = 0; i < _currentStageSO._countOfEnemiesToSpawn; i++) {
+            var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponent<Enemy>();
+            Instantiate(GameDataManager._I._spawnParticle, e.transform.position, Quaternion.identity);
+            e._currentRoom = _currentRoom;
+            _enemiesCount += 1;
+            yield return new WaitForSeconds(0.5f);
+            //TODO here!!!
+
+        }
+    }
+    bool _isInvincible = false;
+    public void StartInvincible() {
+        _isInvincible = true;
+        foreach (var r in _sprites) {
+            r.color = new Color(r.color.r, r.color.g, r.color.g, 0.5f);
+        }
+    }
+    public void StopInvincible() {
+        _isInvincible = false;
+        foreach (var r in _sprites) {
+            r.color = new Color(r.color.r, r.color.g, r.color.g, 1f);
+        }
+    }
     void Update() {
         RotateWeaponToPlayer();
+        if (_isInvincible && _enemiesCount <= 0) StopInvincible();
+        if (!_isInvincible && _enemiesCount > 0) StartInvincible();
         if (_nextShootTime < Time.time) Shoot();
         if (_nextMoveDirectionChange > Time.time) return;
         if (Vector2.Distance(_target.position, transform.position) > _currentStageSO._playerDist) {
@@ -125,6 +148,7 @@ public class Boss : MonoBehaviour, IDamageable {
     }
 
     public void Damage(float v) {
+        if (_isInvincible) return;
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) NextStage();
