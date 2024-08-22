@@ -19,12 +19,12 @@
 <h3>-Enemies now spawn in waves</h3>
 <h3>-Rooms now have their own difficulty</h3>
 <h3>-Difficult rooms spawn chest when cleared</h3>
+<h3>-You can fight with Mega Hackongus(Boss) and explore full dungeon! (boss room is still slightly bugged)</h3>
+<h3>-soundtrack, combat soundtrack and sound effects</h3>
+<h3>-Loop</h3>
 <h3>-And much more!</h3>
 
 <h2>What's new?</h2>
-<h3>-Now you can fight with Mega Hackongus(Boss) and explore full dungeon! (boss room is still slightly bugged)</h3>
-<h3>-Added default soundtrack, combat soundtrack and sound effects</h3>
-<h3>-Added Loop</h3>
 <h3>-Fixed a lot od bugs and performance issues</h3>
 <h3>-More Unity Particle System!!!!</h3>
 <h3>-And much more!</h3>
