@@ -37,12 +37,13 @@ public class Enemy : MonoBehaviour, IDamageable {
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
         _target = PlayerController._I.transform;
-        _currentHealth = _defaultSetting._maxHealth;
+        _currentHealth = _defaultSetting._maxHealth * GameManager._gSettings._enemyMaxHealthMultiplier;
         _rgb = GetComponent<Rigidbody2D>();
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
-        _currentSpeed = _defaultSetting._speed.GetValue();
+        _currentSpeed = _defaultSetting._speed.GetValue() * GameManager._gSettings._enemySpeedMultiplier;
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.volume = GameManager._gSettings._soundsVolume;
 
         PlaySound(GameDataManager._I._enemySpawnSound);
     }
@@ -107,6 +108,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
 
     public void Damage(float v) {
+        v -= v * GameManager._gSettings._enemyDamageReductionMultiplier;
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
@@ -115,7 +117,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
-        if (UnityEngine.Random.Range(0f, 1f) < 0.3f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
+        if (UnityEngine.Random.Range(0f, 1f) < 0.3f * GameManager._gSettings._specialItemSpawnChange) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         if (!_spawnedByBoss) _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
@@ -123,7 +125,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public Transform _dieParticle;
     void OnDestroy() {
-        if (!_spawnedByBoss) if(_currentRoom != null) _currentRoom.EnemiesDie();
+        if (!_spawnedByBoss) if (_currentRoom != null) _currentRoom.EnemiesDie();
 
     }
 }

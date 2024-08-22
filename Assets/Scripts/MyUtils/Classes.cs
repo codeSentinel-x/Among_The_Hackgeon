@@ -148,11 +148,13 @@ namespace MyUtils.Classes {
         [Range(0.1f, 3f)] public float _enemySpeedMultiplier;
         [Range(0.1f, 3f)] public float _playerSpeedMultiplier;
         [Range(0.1f, 3f)] public float _enemyMaxHealthMultiplier;
+        [Range(0.1f, 3f)] public float _playerMaxHealthMultiplier;
         [Range(0.1f, 3f)] public float _specialItemSpawnChange;
         [Range(0.1f, 3f)] public float _enemyDamageMultiplier;
         [Range(0.1f, 3f)] public float _playerDamageMultiplier;
-        [Range(0.1f, 3f)] public float _playerDamageReductionMultiplier;
-        [Range(0.1f, 3f)] public float _enemyDamageReductionMultiplier;
+        [Range(0f, 1f)] public float _playerDamageReductionMultiplier;
+        [Range(0f, 1f)] public float _enemyDamageReductionMultiplier;
+        [Range(0.1f, 3f)] public float _timeMultiplier;
     }
     [Serializable]
     public class Weapon {

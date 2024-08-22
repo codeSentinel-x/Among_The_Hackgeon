@@ -36,6 +36,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     void Awake() {
         SubscribeStats();
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.volume = GameManager._gSettings._soundsVolume;
 
     }
 
@@ -51,7 +52,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     void SubscribeStats() {
         var d = GetComponent<PlayerController>()._data;
-        d._maxHealth._OnStatValueChanged += (x) => { _maxHealth = x; _currentHealth = _maxHealth * _currentHealthRatio; _onPlayerHealthChange?.Invoke(_currentHealth); };
+        d._maxHealth._OnStatValueChanged += (x) => { _maxHealth = x * GameManager._gSettings._playerMaxHealthMultiplier; _currentHealth = _maxHealth * _currentHealthRatio; _onPlayerHealthChange?.Invoke(_currentHealth); };
         d._damageIgnore._OnStatValueChanged += (x) => _damageIgnore = x;
         d._damageReduction._OnStatValueChanged += (x) => _damageReduction = x;
         d._reloadSpeedMult._OnStatValueChanged += (x) => _reloadSpeedMult = x;
@@ -59,7 +60,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._shootDelayMultiplier._OnStatValueChanged += (x) => _shootDelayMult = x;
         d._invincibleAfterDash._OnStatValueChanged += (x) => _invincibleAfterDash = x;
         PlayerMovement._onDashStart += RefreshInvincible;
-
+        
         _onPlayerHealthChange += (x) => { _currentHealthRatio = _currentHealth / _maxHealth; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
     }
 
@@ -102,6 +103,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, "Player");
+        b._bulletDamage *= GameManager._gSettings._playerDamageMultiplier;
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
         PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
@@ -171,10 +173,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (Time.time < _invincibleTime) { Debug.Log("Player is invincible"); return; }
         var v1 = v - _damageIgnore;
         var v2 = v1 - v1 * _damageReduction;
-        _currentHealth -= v2;
+        var v3 = v2 - v2 * GameManager._gSettings._playerDamageReductionMultiplier;
+        _currentHealth -= v3;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
-        Debug.Log($"Base damage: {v}, After ignore: {v1}, After reduction {v2}");
+        Debug.Log($"Base damage: {v}, After ignore: {v1}, After first reduction {v2}, after second reduction {v3}");
         _onPlayerHealthChange?.Invoke(v);
         PlaySound(GameDataManager._I._playerDamageSound);
     }
