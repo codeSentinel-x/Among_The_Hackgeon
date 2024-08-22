@@ -46,6 +46,7 @@ public class Boss : MonoBehaviour, IDamageable {
     public int _enemiesCount;
     public void NextStage(bool increase = true) {
         if (increase) _stage++;
+        if (_stage == 5) Die();
         _delayIndex = 0;
         _currentStageSO = _defaultSetting[_stage];
         StartInvincible();
@@ -159,7 +160,9 @@ public class Boss : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) {
-            if (_stage < 5) { NextStage(); Debug.Log("NextStage"); }
+            if (_stage < 5) {
+                NextStage(); Debug.Log("NextStage"); Instantiate(_dieParticle, transform.position, Quaternion.identity);
+            }
             else Die();
         }
         PlaySound(GameDataManager._I._playerDamageSound);
@@ -169,9 +172,9 @@ public class Boss : MonoBehaviour, IDamageable {
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
-        Destroy(transform.parent.gameObject);
         _currentRoom._onRoomClear?.Invoke(_currentRoom);
         PlaySound(GameDataManager._I._enemyDieSound);
+        Destroy(transform.parent.gameObject);
     }
     public Transform _dieParticle;
     void OnDestroy() {

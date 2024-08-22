@@ -32,7 +32,7 @@ public class RoomController : MonoBehaviour {
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _doors = new();
         if (_roomType == RoomType.Tunnel) return;
-        if(_roomType != RoomType.BossRoom){
+        if (_roomType != RoomType.BossRoom) {
             if (_roomType != RoomType.StartRoom) {
                 if (_checkerTransform.Find("U") != null) { var c = Instantiate(_doorPrefab[0], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
             }
@@ -45,14 +45,17 @@ public class RoomController : MonoBehaviour {
             if (_checkerTransform.Find("R") != null) { var c = Instantiate(_doorPrefab[1], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
             if (_checkerTransform.Find("D") != null) { var c = Instantiate(_doorPrefab[2], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
             if (_checkerTransform.Find("L") != null) { var c = Instantiate(_doorPrefab[3], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
-        }else{
-                var d = transform.Find("Doors");
-                var U = d.GetChild(0);
-                var Uc = U.GetComponent<DoorController>();
-                Uc.Initialize();
-                var D = d.GetChild(0);
-                var Dc = D.GetComponent<DoorController>();
-                Dc.Initialize();
+        }
+        else {
+            var d = transform.Find("Doors");
+            var U = d.GetChild(0);
+            var Uc = U.GetComponent<DoorController>();
+            Uc._roomToShow = this;
+            Uc.Initialize();
+            var D = d.GetChild(1);
+            var Dc = D.GetComponent<DoorController>();
+            Dc._roomToShow = this;
+            Dc.Initialize();
 
         }
 
@@ -84,6 +87,7 @@ public class RoomController : MonoBehaviour {
     }
     public void EnemiesDie() {
         if (wasInvokedOnClear) return;
+        if (_roomType == RoomType.BossRoom) return;
         _enemyCount -= 1;
         if (_enemyCount <= 0) {
             _wave -= 1;

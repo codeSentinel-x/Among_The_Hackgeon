@@ -723,7 +723,7 @@ MonoBehaviour:
   _stage: 0
   _sprites: []
   _enemiesCount: 0
-  _dieParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
+  _dieParticle: {fileID: 5291917192390030932, guid: c30c50123fe2730809dfb8b3b4e887eb, type: 3}
 --- !u!1 &1720959402399571864
 GameObject:
   m_ObjectHideFlags: 0
