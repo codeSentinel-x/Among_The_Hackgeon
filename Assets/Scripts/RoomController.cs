@@ -31,6 +31,7 @@ public class RoomController : MonoBehaviour {
         _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _doors = new();
+        if (_roomType == RoomType.ExitRoom) return;
         if (_roomType == RoomType.Tunnel) return;
         if (_roomType != RoomType.BossRoom) {
             if (_roomType != RoomType.StartRoom) {
@@ -116,6 +117,7 @@ public class RoomController : MonoBehaviour {
         if (other.CompareTag("Player")) {
             _onPlayerEnter?.Invoke();
             _lightsHolder.gameObject.SetActive(true);
+            if (_roomType == RoomType.ExitRoom) Timer._I.BreakLoop();
             // if (_wasInvoked) return;
             var p = other.gameObject.GetComponent<PlayerController>();
             p._currentRoom?.OnPlayerExit();

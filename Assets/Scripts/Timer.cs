@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Timer : MonoBehaviour {
     public static Action _reload;
     public static List<GameObject> _objectToDestroy;
     public float _resetTime;
+    public float _totalTime;
+    public float _playerDeaths;
     void Start() {
         _objectToDestroy = new();
         _I = this;
@@ -23,6 +26,11 @@ public class Timer : MonoBehaviour {
         if (_time < 9 && !_spawned) { Soundtrack._I.PlayLoopResetApproach(); Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform); _spawned = true; }
         if (_time <= 0) LoadScene();
     }
+    public void PlayerDie() {
+        _playerDeaths += 1;
+        LoadScene();
+    }
+    public bool _broken;
     public void LoadScene() {
         Soundtrack._I.PlayLoopReset();
         _time = _resetTime;
@@ -32,6 +40,20 @@ public class Timer : MonoBehaviour {
         _objectToDestroy = new();
         _reload?.Invoke();
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name /*== _sceneName ? _sceneName + 1 : _sceneName*/, LoadSceneMode.Single);
+    }
+    public void BreakLoop() {
+        if (_broken) return;
+        _time = 999;
+        _broken = true;
+        StartCoroutine(BreakLoopCoroutine());
+    }
+    public GameObject _endScreen;
+    IEnumerator BreakLoopCoroutine() {
+        Soundtrack._I.PlayLoopResetApproach();
+        Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform);
+        yield return new WaitForSeconds(8);
+        _endScreen.SetActive(true);
+        Soundtrack._I.PlayLoopBreak();
     }
 
 }

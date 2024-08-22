@@ -40,6 +40,13 @@ public class Soundtrack : MonoBehaviour {
         _combatSource.volume = .33f * GameManager._gSettings._musicVolume;
         _loopSource.Play();
     }
+    public void PlayLoopBreak() {
+        _loopSource.clip = GameDataManager._I._loopBreak;
+        _normalSource.volume = 0 * GameManager._gSettings._musicVolume;
+        _combatSource.volume = 0 * GameManager._gSettings._musicVolume;
+        _loopSource.Play();
+
+    }
     public void PlayLoopReset() {
         _normalSource.volume = GameManager._gSettings._musicVolume;
         _combatSource.volume = GameManager._gSettings._musicVolume;
