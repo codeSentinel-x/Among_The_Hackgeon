@@ -39533,11 +39533,11 @@ MonoBehaviour:
   _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
   _bossKeyPrefab: {fileID: 4655514918064882592}
   _shootSounds:
-  - {fileID: 8300000, guid: e0894d72d41ebbe49b525ac71176337b, type: 3}
-  - {fileID: 8300000, guid: e0894d72d41ebbe49b525ac71176337b, type: 3}
-  - {fileID: 8300000, guid: e0894d72d41ebbe49b525ac71176337b, type: 3}
-  - {fileID: 8300000, guid: e0894d72d41ebbe49b525ac71176337b, type: 3}
-  _doorOpenSound: {fileID: 8300000, guid: 1064f0a2527eb6cc59052306a63aecbd, type: 3}
+  - {fileID: 8300000, guid: b02661b1983843f4a8e25854215c13f1, type: 3}
+  - {fileID: 8300000, guid: b02661b1983843f4a8e25854215c13f1, type: 3}
+  - {fileID: 8300000, guid: b02661b1983843f4a8e25854215c13f1, type: 3}
+  - {fileID: 8300000, guid: b02661b1983843f4a8e25854215c13f1, type: 3}
+  _doorOpenSound: {fileID: 8300000, guid: 0c4f452a658af404d9e375bd5ee7bd63, type: 3}
   _enemySpawnSound: {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
   _enemyDieSound: {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
   _enemyDamageSound: {fileID: 0}
@@ -39545,12 +39545,12 @@ MonoBehaviour:
   _dashSound: {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
   _loopResetSound: {fileID: 8300000, guid: 1064f0a2527eb6cc59052306a63aecbd, type: 3}
   _approachingLoopReset: {fileID: 8300000, guid: a02c66a834e307766ab6eafd140b5c69, type: 3}
-  _reloadStartSound: {fileID: 0}
-  _reloadEndSound: {fileID: 0}
+  _reloadStartSound: {fileID: 8300000, guid: 5034636124c582b4893800f869124732, type: 3}
+  _reloadEndSound: {fileID: 8300000, guid: 8661ec677881a5a4ea46398c20eb9e79, type: 3}
   _playerHealSound: {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
   _blankSound: {fileID: 8300000, guid: cfa16117c62143e4c9055eb2c083673f, type: 3}
-  _weaponChangeSound: {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
-  _pickupSound: {fileID: 0}
+  _weaponChangeSound: {fileID: 8300000, guid: b4156ac6286bbf7478ae9be59517bae0, type: 3}
+  _pickupSound: {fileID: 8300000, guid: 5034636124c582b4893800f869124732, type: 3}
 --- !u!4 &1323413207
 Transform:
   m_ObjectHideFlags: 0

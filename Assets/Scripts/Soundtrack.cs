@@ -18,10 +18,17 @@ public class Soundtrack : MonoBehaviour {
         RoomController._onCombatEnd += () => { StopCombat(); PlayNormal(); };
         _normalSource.volume = GameManager._gSettings._musicVolume;
         _combatSource.volume = GameManager._gSettings._musicVolume;
-        _loopSource.volume = GameManager._gSettings._musicVolume; 
+        _loopSource.volume = GameManager._gSettings._musicVolume;
         _combatSource.Stop();
+        GameManager._onVolumeChange += ChangeVolume;
     }
 
+    public void ChangeVolume() {
+        _normalSource.volume = GameManager._gSettings._musicVolume;
+        _combatSource.volume = GameManager._gSettings._musicVolume;
+        _loopSource.volume = GameManager._gSettings._musicVolume;
+
+    }
     void Update() {
         if (!_normalSource.isPlaying && !_isCombat) {
             PlayNormal();

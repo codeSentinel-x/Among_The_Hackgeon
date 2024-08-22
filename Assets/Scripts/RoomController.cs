@@ -32,18 +32,29 @@ public class RoomController : MonoBehaviour {
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _doors = new();
         if (_roomType == RoomType.Tunnel) return;
-        if (_roomType != RoomType.StartRoom) {
-            if (_checkerTransform.Find("U") != null) { var c = Instantiate(_doorPrefab[0], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
+        if(_roomType != RoomType.BossRoom){
+            if (_roomType != RoomType.StartRoom) {
+                if (_checkerTransform.Find("U") != null) { var c = Instantiate(_doorPrefab[0], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
+            }
+            else {
+                var d = transform.Find("Doors");
+                var u = d.GetChild(0);
+                var c = u.GetComponent<DoorController>();
+                c.Initialize();
+            }
+            if (_checkerTransform.Find("R") != null) { var c = Instantiate(_doorPrefab[1], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
+            if (_checkerTransform.Find("D") != null) { var c = Instantiate(_doorPrefab[2], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
+            if (_checkerTransform.Find("L") != null) { var c = Instantiate(_doorPrefab[3], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
+        }else{
+                var d = transform.Find("Doors");
+                var U = d.GetChild(0);
+                var Uc = U.GetComponent<DoorController>();
+                Uc.Initialize();
+                var D = d.GetChild(0);
+                var Dc = D.GetComponent<DoorController>();
+                Dc.Initialize();
+
         }
-        else {
-            var d = transform.Find("Doors");
-            var u = d.GetChild(0);
-            var c = u.GetComponent<DoorController>();
-            c.Initialize();
-        }
-        if (_checkerTransform.Find("R") != null) { var c = Instantiate(_doorPrefab[1], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("R").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
-        if (_checkerTransform.Find("D") != null) { var c = Instantiate(_doorPrefab[2], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
-        if (_checkerTransform.Find("L") != null) { var c = Instantiate(_doorPrefab[3], _doorsTransform).GetComponent<DoorController>(); _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("L").GetComponent<Rigidbody2D>(), _door = c }); c._roomToShow = this; c._openedByDefault = true; c._doorType = DoorOpenType.AlwaysOpen; }
 
         foreach (var c in _doors) {
             var col = Physics2D.OverlapCircle(c._checker.position - new Vector2(0, c._checker.name == "D" ? 5 : 0), 2, _roomLayer);

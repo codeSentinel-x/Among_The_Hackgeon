@@ -2,6 +2,7 @@ using MyUtils.Enums;
 using MyUtils.Interfaces;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
     public RoomController _roomToShow;
@@ -12,6 +13,7 @@ public class DoorController : MonoBehaviour {
     void Start() {
         // _roomToShow2 = transform.parent.GetComponent<RoomController>();
         // Initialize();
+        GetComponent<AudioSource>().volume = GameManager._gSettings._soundsVolume;
     }
     void Close() {
         // GetComponent<SpriteRenderer>().
@@ -148,7 +150,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); return; }
+        if (_stage == 0) { OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
@@ -285,7 +287,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        OpenDoor(); return;
+        OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return;
 
     }
 }
@@ -378,7 +380,7 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
     public void Damage(float v) {
         if (!PlayerController._hasKey) return;
         if (_opened || _hidden) return;
-        OpenDoor(); return;
+        OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return;
 
     }
 }

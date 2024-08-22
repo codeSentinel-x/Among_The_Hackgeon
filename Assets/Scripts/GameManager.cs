@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Classes;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public static GameSettings _gSettings;
+    public static Action _onVolumeChange;
     public GameObject _settings;
     void Awake() {
         try { _gSettings = SaveSystem.Load<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings"); } catch (System.Exception) { }
@@ -61,8 +63,8 @@ public class GameManager : MonoBehaviour {
             values[i].transform.parent.GetComponentInChildren<Slider>().value = v;
         }
     }
-    public void ChangeMusicVolume(float value) { _gSettings._musicVolume = value; values[0].text = value.ToString("f2"); }
-    public void ChangeSoundVolume(float value) { _gSettings._soundsVolume = value; values[1].text = value.ToString("f2"); }
+    public void ChangeMusicVolume(float value) { _onVolumeChange?.Invoke(); _gSettings._musicVolume = value; values[0].text = value.ToString("f2"); }
+    public void ChangeSoundVolume(float value) { _onVolumeChange?.Invoke(); _gSettings._soundsVolume = value; values[1].text = value.ToString("f2"); }
     public void ChangeEnemySpeed(float value) { _gSettings._enemySpeedMultiplier = value; values[2].text = value.ToString("f2"); }
     public void ChangeEnemyDamage(float value) { _gSettings._enemyDamageMultiplier = value; values[3].text = value.ToString("f2"); }
     public void ChangeEnemyReduction(float value) { _gSettings._enemyDamageReductionMultiplier = value; values[4].text = value.ToString("f2"); }
