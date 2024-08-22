@@ -143,17 +143,31 @@ namespace MyUtils.Classes {
     }
     [Serializable]
     public class GameSettings {
+        public GameSettings(float m, float s, float eS, float eD, float eR, float eH, float iS, float pS, float pD, float pR, float pH, float t) {
+            _musicVolume = m;
+            _soundsVolume = s;
+            _enemySpeedMultiplier = eS;
+            _enemyDamageMultiplier = eD;
+            _enemyDamageReductionMultiplier = eR;
+            _enemyMaxHealthMultiplier = eH;
+            _specialItemSpawnChange = iS;
+            _playerSpeedMultiplier = pS;
+            _playerDamageMultiplier = pD;
+            _playerDamageReductionMultiplier = pR;
+            _playerMaxHealthMultiplier = pH;
+            _timeMultiplier = t;
+        }
         [Range(0, 1f)] public float _musicVolume;
         [Range(0, 1f)] public float _soundsVolume;
         [Range(0.1f, 3f)] public float _enemySpeedMultiplier;
-        [Range(0.1f, 3f)] public float _playerSpeedMultiplier;
-        [Range(0.1f, 3f)] public float _enemyMaxHealthMultiplier;
-        [Range(0.1f, 3f)] public float _playerMaxHealthMultiplier;
-        [Range(0.1f, 3f)] public float _specialItemSpawnChange;
         [Range(0.1f, 3f)] public float _enemyDamageMultiplier;
+        [Range(0f, 1f)] public float _enemyDamageReductionMultiplier;
+        [Range(0.1f, 3f)] public float _enemyMaxHealthMultiplier;
+        [Range(0.1f, 3f)] public float _specialItemSpawnChange;
+        [Range(0.1f, 3f)] public float _playerSpeedMultiplier;
         [Range(0.1f, 3f)] public float _playerDamageMultiplier;
         [Range(0f, 1f)] public float _playerDamageReductionMultiplier;
-        [Range(0f, 1f)] public float _enemyDamageReductionMultiplier;
+        [Range(0.1f, 3f)] public float _playerMaxHealthMultiplier;
         [Range(0.1f, 3f)] public float _timeMultiplier;
     }
     [Serializable]
