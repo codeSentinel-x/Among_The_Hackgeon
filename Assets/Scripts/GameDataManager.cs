@@ -40,6 +40,7 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip _doorOpenSound;
     public AudioClip _enemySpawnSound;
     public AudioClip _enemyDieSound;
+    public AudioClip _enemyDamageSound;
     public AudioClip _playerDamageSound;
     public AudioClip _dashSound;
     public AudioClip _loopResetSound;

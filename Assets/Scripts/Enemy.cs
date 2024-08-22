@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
-        b._bulletDamage = _defaultSetting._baseDamage.GetValue();
+        b._bulletDamage = _defaultSetting._baseDamage.GetValue() * GameManager._gSettings._enemyDamageMultiplier;
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(1);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
-        PlaySound(GameDataManager._I._playerDamageSound);
+        PlaySound(GameDataManager._I._enemyDamageSound);
 
     }
     public void Die() {
@@ -123,7 +123,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     }
     public Transform _dieParticle;
     void OnDestroy() {
-        if (!_spawnedByBoss) _currentRoom.EnemiesDie();
+        if (!_spawnedByBoss) if(_currentRoom != null) _currentRoom.EnemiesDie();
 
     }
 }
