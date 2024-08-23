@@ -190,6 +190,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private void Die() {
         Debug.Log("Player died");
         Timer._I.LoadScene();
+        Soundtrack._I.CombatEnd();
     }
     public void AddWeapon(WeaponSO _base) {
         _weapons.Add(new(_base));

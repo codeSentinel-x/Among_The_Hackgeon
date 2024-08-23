@@ -20,10 +20,13 @@ public class GameManager : MonoBehaviour {
         }
         DontDestroyOnLoad(this.gameObject);
         DontDestroyOnLoad(_help);
+        DontDestroyOnLoad(_readme);
 
     }
 
     public GameObject _help;
+    public GameObject _readme;
+    public bool _isReadmeShowed;
     public bool _isPaused;
     public bool _isHelpShowed;
     void Update() {
@@ -67,6 +70,15 @@ public class GameManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.F5)) {
             if (SceneManager.GetActiveScene().buildIndex != 0) PlayerController._I.GetComponent<PlayerCombat>().Damage(1000);
+        }
+        if (Input.GetKeyDown(KeyCode.F6)) {
+            if (_isReadmeShowed) {
+                _readme.SetActive(false);
+                _isReadmeShowed = false;
+            } else {
+                _isReadmeShowed = true;
+                _readme.SetActive(true);
+            }
         }
     }
     public void OpenSetting() {

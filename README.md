@@ -1,6 +1,9 @@
 <h1>Welcome to my project (Among the hackgeon) created for arcade game jam</h1>
 <h2>This is amazing dungeon game, where your goal is to find a way to escape</h2>
 <h3>Dungeon is looped and reset every 333 seconds, fight enemies, look for hidden thing and much more. Good luck</h3>
+<h3>If you want to check controls just press F1 in game</h3>
+<h3>To enter boss room you need key that spawn sometimes from chest</h3>
+<h3>You do not loose key after death or loop reset</h3>
 <h3>Current content:</h3>
 <h3>-Player movement</h3>
 <h3>-Player shooting</h3>

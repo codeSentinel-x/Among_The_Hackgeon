@@ -70,7 +70,7 @@ MonoBehaviour:
     _min: 10
     _max: 15
   _defaultWeapon: {fileID: 11400000, guid: 8a9fde53c60c08e2ca70aa20c5dd4719, type: 2}
-  _countOfEnemiesToSpawn: 1
+  _countOfEnemiesToSpawn: 7
   _enemyToSpawn:
   - {fileID: 7086293667160900216, guid: a558a77254589727f9f34e8ff605bc32, type: 3}
   - {fileID: 7086293667160900216, guid: 752d3c009b9c991fda11473c9d32684e, type: 3}

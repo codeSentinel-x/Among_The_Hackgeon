@@ -66,7 +66,7 @@ public class Soundtrack : MonoBehaviour {
         Debug.Log("CombatStart");
         _normalSource.Stop();
         _isCombat = true;
-        // _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_combatSound);
+        if (_combatSource.clip == null) _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_combatSound);
         _combatSource.Play();
     }
     public void StopCombat() {

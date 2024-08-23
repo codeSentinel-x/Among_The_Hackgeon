@@ -36,6 +36,6 @@ MonoBehaviour:
     _min: 4
     _max: 6
   _defaultWeapon: {fileID: 11400000, guid: f20aee24eddd36dacaf0abbd631a2139, type: 2}
-  _countOfEnemiesToSpawn: 1
+  _countOfEnemiesToSpawn: 5
   _enemyToSpawn:
   - {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}
