@@ -67,8 +67,8 @@ MonoBehaviour:
     _min: 10
     _max: 15
   _speed:
-    _min: 7
-    _max: 12
+    _min: 10
+    _max: 15
   _defaultWeapon: {fileID: 11400000, guid: 8a9fde53c60c08e2ca70aa20c5dd4719, type: 2}
   _countOfEnemiesToSpawn: 1
   _enemyToSpawn:

@@ -48,10 +48,13 @@ public class Timer : MonoBehaviour {
         StartCoroutine(BreakLoopCoroutine());
     }
     public GameObject _endScreen;
+    public GameObject _boomParticle;
     IEnumerator BreakLoopCoroutine() {
         Soundtrack._I.PlayLoopResetApproach();
         Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform);
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(7);
+        Instantiate(_boomParticle, PlayerController._I.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(1);
         _endScreen.SetActive(true);
         Soundtrack._I.PlayLoopBreak();
     }

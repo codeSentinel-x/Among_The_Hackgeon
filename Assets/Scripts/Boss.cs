@@ -169,6 +169,8 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     public void Die() {
         Instantiate(_dieParticle, transform.position, Quaternion.identity);
+        Soundtrack._I.PlayBossDie();
+        Soundtrack._I.CombatEnd();
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         _currentRoom._onRoomClear?.Invoke(_currentRoom);
         PlaySound(GameDataManager._I._enemyDieSound);

@@ -52,6 +52,7 @@ public class GameDataManager : MonoBehaviour {
     public AudioClip _weaponChangeSound;
     public AudioClip _pickupSound;
     public AudioClip _loopBreak;
+    public AudioClip _bossDie;
     public AudioClip GetWeaponSound(WeaponType type) {
         switch (type) {
             case WeaponType.Single: {

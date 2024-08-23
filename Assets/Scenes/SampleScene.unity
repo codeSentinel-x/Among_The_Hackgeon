@@ -17348,7 +17348,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You did you, you escaped the loop.
+  m_text: '<size=80><b>Great job hacker!</b></size>
+
+    You did you, you escaped
+    the loop!
+
+    Hakkunn will be pround!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17653,7 +17658,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &782794180
 MonoBehaviour:
@@ -39113,8 +39118,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
-  m_Resource: {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -39420,8 +39425,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
-  m_Resource: {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -39666,6 +39671,7 @@ MonoBehaviour:
   _weaponChangeSound: {fileID: 8300000, guid: b4156ac6286bbf7478ae9be59517bae0, type: 3}
   _pickupSound: {fileID: 8300000, guid: 5034636124c582b4893800f869124732, type: 3}
   _loopBreak: {fileID: 8300000, guid: 0b433512473ac4f30b0e869699e34c19, type: 3}
+  _bossDie: {fileID: 8300000, guid: 0c4f452a658af404d9e375bd5ee7bd63, type: 3}
 --- !u!4 &1323413207
 Transform:
   m_ObjectHideFlags: 0
@@ -40023,7 +40029,9 @@ MonoBehaviour:
   _resetTime: 333
   _totalTime: 0
   _playerDeaths: 0
+  _broken: 0
   _endScreen: {fileID: 1845485916}
+  _boomParticle: {fileID: 7969108539683620650, guid: c30c50123fe2730809dfb8b3b4e887eb, type: 3}
 --- !u!4 &1519329394
 Transform:
   m_ObjectHideFlags: 0
@@ -40072,7 +40080,6 @@ MonoBehaviour:
   index: 0
   _defaultSound:
   - {fileID: 8300000, guid: 655411d4dc5044d369d0988d68e06aef, type: 3}
-  - {fileID: 8300000, guid: fa7a8bfa79c274e4990b7299b26a9603, type: 3}
   - {fileID: 8300000, guid: fa7a8bfa79c274e4990b7299b26a9603, type: 3}
   - {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
   - {fileID: 8300000, guid: efeb5e4a843e64e6b9a9fa21c7dec041, type: 3}
@@ -40436,7 +40443,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1845485920
 RectTransform:

@@ -96,7 +96,8 @@ public class RoomController : MonoBehaviour {
                 wasInvokedOnClear = true;
                 if (_roomDifficulty == 5) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
                 else if (_roomDifficulty >= 3) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity);
-                _onCombatEnd?.Invoke();
+                // _onCombatEnd?.Invoke();
+                Soundtrack._I.CombatEnd();
 
             } else {
                 SpawnEnemy();
@@ -130,8 +131,8 @@ public class RoomController : MonoBehaviour {
         // contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         Debug.Log($"Player entered {gameObject.name}");
-        if (_roomType == RoomType.EnemyRoom && !_wasInvoked) { SpawnEnemy(); _onCombatStart?.Invoke(); }
-        if (_roomType == RoomType.BossRoom && !_wasInvoked) SpawnBoss();
+        if (_roomType == RoomType.EnemyRoom && !_wasInvoked) { Soundtrack._I.PlayCombat(); SpawnEnemy(); }
+        if (_roomType == RoomType.BossRoom && !_wasInvoked) { SpawnBoss(); }
     }
     private void SpawnEnemy() {
         if (_wave == 0) _wave = Mathf.Clamp(UnityEngine.Random.Range(1, 1 + UnityEngine.Random.Range(_roomDifficulty, _roomDifficulty + 2)), 1, 4);
@@ -152,6 +153,7 @@ public class RoomController : MonoBehaviour {
     }
 
     private void SpawnBoss() {
+        Soundtrack._I.PlayCombat();
         Timer._I._time += 180;
         _wasInvoked = true;
         wasInvokedOnClear = false;

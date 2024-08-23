@@ -15,7 +15,7 @@ public class Soundtrack : MonoBehaviour {
     }
     void Start() {
         RoomController._onCombatStart += PlayCombat;
-        RoomController._onCombatEnd += () => { StopCombat(); PlayNormal(); };
+        RoomController._onCombatEnd += CombatEnd;
         _normalSource.volume = GameManager._gSettings._musicVolume;
         _combatSource.volume = GameManager._gSettings._musicVolume;
         _loopSource.volume = GameManager._gSettings._musicVolume;
@@ -47,6 +47,15 @@ public class Soundtrack : MonoBehaviour {
         _loopSource.Play();
 
     }
+
+    public void CombatEnd() {
+        StopCombat();
+    }
+    public void PlayBossDie() {
+        _loopSource.clip = GameDataManager._I._bossDie;
+        _loopSource.Play();
+
+    }
     public void PlayLoopReset() {
         _normalSource.volume = GameManager._gSettings._musicVolume;
         _combatSource.volume = GameManager._gSettings._musicVolume;
@@ -54,12 +63,14 @@ public class Soundtrack : MonoBehaviour {
         _loopSource.Play();
     }
     public void PlayCombat() {
+        Debug.Log("CombatStart");
         _normalSource.Stop();
         _isCombat = true;
-        _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_combatSound);
+        // _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_combatSound);
         _combatSource.Play();
     }
     public void StopCombat() {
+        Debug.Log("CombatEnd");
         _combatSource.Stop();
         _isCombat = false;
         _normalSource.Play();

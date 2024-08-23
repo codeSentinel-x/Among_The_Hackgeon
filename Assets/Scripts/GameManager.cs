@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
             Exit();
         }
         if (Input.GetKeyDown(KeyCode.F5)) {
-            if (SceneManager.GetActiveScene().buildIndex != 0) Timer._I.LoadScene();
+            if (SceneManager.GetActiveScene().buildIndex != 0) PlayerController._I.GetComponent<PlayerCombat>().Damage(1000);
         }
     }
     public void OpenSetting() {
