@@ -53,8 +53,7 @@ public class PlayerMovement : MonoBehaviour {
                 _currentStamina += Time.deltaTime * _stamRegPerSec;
                 PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
                 _onStaminaChange?.Invoke(_currentStamina);
-            }
-            else {
+            } else {
                 _staminaCounter -= Time.deltaTime;
             }
         }

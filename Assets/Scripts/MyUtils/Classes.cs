@@ -194,8 +194,7 @@ namespace MyUtils.Classes {
             if (_allBullets >= _defaultSettings._maxBullet) {
                 _bulletsInMagazine = _defaultSettings._maxBullet;
                 _allBullets -= _bulletsInMagazine;
-            }
-            else {
+            } else {
                 _bulletsInMagazine = _allBullets;
                 _allBullets = 0;
             }

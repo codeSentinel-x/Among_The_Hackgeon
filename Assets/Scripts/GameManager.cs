@@ -19,7 +19,55 @@ public class GameManager : MonoBehaviour {
             SaveSettings();
         }
         DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(_help);
 
+    }
+
+    public GameObject _help;
+    public bool _isPaused;
+    public bool _isHelpShowed;
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            if (_isHelpShowed) {
+                _help.SetActive(false);
+                _isHelpShowed = false;
+                Unpause();
+            } else {
+                _isHelpShowed = true;
+                _help.SetActive(true);
+                Pause();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F2)) {
+            if (_isPaused) {
+                _isPaused = false;
+                Unpause();
+            } else {
+                _isPaused = true;
+                Pause();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F3)) {
+            if (SceneManager.GetActiveScene().buildIndex != 0) {
+                LoadStartScreen();
+                Cursor.visible = true;
+                if (_isHelpShowed) {
+                    _help.SetActive(false);
+                    _isHelpShowed = false;
+                    Unpause();
+                }
+                if (_isPaused) {
+                    _isPaused = false;
+                    Unpause();
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F4)) {
+            Exit();
+        }
+        if (Input.GetKeyDown(KeyCode.F5)) {
+            if (SceneManager.GetActiveScene().buildIndex != 0) Timer._I.LoadScene();
+        }
     }
     public void OpenSetting() {
         _settings.SetActive(true);

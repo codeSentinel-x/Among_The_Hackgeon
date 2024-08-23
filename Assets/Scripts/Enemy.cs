@@ -54,8 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (Vector2.Distance(_target.position, transform.position) > _defaultSetting._playerDist) {
             _moveDirection = _target.position - transform.position;
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 2f);
-        }
-        else {
+        } else {
             Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 6, _currentRoom.transform.position.y + 6));
             _moveDirection = newVec - (Vector2)transform.position;
             _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 2f);

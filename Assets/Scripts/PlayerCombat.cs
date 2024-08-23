@@ -60,7 +60,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         d._shootDelayMultiplier._OnStatValueChanged += (x) => _shootDelayMult = x;
         d._invincibleAfterDash._OnStatValueChanged += (x) => _invincibleAfterDash = x;
         PlayerMovement._onDashStart += RefreshInvincible;
-        
+
         _onPlayerHealthChange += (x) => { _currentHealthRatio = _currentHealth / _maxHealth; PlayerUI._I.RefreshHealth(_currentHealth, _maxHealth); };
     }
 
@@ -85,8 +85,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private void HandleInput() {
         if (_currentWeapon._defaultSettings._auto) {
             if (Input.GetKey(KeyCode.Mouse0)) Shoot();
-        }
-        else {
+        } else {
             if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
         }
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());

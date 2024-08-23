@@ -22,8 +22,7 @@ public class BulletMono : MonoBehaviour {
         float dist = Vector3.Distance(_startPos, transform.position);
         if (dist < _maxDist) {
             _rgb.velocity = _speed * transform.up; //* transform.rotation;
-        }
-        else Destroy(transform.parent.gameObject);
+        } else Destroy(transform.parent.gameObject);
 
     }
     public void Setup(BulletSetting s, float bSMult, LayerMask layerToIgnore, string tag) {
@@ -44,8 +43,7 @@ public class BulletMono : MonoBehaviour {
         IDamageable unit = col.gameObject.GetComponent<IDamageable>();
         if (unit != null) {
             unit.Damage(_bulletDamage);
-        }
-        else {
+        } else {
             Instantiate(GameDataManager._I._collisionParticle, transform.position, quaternion.identity);
         }
         Destroy(transform.parent.gameObject);

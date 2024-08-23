@@ -15,10 +15,9 @@ public class BossUI : MonoBehaviour {
     }
     public void ChangeName(bool invincible, int enemiesCount, int stage) {
         if (invincible) {
-            _nameDisplay.text = $"(INVINCIBLE) Mega Hackongus Enemies left:{enemiesCount} Stage: {stage+1}/ 5";
-        }
-        else {
-            _nameDisplay.text = $"Mega Hackongus Stage: {stage+1}/ 5";
+            _nameDisplay.text = $"(INVINCIBLE) Mega Hackongus Enemies left:{enemiesCount} Stage: {stage + 1}/ 5";
+        } else {
+            _nameDisplay.text = $"Mega Hackongus Stage: {stage + 1}/ 5";
         }
     }
     public void UpdateHealth(float current, float max) {

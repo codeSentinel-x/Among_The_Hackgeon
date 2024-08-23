@@ -20,8 +20,7 @@ public class Chest : MonoBehaviour, IDamageable {
             Instantiate(MyRandom.GetFromArray<Transform>(GameDataManager._I._specialItemPrefab), transform.position + new Vector3(Random.Range(1f, -3f), 0), Quaternion.identity);
             Instantiate(MyRandom.GetFromArray<Transform>(GameDataManager._I._UtilityItemPrefab), transform.position + new Vector3(Random.Range(1f, -3f), 2), Quaternion.identity);
             Instantiate(MyRandom.GetFromArray<Transform>(GameDataManager._I._UtilityItemPrefab), transform.position + new Vector3(Random.Range(1f, -3f), 2), Quaternion.identity);
-        }
-        else {
+        } else {
             Instantiate(GameDataManager._I._bossKeyPrefab, transform.position, Quaternion.identity);
         }
         GetComponent<SpriteRenderer>().enabled = false;
