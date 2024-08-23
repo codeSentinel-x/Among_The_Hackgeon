@@ -143,7 +143,7 @@ namespace MyUtils.Classes {
     }
     [Serializable]
     public class GameSettings {
-        public GameSettings(float m, float s, float eS, float eD, float eR, float eH, float iS, float pS, float pD, float pR, float pH, float t) {
+        public GameSettings(float m, float s, float eS, float eD, float eR, float eH, float iS, float pS, float pD, float pR, float pH, float t, int fR) {
             _musicVolume = m;
             _soundsVolume = s;
             _enemySpeedMultiplier = eS;
@@ -156,6 +156,7 @@ namespace MyUtils.Classes {
             _playerDamageReductionMultiplier = pR;
             _playerMaxHealthMultiplier = pH;
             _timeMultiplier = t;
+            _targetFrameRate = fR;
         }
         [Range(0, 1f)] public float _musicVolume;
         [Range(0, 1f)] public float _soundsVolume;
@@ -169,6 +170,7 @@ namespace MyUtils.Classes {
         [Range(0f, 1f)] public float _playerDamageReductionMultiplier;
         [Range(0.1f, 3f)] public float _playerMaxHealthMultiplier;
         [Range(0.1f, 3f)] public float _timeMultiplier;
+        public int _targetFrameRate;
     }
     [Serializable]
     public class Weapon {

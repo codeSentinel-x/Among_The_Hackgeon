@@ -14,15 +14,12 @@ public class GameManager : MonoBehaviour {
     void Awake() {
         try { _gSettings = SaveSystem.Load<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings"); } catch (System.Exception) { }
         if (_gSettings == null) {
-            _gSettings = new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1);
+            _gSettings = new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 60);
             Debug.Log("Creating Save");
             SaveSettings();
         }
         DontDestroyOnLoad(this.gameObject);
 
-    }
-    public void LoadGame() {
-        SceneManager.LoadScene(1);
     }
     public void OpenSetting() {
         _settings.SetActive(true);
@@ -41,20 +38,38 @@ public class GameManager : MonoBehaviour {
         values[9].text = _gSettings._playerDamageReductionMultiplier.ToString("f2"); values[9].transform.parent.GetComponentInChildren<Slider>().value = _gSettings._playerDamageReductionMultiplier;
         values[10].text = _gSettings._playerMaxHealthMultiplier.ToString("f2"); values[10].transform.parent.GetComponentInChildren<Slider>().value = _gSettings._playerMaxHealthMultiplier;
         values[11].text = _gSettings._timeMultiplier.ToString("f2"); values[11].transform.parent.GetComponentInChildren<Slider>().value = _gSettings._timeMultiplier;
+        _frameRateDisplay.text = _gSettings._targetFrameRate.ToString();
     }
-    public void CloseSettingWithoutSaving() {
-        _settings.SetActive(false);
+
+    public TextMeshProUGUI _frameRateDisplay;
+    public void FrameRateIncrease() {
+        _gSettings._targetFrameRate += 10;
+        _frameRateDisplay.text = _gSettings._targetFrameRate.ToString();
+        Application.targetFrameRate = _gSettings._targetFrameRate;
     }
+    public void FrameRateDecrease() {
+        _gSettings._targetFrameRate -= 10;
+        if (_gSettings._targetFrameRate < 30) _gSettings._targetFrameRate = 30;
+        _frameRateDisplay.text = _gSettings._targetFrameRate.ToString();
+        Application.targetFrameRate = _gSettings._targetFrameRate;
+
+    }
+    public static void Pause() => Time.timeScale = 0;
+    public static void Unpause() => Time.timeScale = 1;
+    public void LoadGame() => SceneManager.LoadScene(1);
+    public void LoadStartScreen() => SceneManager.LoadScene(0);
+    public static void Exit() => Application.Quit();
+
+    public void CloseSettingWithoutSaving() => _settings.SetActive(false);
     public void CloseSettingWithSave() {
         _settings.SetActive(false);
         SaveSettings();
     }
-    public void SaveSettings() {
-        SaveSystem.Save<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings", _gSettings);
-    }
+    public void SaveSettings() => SaveSystem.Save<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings", _gSettings);
+
     public TextMeshProUGUI[] values;
     public void RestoreDefault() {
-        _gSettings = new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1);
+        _gSettings = new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 60);
         for (int i = 0; i < values.Length; i++) {
             var v = 1f;
             if (i < 2) v = 0.5f;
@@ -62,6 +77,9 @@ public class GameManager : MonoBehaviour {
             values[i].text = v.ToString("f2");
             values[i].transform.parent.GetComponentInChildren<Slider>().value = v;
         }
+        _frameRateDisplay.text = _gSettings._targetFrameRate.ToString();
+        _onVolumeChange?.Invoke();
+        _onVolumeChange?.Invoke();
     }
     public void ChangeMusicVolume(float value) { _onVolumeChange?.Invoke(); _gSettings._musicVolume = value; values[0].text = value.ToString("f2"); }
     public void ChangeSoundVolume(float value) { _onVolumeChange?.Invoke(); _gSettings._soundsVolume = value; values[1].text = value.ToString("f2"); }
