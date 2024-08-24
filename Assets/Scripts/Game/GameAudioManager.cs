@@ -58,5 +58,6 @@ public class GameAudioManager : MonoBehaviour {
         s.volume = GameManager._gSettings._soundsVolume;
         s.Play();
     }
+    public AudioClip GetNormalByIndex(int i) => _defaultSound[i];
 
 }

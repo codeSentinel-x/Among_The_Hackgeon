@@ -25,6 +25,51 @@ namespace MyUtils.Classes {
         public PlayerStat __bulletSpeedMult;
         public PlayerStat _shootDelayMultiplier;
     }
+    public class MessagesHolder {
+        public string tag;
+        public bool isEnabled = false;
+        public List<Message> messages = new();
+        public int totalCount = 0;
+        public float lastOccurrence = 0;
+        public MessagesHolder(string t, string fM) {
+            tag = t;
+            messages = new() { new Message(fM, 0, Time.time) };
+        }
+        public void AddMessage(string message, bool collapse) {
+            if (collapse) {
+                bool found = false;
+                foreach (var m in messages) {
+                    if (m.content == message) {
+                        totalCount++;
+                        m.count++;
+                        m.lastOccurrence = Time.time;
+                        lastOccurrence = Time.time;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    messages.Add(new Message(message, 0, Time.time));
+                    totalCount += 1;
+                    lastOccurrence = Time.time;
+                }
+            } else {
+                messages.Add(new Message(message, 0, Time.time));
+                totalCount += 1;
+                lastOccurrence = Time.time;
+            }
+        }
+    }
+    public class Message {
+        public Message(string c, int i, float l) {
+            content = c;
+            count = i;
+            lastOccurrence = l;
+        }
+        public string content;
+        public int count;
+        public float lastOccurrence;
+    }
     [Serializable]
     public class PlayerStat {
 
@@ -92,23 +137,6 @@ namespace MyUtils.Classes {
 
     }
 
-    [Serializable]
-    public class GridElement {
-        public string _name;
-        public bool _isWalkable;
-        public GridElement(int x, int y, string n, bool isW, Content c) {
-            _pos = new(x, y);
-            _content = c;
-            _name = n;
-            _isWalkable = isW;
-        }
-        public int2 _pos;
-        public Content _content;
-    }
-    [Serializable]
-    public class Content {
-        public string _name;
-    }
     [Serializable]
     public class GameSettings {
         public GameSettings(float m, float s, float eS, float eD, float eR, float eH, float iS, float pS, float pD, float pR, float pH, float t, int fR) {

@@ -4,7 +4,6 @@ using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour, IDamageable {
     public RoomController _currentRoom;
     public EnemySO _defaultSetting;
@@ -24,7 +23,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     private float _nextShootTime;
     private float _currentHealth;
     private float _currentSpeed;
-    public AudioSource _audioSource;
     public bool _spawnedByBoss;
     private GameDataManager _gDM;
     private GameAudioManager _gAM;
@@ -37,16 +35,17 @@ public class Enemy : MonoBehaviour, IDamageable {
         _gDM = GameDataManager._I;
         _gAM = GameAudioManager._I;
         Timer._objectToDestroy.Add(transform.parent.gameObject);
+
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
-        _target = PlayerController._I.transform;
-        _currentHealth = _defaultSetting._maxHealth * GameManager._gSettings._enemyMaxHealthMultiplier;
-        _rgb = GetComponent<Rigidbody2D>();
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
+        
+        _target = PlayerController._I.transform;
+        _currentHealth = _defaultSetting._maxHealth * GameManager._gSettings._enemyMaxHealthMultiplier;
         _currentSpeed = _defaultSetting._speed.GetValue() * GameManager._gSettings._enemySpeedMultiplier;
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = GameManager._gSettings._soundsVolume;
+        
+        _rgb = GetComponent<Rigidbody2D>();
 
         PlaySound(_gAM._enemySpawnSound);
     }

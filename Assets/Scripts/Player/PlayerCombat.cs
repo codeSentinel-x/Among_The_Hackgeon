@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Classes;
+using MyUtils.Custom;
 using MyUtils.Interfaces;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class PlayerCombat : MonoBehaviour, IDamageable {
 
     [Header("Setup")]
@@ -37,13 +37,11 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     void Awake() {
         _gAM = GameAudioManager._I;
         SubscribeStats();
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = GameManager._gSettings._soundsVolume;
-
     }
 
     void Start() {
         InitializeWeapon();
+        MyLog();
     }
 
     public void Update() {
@@ -219,9 +217,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _blankAmount += val;
         PlayerUI._I.IncreaseBlank(val);
     }
-    private AudioSource _audioSource;
     public void PlaySound(AudioClip clip) {
         _gAM.PlaySoundEffect(transform.position, clip);
 
+    }
+    public void MyLog() {
+#if UNITY_EDITOR
+        CustomLog.Log("start", "default", true);
+#endif
     }
 }

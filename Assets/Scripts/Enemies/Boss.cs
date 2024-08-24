@@ -4,7 +4,7 @@ using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource), typeof(BoxCollider2D), typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Boss : MonoBehaviour, IDamageable {
     public static Boss _I;
     public RoomController _currentRoom;
@@ -25,7 +25,6 @@ public class Boss : MonoBehaviour, IDamageable {
     private float _nextShootTime;
     private float _currentHealth;
     private float _currentSpeed;
-    public AudioSource _audioSource;
     public int _stage = 0;
     private BossSO _currentStageSO;
     public SpriteRenderer[] _sprites;
@@ -45,7 +44,6 @@ public class Boss : MonoBehaviour, IDamageable {
         _I = this;
         NextStage(false);
         Timer._objectToDestroy.Add(gameObject);
-        _audioSource = GetComponent<AudioSource>();
         _sprites = GetComponentsInChildren<SpriteRenderer>();
         PlaySound(_gAM._enemySpawnSound);
         _target = PlayerController._I.transform;

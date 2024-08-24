@@ -10391,6 +10391,7 @@ GameObject:
   - component: {fileID: 1639582106}
   - component: {fileID: 1639582105}
   - component: {fileID: 1639582107}
+  - component: {fileID: 1639582108}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10462,12 +10463,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  _defaultSound: []
-  _combatSound: []
-  _normalSource: {fileID: 0}
-  _loopSource: {fileID: 0}
-  _combatSource: {fileID: 0}
+  _startScreenSource: {fileID: 937039012}
+  _normalSource: {fileID: 2111015872}
+  _loopSource: {fileID: 2085390014}
+  _combatSource: {fileID: 1246464716}
   _isCombat: 0
+--- !u!114 &1639582108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639582104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7b0d7a116095a4f92ef4a3e7cd6f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saveIndex: 0
 --- !u!1 &1668125996
 GameObject:
   m_ObjectHideFlags: 0
