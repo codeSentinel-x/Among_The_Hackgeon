@@ -222,8 +222,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
 
     }
     public void MyLog() {
-#if UNITY_EDITOR
-        CustomLog.Log("start", "default", true);
+#if UNITY_EDITOR 
+        // CustomLog.Log("start", "default", true);
 #endif
     }
 }

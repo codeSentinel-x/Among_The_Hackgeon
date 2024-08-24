@@ -61,7 +61,9 @@
         "destr",
         "hackgeon",
         "Hackongus",
+        "Interactable",
         "Mult",
+        "Pushable",
         "stam",
         "Tilemap"
     ]

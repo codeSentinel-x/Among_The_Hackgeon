@@ -1,4 +1,13 @@
 namespace MyUtils.Enums {
+    public enum ObstacleType{
+        Static,
+        Pushable,
+        PushableExploding,
+        StaticExploding,
+        PushableDestroyable,
+        StaticDestroyable,
+        
+    }
     public enum RoomType {
         EnemyRoom,
         StartRoom,

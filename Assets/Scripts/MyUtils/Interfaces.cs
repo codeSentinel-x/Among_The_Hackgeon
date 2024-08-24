@@ -8,4 +8,7 @@ namespace MyUtils.Interfaces {
     public interface IDamageable {
         public void Damage(float v);
     }
+    public interface IInteractable{
+        public void Interact();
+    }
 }
