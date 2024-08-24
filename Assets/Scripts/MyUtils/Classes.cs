@@ -8,22 +8,22 @@ namespace MyUtils.Classes {
     [Serializable]
     public class PlayerData {
         //Movement
-        [Tooltip("")] public PlayerStat _movementSpeed;
-        [Tooltip(" ")] public PlayerStat _dashPower;
-        [Tooltip("")] public PlayerStat _dashDuration;
-        [Tooltip("")] public PlayerStat _staminaRegenerationDelay;
-        [Tooltip(" ")] public PlayerStat _stamRegPerSecMult;  // stamina regeneration per second multiplier (I am to lazy to time this every time)
-        [Tooltip("")] public PlayerStat _maxStamina;
-        [Tooltip("")] public PlayerStat _dashStaminaUsage;
-        [Tooltip("")] public PlayerStat _invincibleAfterDash;
+        public PlayerStat _movementSpeed;
+        public PlayerStat _dashPower;
+        public PlayerStat _dashDuration;
+        public PlayerStat _staminaRegenerationDelay;
+        public PlayerStat _stamRegPerSecMult;  // stamina regeneration per second multiplier (I am to lazy to time this every time)
+        public PlayerStat _maxStamina;
+        public PlayerStat _dashStaminaUsage;
+        public PlayerStat _invincibleAfterDash;
         //Defense
-        [Tooltip("")] public PlayerStat _maxHealth;
-        [Tooltip("")] public PlayerStat _damageIgnore;
-        [Tooltip("")] public PlayerStat _damageReduction;
+        public PlayerStat _maxHealth;
+        public PlayerStat _damageIgnore;
+        public PlayerStat _damageReduction;
         //Offense
-        [Tooltip("")] public PlayerStat _reloadSpeedMult;
-        [Tooltip("")] public PlayerStat __bulletSpeedMult;
-        [Tooltip("")] public PlayerStat _shootDelayMultiplier;
+        public PlayerStat _reloadSpeedMult;
+        public PlayerStat __bulletSpeedMult;
+        public PlayerStat _shootDelayMultiplier;
     }
     [Serializable]
     public class PlayerStat {
@@ -90,38 +90,6 @@ namespace MyUtils.Classes {
             InvokeOnChangeAction();
         }
 
-    }
-
-    [Serializable]
-    public class MyGrid {
-        public MyGrid(int2 gS, int2 sP, Sprite defS, Transform parent) {
-            _elements = new GameObject[gS.x, gS.y];
-            _startPos = sP;
-            for (int x = 0; x < _elements.GetLength(0); x++) {
-                for (int y = 0; y < _elements.GetLength(1); y++) {
-                    var g = new GameObject($"Tile ({x},{y})");
-                    SpriteRenderer sR = g.AddComponent<SpriteRenderer>();
-                    GridElementHandler gE = g.AddComponent<GridElementHandler>();
-                    sR.sprite = defS;
-                    if (x == 0 || x == gS.x - 1 || y == 0 || y == gS.y - 1) GenerateWall(gE, sR, x, y);
-                    else GenerateFloor(gE, sR, x, y);
-                    g.transform.position = new(x, y);
-                    g.transform.parent = parent;
-
-                    _elements[x, y] = g;
-                }
-            }
-        }
-        void GenerateWall(GridElementHandler gE, SpriteRenderer sR, int x, int y) {
-            sR.color = new((float)x / 100, (float)y / 100, (float)(x + y) / 100, 1);
-            gE.content = new(x, y, "Wall", false, new());
-        }
-        void GenerateFloor(GridElementHandler gE, SpriteRenderer sR, int x, int y) {
-            sR.color = new((float)x / 20, (float)y / 20, (float)(x + y) / 20, 1);
-            gE.content = new(x, y, "Floor", true, new());
-        }
-        public GameObject[,] _elements;
-        public int2 _startPos;
     }
 
     [Serializable]

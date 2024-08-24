@@ -9,67 +9,38 @@ public enum WeaponType {
 }
 public class GameDataManager : MonoBehaviour {
 
+    [Header("Prefabs")]
     public static GameDataManager _I;
     public Transform _dungeonPrefab;
     public Transform _playerPrefab;
     public Transform _bossPrefab;
+    public EnemyPrefabGetter _enemyPref;
+
     [Header("Door sprites")]
     public Sprite[] _destroyableDoorSpritesHorizontal;
     public Sprite[] _destroyableDoorSpritesVerticalLeft;
     public Sprite[] _destroyableDoorSpritesVerticalRight;
     public Sprite[] _closedDoorSprite;
     public Sprite[] _openedDoorSprite; //0 - up; 1- right, 2 - down; 3 - left
-    [Header("Enemy and other things")]
-    public EnemyPrefabGetter _enemyPref;
+
+    [Header("Enemy particles")]
     public Transform _spawnParticle;
     public Transform _collisionParticle;
     public Transform _loopResetParticle;
+    public Transform _damageParticle;
+    [Header("Sprites")]
     public Sprite _bulletSprite;
     public Sprite _blankSprite;
-    public Transform _damageParticle;
     public Canvas _endCanvas;
+
     [Header("Items")]
     public Transform[] _weaponsPrefab;
     public Transform[] _specialItemPrefab;
     public Transform[] _UtilityItemPrefab;
     public Transform _chestPrefab;
     public Transform _bossKeyPrefab;
-    [Header("Audio")]
 
-    public AudioClip[] _shootSounds;
-    public AudioClip _doorOpenSound;
-    public AudioClip _enemySpawnSound;
-    public AudioClip _enemyDieSound;
-    public AudioClip _enemyDamageSound;
-    public AudioClip _playerDamageSound;
-    public AudioClip _dashSound;
-    public AudioClip _loopResetSound;
-    public AudioClip _approachingLoopReset;
-    public AudioClip _reloadStartSound;
-    public AudioClip _reloadEndSound;
-    public AudioClip _playerHealSound;
-    public AudioClip _blankSound;
-    public AudioClip _weaponChangeSound;
-    public AudioClip _pickupSound;
-    public AudioClip _loopBreak;
-    public AudioClip _bossDie;
-    public AudioClip GetWeaponSound(WeaponType type) {
-        switch (type) {
-            case WeaponType.Single: {
-                    return _shootSounds[0];
-                }
-            case WeaponType.Sniper: {
-                    return _shootSounds[1];
-                }
-            case WeaponType.Auto: {
-                    return _shootSounds[2];
-                }
-            case WeaponType.MachineGun: {
-                    return _shootSounds[3];
-                }
-            default: return null;
-        }
-    }
+ 
     GameObject _dungeon;
     GameObject _player;
 
@@ -81,6 +52,9 @@ public class GameDataManager : MonoBehaviour {
     }
     public static WeaponSO LoadWeaponByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");
     public static SpecialItemSO LoadItemByName(string name) => Resources.Load<SpecialItemSO>($"Items/{name}");
+    public void InstantiateParticles(Vector3 pos, Transform pref) => Instantiate(pref, pos, Quaternion.identity);
+    public void InstantiateParticles(Transform parent, Transform pref) => Instantiate(parent, pref);
+
 
 }
 [Serializable]
