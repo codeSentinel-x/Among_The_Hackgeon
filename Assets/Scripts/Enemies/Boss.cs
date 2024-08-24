@@ -29,10 +29,17 @@ public class Boss : MonoBehaviour, IDamageable {
     public int _stage = 0;
     private BossSO _currentStageSO;
     public SpriteRenderer[] _sprites;
-    public void PlaySound(AudioClip clip) {
-        _audioSource.clip = clip;
-        _audioSource.Play();
 
+    private GameDataManager _gDM;
+    private GameAudioManager _gAM;
+    private GameManager _gM;
+    public void PlaySound(AudioClip clip) {
+        _gAM.PlaySoundEffect(transform.position, clip);
+
+    }
+    void Awake() {
+        _gDM = GameDataManager._I;
+        _gAM = GameAudioManager._I;
     }
     public void Start() {
         _I = this;
@@ -40,7 +47,7 @@ public class Boss : MonoBehaviour, IDamageable {
         Timer._objectToDestroy.Add(gameObject);
         _audioSource = GetComponent<AudioSource>();
         _sprites = GetComponentsInChildren<SpriteRenderer>();
-        PlaySound(GameDataManager._I._enemySpawnSound);
+        PlaySound(_gAM._enemySpawnSound);
         _target = PlayerController._I.transform;
     }
     public int _enemiesCount;
@@ -126,7 +133,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _nextShootTime = Time.time + _currentStageSO._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _currentStageSO._shootDelays.Count) _delayIndex = 0;
-        PlaySound(GameDataManager._I.GetWeaponSound(WeaponType.Single));
+        PlaySound(_gAM.GetWeaponSound(WeaponType.Single));
 
     }
     private IEnumerator Reload() {
@@ -136,7 +143,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        PlaySound(GameDataManager._I._reloadEndSound);
+        PlaySound(_gAM._reloadEndSound);
     }
     private void RotateWeaponToPlayer() {
 
@@ -163,7 +170,7 @@ public class Boss : MonoBehaviour, IDamageable {
                 NextStage(); Debug.Log("NextStage"); Instantiate(_dieParticle, transform.position, Quaternion.identity);
             } else Die();
         }
-        PlaySound(GameDataManager._I._playerDamageSound);
+        PlaySound(_gAM._playerDamageSound);
         BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
 
     }
@@ -173,7 +180,7 @@ public class Boss : MonoBehaviour, IDamageable {
         Soundtrack._I.CombatEnd();
         if (UnityEngine.Random.Range(0f, 1f) < 0.2f) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
         _currentRoom._onRoomClear?.Invoke(_currentRoom);
-        PlaySound(GameDataManager._I._enemyDieSound);
+        PlaySound(_gAM._enemyDieSound);
         Destroy(transform.parent.gameObject);
     }
     public Transform _dieParticle;

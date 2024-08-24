@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class GameAudioManager : MonoBehaviour {
     public static GameAudioManager _I { get; private set; }
+    public Transform _soundPlayerPrefabs;
     #region Audio clips
     [Header("Player sounds")]
     public AudioClip _playerDamageSound;
@@ -51,4 +52,11 @@ public class GameAudioManager : MonoBehaviour {
     void Awake() {
         DontDestroyOnLoad(gameObject);
     }
+    public void PlaySoundEffect(Vector3 pos, AudioClip clip) {
+        var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<AudioSource>();
+        s.clip = clip;
+        s.volume = GameManager._gSettings._soundsVolume;
+        s.Play();
+    }
+
 }

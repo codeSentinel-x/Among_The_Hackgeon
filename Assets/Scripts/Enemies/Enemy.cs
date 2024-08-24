@@ -26,13 +26,16 @@ public class Enemy : MonoBehaviour, IDamageable {
     private float _currentSpeed;
     public AudioSource _audioSource;
     public bool _spawnedByBoss;
-
+    private GameDataManager _gDM;
+    private GameAudioManager _gAM;
+    private GameManager _gM;
     public void PlaySound(AudioClip clip) {
-        _audioSource.clip = clip;
-        _audioSource.Play();
+        _gAM.PlaySoundEffect(transform.position, clip);
 
     }
     public void Awake() {
+        _gDM = GameDataManager._I;
+        _gAM = GameAudioManager._I;
         Timer._objectToDestroy.Add(transform.parent.gameObject);
         _weapon = new(_defaultSetting._defaultWeapon);
         _weapon.Setup(null, _weaponSR);
@@ -45,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _audioSource = GetComponent<AudioSource>();
         _audioSource.volume = GameManager._gSettings._soundsVolume;
 
-        PlaySound(GameDataManager._I._enemySpawnSound);
+        PlaySound(_gAM._enemySpawnSound);
     }
     void Update() {
         RotateWeaponToPlayer();
@@ -78,7 +81,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
-        PlaySound(GameDataManager._I.GetWeaponSound(WeaponType.Single));
+        PlaySound(_gAM.GetWeaponSound(WeaponType.Single));
 
     }
     private IEnumerator Reload() {
@@ -88,7 +91,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        PlaySound(GameDataManager._I._reloadEndSound);
+        PlaySound(_gAM._reloadEndSound);
     }
     private void RotateWeaponToPlayer() {
 
@@ -111,7 +114,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
-        PlaySound(GameDataManager._I._enemyDamageSound);
+        PlaySound(_gAM._enemyDamageSound);
 
     }
     public void Die() {
@@ -120,7 +123,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (!_spawnedByBoss) _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
-        PlaySound(GameDataManager._I._enemyDieSound);
+        PlaySound(_gAM._enemyDieSound);
     }
     public Transform _dieParticle;
     void OnDestroy() {

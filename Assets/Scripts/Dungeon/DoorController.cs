@@ -155,7 +155,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return; }
+        if (_stage == 0) { OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
@@ -292,7 +292,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return;
+        OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return;
 
     }
 }
@@ -385,7 +385,7 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
     public void Damage(float v) {
         if (!PlayerController._hasKey) return;
         if (_opened || _hidden) return;
-        OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return;
+        OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return;
 
     }
 }
@@ -441,7 +441,7 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); var c = GetComponent<AudioSource>(); c.clip = GameDataManager._I._doorOpenSound; c.Play(); return; }
+        if (_stage == 0) { OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
