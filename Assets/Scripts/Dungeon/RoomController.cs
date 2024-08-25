@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Enums;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class RoomController : MonoBehaviour {
     public Transform _lightsHolder;
@@ -27,8 +29,9 @@ public class RoomController : MonoBehaviour {
     public int _wave;
 
     void Awake() {
+        _lightsHolder.gameObject.SetActive(true);
         wasInvokedOnClear = true;
-        _lightsHolder.gameObject.SetActive(false);
+        // _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _doors = new();
         if (_roomType == RoomType.ExitRoom) return;
@@ -84,6 +87,33 @@ public class RoomController : MonoBehaviour {
     void Update() {
 
     }
+    /* //todo
+    public IEnumerator LightUp() {
+        StopCoroutine(LightsDown());
+        var intensity = 0f;
+        while (true) {
+            if (intensity >= 1f) break;
+            intensity += 0.05f;
+            foreach (var l in GetComponentsInChildren<Light2D>()) {
+                l.intensity += intensity;
+            }
+            yield return new WaitForSeconds(0.1f);
+
+        }
+    }
+    public IEnumerator LightsDown() {
+        StopCoroutine(LightUp());
+        var intensity = 1f;
+        while (true) {
+            intensity -= 0.05f;
+            if (intensity < 0f) break;
+            foreach (var l in GetComponentsInChildren<Light2D>()) {
+                l.intensity += intensity;
+            }
+            yield return new WaitForSeconds(0.1f);
+
+        }
+    }*/
     public void EnemiesDie() {
         if (wasInvokedOnClear) return;
         if (_roomType == RoomType.BossRoom) return;
@@ -114,16 +144,15 @@ public class RoomController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             _onPlayerEnter?.Invoke();
-            _lightsHolder.gameObject.SetActive(true);
             if (_roomType == RoomType.ExitRoom) Timer._I.BreakLoop();
-            // if (_wasInvoked) return;
+            //TODO StartCoroutine(LightUp());
             var p = other.gameObject.GetComponent<PlayerController>();
             p._currentRoom?.OnPlayerExit();
             SetupRoom(p);
         }
     }
     public void OnPlayerExit() {
-        _lightsHolder.gameObject.SetActive(false);
+        //TODO StartCoroutine(LightsDown());
     }
 
     private void SetupRoom(PlayerController contr) {
