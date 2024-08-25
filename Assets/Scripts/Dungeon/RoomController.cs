@@ -27,9 +27,9 @@ public class RoomController : MonoBehaviour {
     public Transform[] _doorPrefab;
     public int _roomDifficulty;
     public int _wave;
-
+    private Torch[] _torches;
     void Awake() {
-        _lightsHolder.gameObject.SetActive(true);
+        _lightsHolder.gameObject.SetActive(false);
         wasInvokedOnClear = true;
         // _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
@@ -82,6 +82,7 @@ public class RoomController : MonoBehaviour {
 
             }
         }
+        _torches = _lightsHolder.GetComponentsInChildren<Torch>();
     }
     bool wasInvokedOnClear;
     void Update() {
@@ -145,7 +146,7 @@ public class RoomController : MonoBehaviour {
         if (other.CompareTag("Player")) {
             _onPlayerEnter?.Invoke();
             if (_roomType == RoomType.ExitRoom) Timer._I.BreakLoop();
-            //TODO StartCoroutine(LightUp());
+            foreach (var t in _torches) t.StartLightsUp();
             var p = other.gameObject.GetComponent<PlayerController>();
             p._currentRoom?.OnPlayerExit();
             SetupRoom(p);
@@ -153,6 +154,8 @@ public class RoomController : MonoBehaviour {
     }
     public void OnPlayerExit() {
         //TODO StartCoroutine(LightsDown());
+        foreach (var t in _torches) t.StartLightsDown();
+
     }
 
     private void SetupRoom(PlayerController contr) {
