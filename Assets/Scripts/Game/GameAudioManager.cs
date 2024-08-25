@@ -50,7 +50,8 @@ public class GameAudioManager : MonoBehaviour {
     }
     #endregion
     void Awake() {
-        DontDestroyOnLoad(gameObject);
+        _I = this;
+        // DontDestroyOnLoad(gameObject);
     }
     public void PlaySoundEffect(Vector3 pos, AudioClip clip) {
         var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<AudioSource>();

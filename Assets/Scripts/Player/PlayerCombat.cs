@@ -96,8 +96,8 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public void Shoot() {
         if (_isReloading) return;
         if (_currentWeapon._nextShoot > Time.time) return;
-        if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); Debug.Log("No bullets"); return; }
-        Debug.Log("Piu");
+        if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); /*Debug.Log("No bullets");*/ return; }
+        // Debug.Log("Piu");
         float sp = UnityEngine.Random.Range(0f, _currentWeapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();

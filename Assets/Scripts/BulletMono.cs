@@ -34,7 +34,7 @@ public class BulletMono : MonoBehaviour {
 
     }
     void OnCollisionEnter2D(Collision2D col) {
-        Debug.Log($"Collision with{col.gameObject.name}");
+        // Debug.Log($"Collision with{col.gameObject.name}");
         if (col.collider.isTrigger) return;
         if (col.gameObject.layer == gameObject.layer) return;
         if (col.gameObject.CompareTag(_tagToIgnore)) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }

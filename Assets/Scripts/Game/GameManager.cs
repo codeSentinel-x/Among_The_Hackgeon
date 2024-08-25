@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
         DontDestroyOnLoad(_help);
         DontDestroyOnLoad(_readme);
+        foreach (var t in GetComponentsInChildren<Transform>()) {
+            DontDestroyOnLoad(t.gameObject);
+        }
 
     }
 

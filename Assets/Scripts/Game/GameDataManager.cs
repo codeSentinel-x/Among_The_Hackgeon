@@ -40,14 +40,16 @@ public class GameDataManager : MonoBehaviour {
     public Transform _chestPrefab;
     public Transform _bossKeyPrefab;
 
- 
+
     GameObject _dungeon;
     GameObject _player;
 
     void Awake() {
+        _I = this;
+    }
+    public void Setup() {
         _dungeon = Instantiate(_dungeonPrefab, Vector3.zero, Quaternion.identity).gameObject;
         _player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).gameObject;
-        _I = this;
         Timer._reload += () => { Destroy(_dungeon); Destroy(_player); _dungeon = Instantiate(_dungeonPrefab, Vector3.zero, Quaternion.identity).gameObject; _player = Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).gameObject; };
     }
     public static WeaponSO LoadWeaponByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");

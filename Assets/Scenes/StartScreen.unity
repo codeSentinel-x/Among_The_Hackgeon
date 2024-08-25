@@ -10392,6 +10392,8 @@ GameObject:
   - component: {fileID: 1639582105}
   - component: {fileID: 1639582107}
   - component: {fileID: 1639582108}
+  - component: {fileID: 1639582109}
+  - component: {fileID: 1639582110}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10481,6 +10483,117 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _saveIndex: 0
+--- !u!114 &1639582109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639582104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d7aa6121bbecdba96c0ba832d75a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundPlayerPrefabs: {fileID: 706852123390672661, guid: 62272dfb1b03ce6e59710306c4c76044, type: 3}
+  _playerDamageSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _weaponChangeSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _dashSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _blankSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _playerHealSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _pickupSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _reloadStartSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _reloadEndSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _shootSounds:
+  - {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  - {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  - {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  - {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _enemySpawnSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _enemyDamageSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _enemyDieSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _bossDie: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _doorOpenSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _approachingLoopReset: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _loopResetSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _loopBreak: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _startScreenSound:
+  - {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
+  _defaultSound:
+  - {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
+  _combatSound:
+  - {fileID: 8300000, guid: 339214f5d0df147349ae6ebe987870f6, type: 3}
+--- !u!114 &1639582110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639582104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bf3babd7f187892a1997bfacf009f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dungeonPrefab: {fileID: 829686269852257082, guid: 971e530cabc34a38692c0604640c2dec, type: 3}
+  _playerPrefab: {fileID: 7462096845699156335, guid: b74d20172d774d6ec90f5919aed76a6d, type: 3}
+  _bossPrefab: {fileID: 2342019759983836315, guid: 99ba89fa811cd649f95abf507bdee851, type: 3}
+  _enemyPref:
+    _enemies:
+    - _spawnChange: 80
+      _enemyPref: {fileID: 7086293667160900216, guid: a2e75909af09eb90c979fb06ee4bd456, type: 3}
+    - _spawnChange: 60
+      _enemyPref: {fileID: 7086293667160900216, guid: a558a77254589727f9f34e8ff605bc32, type: 3}
+    - _spawnChange: 40
+      _enemyPref: {fileID: 7086293667160900216, guid: 81b0f03827074c545ab9a9a5f114cd11, type: 3}
+    - _spawnChange: 20
+      _enemyPref: {fileID: 7086293667160900216, guid: 3b48221bbe6d91bb896d59493d3312db, type: 3}
+    - _spawnChange: 0
+      _enemyPref: {fileID: 7086293667160900216, guid: 752d3c009b9c991fda11473c9d32684e, type: 3}
+  _destroyableDoorSpritesHorizontal:
+  - {fileID: 1417840712, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 274438417, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -1018270803, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  _destroyableDoorSpritesVerticalLeft:
+  - {fileID: 1529002893, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -549717059, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 207638216, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  _destroyableDoorSpritesVerticalRight:
+  - {fileID: 1495359593, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -364795244, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 765447496, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  _closedDoorSprite:
+  - {fileID: -5996739803364362920, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -1841047468, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -5996739803364362920, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: -1647108100, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  _openedDoorSprite:
+  - {fileID: 297431439, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 863008621, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 297431439, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  - {fileID: 1328269469, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
+  _spawnParticle: {fileID: 734948581723939815, guid: 90f7c0a09988af0b0a1de178df2cc322, type: 3}
+  _collisionParticle: {fileID: 7042683557990041811, guid: b183120fee886a7f8b2da33c8c894e80, type: 3}
+  _loopResetParticle: {fileID: 8789328693553503189, guid: 1780f408d7324682eaec5304a704aa93, type: 3}
+  _damageParticle: {fileID: 9171469041363178228, guid: 92b63f9523e9a4562a406e4feff07be1, type: 3}
+  _bulletSprite: {fileID: 3098933925591197577, guid: 51f98ea6cfb629d879f49435067e1f88, type: 3}
+  _blankSprite: {fileID: 3098933925591197577, guid: 51f98ea6cfb629d879f49435067e1f88, type: 3}
+  _endCanvas: {fileID: 6069201635715361030, guid: 4b8eebf70372a8144ab2de4489b71b91, type: 3}
+  _weaponsPrefab:
+  - {fileID: 3385656419281756162, guid: 2e0a226bb2e2fcc2f96fc8149c43af9f, type: 3}
+  - {fileID: 3548513793758350712, guid: 0ff95071c77d5a663aa61d76e0256e7b, type: 3}
+  - {fileID: 6336417247820588651, guid: b151f210961c3325fb6a2f90ef7d4c5b, type: 3}
+  _specialItemPrefab:
+  - {fileID: 93633909737840447, guid: 4dc7fceb67cd10a0584cdb9408980d38, type: 3}
+  - {fileID: 3278298407160258347, guid: b45547c1e10e3845c9055c7b07fa6eb4, type: 3}
+  - {fileID: 6663409543647279799, guid: 01c23a9715ea60b368b7673ad3ec153b, type: 3}
+  - {fileID: 6857713087635094318, guid: dede3b327129a767e8d928e45a94db16, type: 3}
+  _UtilityItemPrefab:
+  - {fileID: 76299804114678841, guid: 4deb1c0a74aa9202d805fb6db05ca494, type: 3}
+  - {fileID: 5951837233147493547, guid: 056e3b1949969441a94a816b266bd3d8, type: 3}
+  - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
+  _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
+  _bossKeyPrefab: {fileID: 5521132777385142467, guid: 05798482fdc6401369a15d12bf80fa17, type: 3}
 --- !u!1 &1668125996
 GameObject:
   m_ObjectHideFlags: 0

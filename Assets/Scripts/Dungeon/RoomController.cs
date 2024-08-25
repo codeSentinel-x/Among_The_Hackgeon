@@ -163,7 +163,7 @@ public class RoomController : MonoBehaviour {
         if (contr._currentRoom == this) return;
         // contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
-        Debug.Log($"Player entered {gameObject.name}");
+        // Debug.Log($"Player entered {gameObject.name}");
         if (_roomType == RoomType.EnemyRoom && !_wasInvoked) { Soundtrack._I.PlayCombat(); SpawnEnemy(); }
         if (_roomType == RoomType.BossRoom && !_wasInvoked) { SpawnBoss(); }
     }

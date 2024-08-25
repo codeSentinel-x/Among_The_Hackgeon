@@ -19,6 +19,7 @@ public class Timer : MonoBehaviour {
         _objectToDestroy = new();
         _I = this;
         _time = _resetTime;
+        GameDataManager._I.Setup();
     }
     void Update() {
         _time -= Time.deltaTime;
