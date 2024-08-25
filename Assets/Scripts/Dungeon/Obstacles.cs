@@ -13,12 +13,16 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
     private BoxCollider2D _collider;
     private Rigidbody2D _rgb;
     private SpriteRenderer _renderer;
+    public ParticleSystem _explosionParticle;
+    public ParticleSystem _damageParticle;
+
     void Awake() {
         _collider = GetComponent<BoxCollider2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _rgb = GetComponent<Rigidbody2D>();
     }
     public void Damage(float v) {
+        Instantiate(_damageParticle, transform.position, Quaternion.identity);
         switch (_type) {
             case ObstacleType.PushableExploding: {
                     _durability -= 1;
@@ -39,6 +43,7 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
     }
 
     private void Explode() {
+        Instantiate(_explosionParticle, transform.position, Quaternion.identity);
         throw new NotImplementedException();
     }
 
