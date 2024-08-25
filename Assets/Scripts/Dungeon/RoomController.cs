@@ -29,10 +29,12 @@ public class RoomController : MonoBehaviour {
     public int _wave;
     private Torch[] _torches;
     void Awake() {
-        _lightsHolder.gameObject.SetActive(false);
+        // _lightsHolder.gameObject.SetActive(false);
         wasInvokedOnClear = true;
         // _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
+        _lightsHolder = _lightsHolder != null ? _lightsHolder : transform.Find("Lights");
+        _torches = _lightsHolder.GetComponentsInChildren<Torch>();
         _doors = new();
         if (_roomType == RoomType.ExitRoom) return;
         if (_roomType == RoomType.Tunnel) return;
@@ -64,9 +66,9 @@ public class RoomController : MonoBehaviour {
         foreach (var c in _doors) {
             var col = Physics2D.OverlapCircle(c._checker.position - new Vector2(0, c._checker.name == "D" ? 5 : 0), 2, _roomLayer);
             if (col != null) {
-                Debug.Log(col.gameObject.name);
+                // Debug.Log(col.gameObject.name);
                 c._door._tunnelToShow = col.gameObject.GetComponent<RoomController>();
-                Debug.Log(col.gameObject.name);
+                // Debug.Log(col.gameObject.name);
                 c._door.Initialize();
             }
 
@@ -82,7 +84,6 @@ public class RoomController : MonoBehaviour {
 
             }
         }
-        _torches = _lightsHolder.GetComponentsInChildren<Torch>();
     }
     bool wasInvokedOnClear;
     void Update() {

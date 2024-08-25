@@ -11,11 +11,11 @@ public class Torch : MonoBehaviour {
     public float _stepInterval;
     private float intensity;
     private float outer;
-
+    public bool _test;
     void Awake() {
         intensity = 0;
         outer = 0;
-        StartCoroutine(LightCycle());
+        if (_test) StartCoroutine(LightCycle());
     }
     public IEnumerator LightCycle() {
         for (int i = 0; i < 10; i++) {
