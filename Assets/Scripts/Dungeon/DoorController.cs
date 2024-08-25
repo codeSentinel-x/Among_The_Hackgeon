@@ -24,7 +24,7 @@ public class DoorController : MonoBehaviour {
         if (_doorType != DoorOpenType.BossRoom && _doorType != DoorOpenType.BossRoomDoors) _doorType = UnityEngine.Random.Range(0f, 1f) > 0.5f ? DoorOpenType.OpenOnShoot : DoorOpenType.AlwaysOpen;
         switch (_doorType) {
             case DoorOpenType.AlwaysOpen: {
-                    var c = gameObject.AddComponent<AlwaysOpenDoor>();
+                    var c = gameObject.AddComponent<VisibleDoor>();
                     c._pos = _pos;
                     c._opened = false;
 
@@ -47,7 +47,7 @@ public class DoorController : MonoBehaviour {
                     break;
                 }
             case DoorOpenType.BossRoom: {
-                    var c = gameObject.AddComponent<BoosRoomDoor>();
+                    var c = gameObject.AddComponent<BossEnterDoor>();
                     c._pos = _pos;
                     c._opened = false;
                     // if (_roomToShow._roomType == RoomType.EnemyRoom)
@@ -135,10 +135,9 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         _col.isTrigger = false;
         _opened = false;
         _discovered = false;
-        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
     }
     public void CloseDoor() {
-        //TODO
         _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
@@ -169,11 +168,6 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     }
 
-    public void HideDoor() {
-        //TODO g
-        throw new System.NotImplementedException();
-    }
-
     public void OpenDoor() {
         _opened = true;
         _discovered = true; ;
@@ -189,11 +183,9 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
         d._tunnelToShow.ShowRoom();
         d._roomToShow.ShowRoom();
-
-        //TODO
     }
 
-    public void ShowDoor() {
+    public void UncloseDoor() {
         _hidden = false;
         if (!_discovered) return;
         _opened = true;
@@ -207,33 +199,18 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         };
     }
 }
-public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
+public class DoorOnBlank : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
     private GameDataManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
-    private bool _discovered;
+    private bool _discovered = false;
     public DoorPosition _pos;
     private bool _hidden;
-    void Start() {
-        _gMD = GameDataManager._I;
-        _col = GetComponent<Collider2D>();
-        _renderer = GetComponent<SpriteRenderer>();
-        GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
-        _col.isTrigger = false;
-        _renderer.sprite = _pos switch {
-            _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
-            _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
-            _ when _pos == DoorPosition.Down => _gMD._closedDoorSprite[2],
-            _ when _pos == DoorPosition.Left => _gMD._closedDoorSprite[3],
-            _ => _gMD._closedDoorSprite[0],
-        };
-        _opened = false;
-        _discovered = false;
-    }
+
+
     public void CloseDoor() {
-        //TODO
         _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
@@ -248,10 +225,30 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
         }
     }
 
-
-    public void HideDoor() {
-        //TODO g
-        throw new System.NotImplementedException();
+    void Start() {
+        _gMD = GameDataManager._I;
+        _col = GetComponent<Collider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
+        _col.isTrigger = false;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[^1],
+            _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight[^1],
+            _ when _pos == DoorPosition.Down => _gMD._destroyableDoorSpritesHorizontal[^1],
+            _ when _pos == DoorPosition.Left => _gMD._destroyableDoorSpritesVerticalLeft[^1],
+            _ => _gMD._openedDoorSprite[0],
+        };
+        _opened = false;
+        _discovered = false;
+    }
+    public void Show() {
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[2],
+            _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight[2],
+            _ when _pos == DoorPosition.Down => _gMD._destroyableDoorSpritesHorizontal[2],
+            _ when _pos == DoorPosition.Left => _gMD._destroyableDoorSpritesVerticalLeft[2],
+            _ => _gMD._openedDoorSprite[0],
+        };
     }
 
     public void OpenDoor() {
@@ -269,11 +266,84 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
         if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
         d._tunnelToShow.ShowRoom();
         d._roomToShow.ShowRoom();
-        //TODO
     }
 
-    public void ShowDoor() {
-        //TODO
+    public void UncloseDoor() {
+        _hidden = false;
+        if (!_discovered) return;
+        _opened = true;
+        _col.isTrigger = true;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._openedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._openedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._openedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._openedDoorSprite[3],
+            _ => _gMD._openedDoorSprite[0],
+        };
+    }
+
+    public void Damage(float v) {
+        throw new System.NotImplementedException();
+    }
+}
+
+public class VisibleDoor : MonoBehaviour, IDoor, IDamageable {
+
+    public Collider2D _col;
+    private GameDataManager _gMD;
+    private SpriteRenderer _renderer;
+    public bool _opened;
+    private bool _discovered;
+    public DoorPosition _pos;
+    private bool _hidden;
+    void Start() {
+        _gMD = GameDataManager._I;
+        _col = GetComponent<Collider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
+        _col.isTrigger = false;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._closedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._closedDoorSprite[3],
+            _ => _gMD._closedDoorSprite[0],
+        };
+        _opened = false;
+        _discovered = false;
+    }
+    public void CloseDoor() {
+        _hidden = true;
+        if (_opened) {
+            _col.isTrigger = false;
+            // _renderer.enabled = true;
+            _renderer.sprite = _pos switch {
+                _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
+                _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
+                _ when _pos == DoorPosition.Down => _gMD._closedDoorSprite[2],
+                _ when _pos == DoorPosition.Left => _gMD._closedDoorSprite[3],
+                _ => _gMD._closedDoorSprite[0],
+            };
+        }
+    }
+    public void OpenDoor() {
+        _opened = true;
+        _discovered = true; ;
+        _col.isTrigger = true;
+        _renderer.sprite = _pos switch {
+            _ when _pos == DoorPosition.Up => _gMD._openedDoorSprite[0],
+            _ when _pos == DoorPosition.Right => _gMD._openedDoorSprite[1],
+            _ when _pos == DoorPosition.Down => _gMD._openedDoorSprite[2],
+            _ when _pos == DoorPosition.Left => _gMD._openedDoorSprite[3],
+            _ => _gMD._openedDoorSprite[0],
+        };
+        var d = GetComponent<DoorController>();
+        if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
+        d._tunnelToShow.ShowRoom();
+        d._roomToShow.ShowRoom();
+    }
+
+    public void UncloseDoor() {
         _hidden = false;
         if (!_discovered) return;
         _opened = true;
@@ -296,7 +366,7 @@ public class AlwaysOpenDoor : MonoBehaviour, IDoor, IDamageable {
 
     }
 }
-public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
+public class BossEnterDoor : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
     private GameDataManager _gMD;
@@ -322,7 +392,6 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
         _discovered = false;
     }
     public void CloseDoor() {
-        //TODO
         _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
@@ -336,13 +405,6 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
             };
         }
     }
-
-
-    public void HideDoor() {
-        //TODO g
-        throw new System.NotImplementedException();
-    }
-
     public void OpenDoor() {
         _opened = true;
         _discovered = true; ;
@@ -361,11 +423,9 @@ public class BoosRoomDoor : MonoBehaviour, IDoor, IDamageable {
             d._roomToShow.ShowRoom();
 
         }
-        //TODO
     }
 
-    public void ShowDoor() {
-        //TODO
+    public void UncloseDoor() {
         _hidden = false;
         if (!_discovered) return;
         _opened = true;
@@ -421,10 +481,9 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         _col.isTrigger = false;
         _opened = false;
         _discovered = false;
-        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
+        GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
     }
     public void CloseDoor() {
-        //TODO
         _hidden = true;
         if (_opened) {
             _col.isTrigger = false;
@@ -454,12 +513,6 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
 
     }
-
-    public void HideDoor() {
-        //TODO g
-        throw new System.NotImplementedException();
-    }
-
     public void OpenDoor() {
         _opened = true;
         _discovered = true; ;
@@ -473,11 +526,9 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
         };
         var d = GetComponent<DoorController>();
         d._roomToShow.ShowRoom();
-
-        //TODO
     }
 
-    public void ShowDoor() {
+    public void UncloseDoor() {
         _hidden = false;
         if (!_discovered) return;
         _opened = true;

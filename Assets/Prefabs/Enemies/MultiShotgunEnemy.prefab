@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6789350029700619017}
   - component: {fileID: 2212849917875160668}
+  - component: {fileID: 2353729376488248670}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Enemy
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 443517867
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.9622642, b: 0.81454, a: 1}
@@ -88,6 +89,72 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2353729376488248670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197768404604277358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 1
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 00000000b7ec5df74f8537e6ab8b6f1a55b03e79
+  m_ShapePath:
+  - {x: -0.06255609, y: -0.048357528, z: 0}
+  - {x: -0.07534819, y: -0.047404993, z: 0}
+  - {x: -0.081675746, y: -0.03963703, z: 0}
+  - {x: -0.08383011, y: -0.031353597, z: 0}
+  - {x: -0.0846685, y: 0.02331008, z: 0}
+  - {x: -0.079840615, y: 0.03742065, z: 0}
+  - {x: -0.075341426, y: 0.04279917, z: 0}
+  - {x: -0.06671515, y: 0.04271831, z: 0}
+  - {x: -0.059458625, y: 0.052933037, z: 0}
+  - {x: -0.043763455, y: 0.066166215, z: 0}
+  - {x: 0.04030044, y: 0.06738231, z: 0}
+  - {x: 0.060563274, y: 0.053548526, z: 0}
+  - {x: 0.06764149, y: 0.04154634, z: 0}
+  - {x: 0.068564735, y: -0.043084484, z: 0}
+  - {x: 0.05570941, y: -0.058222234, z: 0}
+  - {x: 0.039094474, y: -0.067913644, z: 0}
+  - {x: -0.04097856, y: -0.06685657, z: 0}
+  - {x: -0.051549256, y: -0.05892855, z: 0}
+  m_ShapePathHash: 246800590
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 0}
+  m_ShadowShape2DProvider:
+    rid: -2
+  m_ShadowCastingSource: 1
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.008051887, y: -0.00026566535, z: 0}
+      m_Extent: {x: 0.076616615, y: 0.06764798, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0.04
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.04
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0.04
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 1
+  m_PreviousShadowShape2DSource: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &1084658670547000055
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +229,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 443517867
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: fd1f3e6970a57f74d9ca2ce3178f9dea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -280,7 +347,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 443517867
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.026432883, g: 0.6226415, b: 0.5559671, a: 1}
@@ -366,7 +433,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 443517867
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -5177,7 +5244,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 443517867
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_RenderMode: 4
   m_MeshDistribution: 0
@@ -5354,7 +5421,6 @@ MonoBehaviour:
   _nextMoveDirectionChange: 0
   _minPlayerDist: 20
   _spriteRenderer: {fileID: 6789350029700619017}
-  _audioSource: {fileID: 0}
   _spawnedByBoss: 0
   _dieParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
 --- !u!82 &5306845852947908035
