@@ -43,11 +43,12 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
     }
 
     private void Explode() {
+        Debug.Log($"{name} exploded");
         Instantiate(_explosionParticle, transform.position, Quaternion.identity);
-        throw new NotImplementedException();
     }
 
     public void Interact() {
+        Debug.Log($"{name} interacted with player");
         switch (_type) {
             case ObstacleType.Pushable: {
                     _rgb.AddForce((transform.position - PlayerController._I.transform.position).normalized * _pushPower, ForceMode2D.Impulse);
@@ -64,8 +65,10 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
                 }
         }
     }
+    public float _force;
 
     public void Destroy() {
+        Debug.Log($"{name} was destroyed");
         Destroy(gameObject);
     }
 }
