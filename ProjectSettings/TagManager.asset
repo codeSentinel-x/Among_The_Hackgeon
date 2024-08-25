@@ -47,6 +47,9 @@ TagManager:
   - name: WallsUp
     uniqueID: 4150127799
     locked: 0
+  - name: Obstacles
+    uniqueID: 3862398287
+    locked: 0
   - name: Player
     uniqueID: 443517867
     locked: 0

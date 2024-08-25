@@ -48,11 +48,11 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.7217268, b: 0.16509432, a: 1}
+  m_Color: {r: 1, g: 0.83137256, b: 0.49411765, a: 1}
   m_Intensity: 0
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000b7ec5df7ab8b6f1a55b03e7977fe49732d6bd0fe
+  m_ApplyToSortingLayers: 00000000b7ec5df7ab8b6f1a55b03e7977fe49732d6bd0feaf8f721c4f8537e6
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -159,9 +159,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1934229111
-  m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingLayerID: -432569009
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bfe34d8d8c9582e17bbe5387e3e92914, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -185,9 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734a00a4b9cf5fc93987efcd6ce925f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLightIntensity: 2
-  _maxLightOuter: 11
-  _steps: 20
+  _maxLightIntensity: 1
+  _maxLightOuter: 10
+  _steps: 10
   _stepInterval: 0.05
   _test: 0
 --- !u!1 &8600028523403575670
@@ -217,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 8600028523403575670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -941,7 +941,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.09533872
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -4987,8 +4987,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -19895507
-  m_SortingLayer: 5
+  m_SortingLayerID: -432569009
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
