@@ -169,7 +169,6 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     public void Die() {
         ParticleAssetManager._I.InstantiateParticles(ParticleType.BossDie, transform.position);
-        Soundtrack._I.PlayBossDie();
         Soundtrack._I.CombatEnd();
 
         _currentRoom._onRoomClear?.Invoke(_currentRoom);

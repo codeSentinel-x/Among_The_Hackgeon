@@ -40,13 +40,13 @@ public class Soundtrack : MonoBehaviour {
         }
     }
     public void PlayLoopResetApproach() {
-        _loopSource.clip = _gAM._approachingLoopReset;
+        _loopSource.clip = _gAM._approachingLoopResetSound;
         _normalSource.volume = .33f * _musicVolume;
         _combatSource.volume = .33f * _musicVolume;
         _loopSource.Play();
     }
     public void PlayLoopBreak() {
-        _loopSource.clip = _gAM._loopBreak;
+        _loopSource.clip = _gAM._loopBreakSound;
         _normalSource.volume = 0 * _musicVolume;
         _combatSource.volume = 0 * _musicVolume;
         _loopSource.Play();
@@ -55,11 +55,6 @@ public class Soundtrack : MonoBehaviour {
 
     public void CombatEnd() {
         StopCombat();
-    }
-    public void PlayBossDie() {
-        _loopSource.clip = _gAM._bossDie;
-        _loopSource.Play();
-
     }
     public void PlayLoopReset() {
         _normalSource.volume = _musicVolume;
@@ -71,7 +66,7 @@ public class Soundtrack : MonoBehaviour {
         Debug.Log("CombatStart");
         _normalSource.Stop();
         _isCombat = true;
-        if (_combatSource.clip == null) _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_gAM._combatSound);
+        if (_combatSource.clip == null) _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_gAM._combatMusic);
         _combatSource.Play();
     }
     public void StopCombat() {
@@ -82,7 +77,7 @@ public class Soundtrack : MonoBehaviour {
     }
     public void PlayNormal() {
         index++;
-        if (index == _gAM._defaultSound.Length) index = 0;
+        if (index == _gAM._defaultMusic.Length) index = 0;
 
         _normalSource.clip = _gAM.GetNormalByIndex(index);
         _normalSource.Play();
