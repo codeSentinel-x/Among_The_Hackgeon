@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
     public void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (_currentItemInRange != null) {
-                GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._pickupSound);
+                AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._pickupSound);
                 switch (_currentItemInRange._itemType) {
                     case ItemType.Ammo: {
                             GetComponent<PlayerCombat>().AddAmmo();
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
                             break;
                         }
                     case ItemType.Weapon: {
-                            GetComponent<PlayerCombat>().AddWeapon(GameDataManager.LoadWeaponByName(_currentItemInRange._name));
+                            GetComponent<PlayerCombat>().AddWeapon(AssetManager.LoadWeaponByName(_currentItemInRange._name));
                             break;
                         }
                     case ItemType.Special: {

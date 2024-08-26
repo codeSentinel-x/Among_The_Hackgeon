@@ -108,14 +108,14 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
     public int _stage;
-    private GameDataManager _gMD;
+    private AssetManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
     private bool _discovered = false;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
-        _gMD = GameDataManager._I;
+        _gMD = AssetManager._I;
         _stage = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal.Length - 1,
             _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight.Length - 1,
@@ -154,7 +154,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return; }
+        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
@@ -202,7 +202,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 public class DoorOnBlank : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
-    private GameDataManager _gMD;
+    private AssetManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
     private bool _discovered = false;
@@ -226,7 +226,7 @@ public class DoorOnBlank : MonoBehaviour, IDoor, IDamageable {
     }
 
     void Start() {
-        _gMD = GameDataManager._I;
+        _gMD = AssetManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
         GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
@@ -290,14 +290,14 @@ public class DoorOnBlank : MonoBehaviour, IDoor, IDamageable {
 public class VisibleDoor : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
-    private GameDataManager _gMD;
+    private AssetManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
     private bool _discovered;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
-        _gMD = GameDataManager._I;
+        _gMD = AssetManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
         GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
@@ -362,21 +362,21 @@ public class VisibleDoor : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return;
+        OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return;
 
     }
 }
 public class BossEnterDoor : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
-    private GameDataManager _gMD;
+    private AssetManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
     private bool _discovered;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
-        _gMD = GameDataManager._I;
+        _gMD = AssetManager._I;
         _col = GetComponent<Collider2D>();
         _renderer = GetComponent<SpriteRenderer>();
         // GetComponent<DoorController>()._roomToShow._onRoomClear += (x) => { if (x == GetComponent<DoorController>()._roomToShow) ShowDoor(); };
@@ -445,7 +445,7 @@ public class BossEnterDoor : MonoBehaviour, IDoor, IDamageable {
     public void Damage(float v) {
         if (!PlayerController._hasKey) return;
         if (_opened || _hidden) return;
-        OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return;
+        OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return;
 
     }
 }
@@ -454,14 +454,14 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public Collider2D _col;
     public int _stage;
-    private GameDataManager _gMD;
+    private AssetManager _gMD;
     private SpriteRenderer _renderer;
     public bool _opened;
     private bool _discovered = false;
     public DoorPosition _pos;
     private bool _hidden;
     void Start() {
-        _gMD = GameDataManager._I;
+        _gMD = AssetManager._I;
         _stage = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal.Length - 1,
             _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight.Length - 1,
@@ -500,7 +500,7 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); GameAudioManager._I.PlaySoundEffect(transform.position, GameAudioManager._I._doorOpenSound); return; }
+        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],

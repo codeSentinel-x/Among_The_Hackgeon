@@ -13,7 +13,6 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public Transform _spriteRenderer;
     public SpriteRenderer _weaponSpriteR;
     public string _defaultWeaponName;
-    public Transform _blankParticle;
     public int _blankAmount;
     public float _rotSpeed;
     public static Action<float> _onPlayerHealthChange;
@@ -31,16 +30,18 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _invincibleTime;
     private float _invincibleAfterDash;
     private float _currentHealthRatio;
-    private GameAudioManager _gAM;
+    private AudioManager _gAM;
 
     void Awake() {
-        _gAM = GameAudioManager._I;
+        _gAM = AudioManager._I;
         SubscribeStats();
     }
 
     void Start() {
         InitializeWeapon();
         MyLog();
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerSpawn, transform.position);
+
     }
 
     public void Update() {
@@ -68,10 +69,10 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
 
     void InitializeWeapon() {
-        _currentWeapon = new(GameDataManager.LoadWeaponByName(_defaultWeaponName));
+        _currentWeapon = new(AssetManager.LoadWeaponByName(_defaultWeaponName));
         _currentWeapon.Setup(_firePoint, _weaponSpriteR);
         _weapons.Add(_currentWeapon);
-        _weapons.Add(new(GameDataManager.LoadWeaponByName("Eagle")));
+        _weapons.Add(new(AssetManager.LoadWeaponByName("Eagle")));
 
         _currentWeaponIndex = _weapons.Count - 1;
         _currentHealth = _maxHealth;
@@ -175,7 +176,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         var v2 = v1 - v1 * _damageReduction;
         var v3 = v2 - v2 * GameManager._gSettings._playerDamageReductionMultiplier;
         _currentHealth -= v3;
-        _ = Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerDamage, transform.position);
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After first reduction {v2}, after second reduction {v3}");
         _onPlayerHealthChange?.Invoke(v);
@@ -209,7 +210,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public void UseBlank() {
         if (_blankAmount <= 0) return;
         _blankAmount -= 1;
-        _ = Instantiate(_blankParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerBlank, transform.position);
         PlayerUI._I.DecaresBlank(1);
         PlaySound(_gAM._blankSound);
         foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }

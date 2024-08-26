@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class GameAudioManager : MonoBehaviour {
-    public static GameAudioManager _I { get; private set; }
+public class AudioManager : MonoBehaviour {
+    public static AudioManager _I { get; private set; }
     public Transform _soundPlayerPrefabs;
     #region Audio clips
     [Header("Player sounds")]
@@ -53,7 +53,7 @@ public class GameAudioManager : MonoBehaviour {
     public void PlaySoundEffect(Vector3 pos, AudioClip clip) {
         var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<SoundPlayer>();
         s.Play(clip);
-        
+
     }
     public AudioClip GetNormalByIndex(int i) => _defaultSound[i];
 

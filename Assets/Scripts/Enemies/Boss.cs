@@ -29,22 +29,23 @@ public class Boss : MonoBehaviour, IDamageable {
     private BossSO _currentStageSO;
     public SpriteRenderer[] _sprites;
 
-    private GameDataManager _gDM;
-    private GameAudioManager _gAM;
+    private AssetManager _gDM;
+    private AudioManager _gAM;
     private GameManager _gM;
     public void PlaySound(AudioClip clip) {
         _gAM.PlaySoundEffect(transform.position, clip);
 
     }
     void Awake() {
-        _gDM = GameDataManager._I;
-        _gAM = GameAudioManager._I;
+        _gDM = AssetManager._I;
+        _gAM = AudioManager._I;
     }
     public void Start() {
         _I = this;
         NextStage(false);
         Timer._objectToDestroy.Add(gameObject);
         _sprites = GetComponentsInChildren<SpriteRenderer>();
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.BossSpawn, transform.position);
         PlaySound(_gAM._enemySpawnSound);
         _target = PlayerController._I.transform;
     }
@@ -69,7 +70,6 @@ public class Boss : MonoBehaviour, IDamageable {
     public IEnumerator SpawnEnemies() {
         for (int i = 0; i < _currentStageSO._countOfEnemiesToSpawn; i++) {
             var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponentInChildren<Enemy>();
-            _ = Instantiate(GameDataManager._I._spawnParticle, e.transform.position, Quaternion.identity);
             e._currentRoom = _currentRoom;
             e._spawnedByBoss = true;
             _enemiesCount += 1;
@@ -92,6 +92,7 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     public void StopInvincible() {
         _isInvincible = false;
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.BossInvincibleStop, transform.position);
         foreach (var r in _sprites) {
             r.color = new Color(r.color.r, r.color.g, r.color.b, 1f);
         }
@@ -161,26 +162,24 @@ public class Boss : MonoBehaviour, IDamageable {
     public void Damage(float v) {
         if (_isInvincible) return;
         _currentHealth -= v;
-        _ = Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.BossDamage, transform.position);
         if (_currentHealth <= 0) {
-            if (_stage < 5) {
-                NextStage(); Debug.Log("NextStage"); _ = Instantiate(_dieParticle, transform.position, Quaternion.identity);
-            } else Die();
+            if (_stage < 5) ParticleAssetManager._I.InstantiateParticles(ParticleType.BossStageChange, transform.position);
+            else Die();
         }
         PlaySound(_gAM._playerDamageSound);
         BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
 
     }
     public void Die() {
-        _ = Instantiate(_dieParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.BossDie, transform.position);
         Soundtrack._I.PlayBossDie();
         Soundtrack._I.CombatEnd();
-        if (UnityEngine.Random.Range(0f, 1f) < 0.2f) _ = Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
+
         _currentRoom._onRoomClear?.Invoke(_currentRoom);
         PlaySound(_gAM._enemyDieSound);
         Destroy(transform.parent.gameObject);
     }
-    public Transform _dieParticle;
     void OnDestroy() {
 
         // _currentRoom.EnemiesDie();

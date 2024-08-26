@@ -40,7 +40,7 @@ public class PlayerUI : MonoBehaviour {
         for (int i = 0; i < val; i++) {
             RectTransform g = new GameObject("bullet", typeof(RectTransform)).GetComponent<RectTransform>();
             g.SetParent(_bulletDisplayContent, false);
-            g.gameObject.AddComponent<Image>().sprite = GameDataManager._I._bulletSprite;
+            g.gameObject.AddComponent<Image>().sprite = AssetManager._I._bulletSprite;
         }
         _allBUlletDisplay.GetComponent<TextMeshProUGUI>().text = $"{val}/{maxVal}";
     }
@@ -79,7 +79,7 @@ public class PlayerUI : MonoBehaviour {
             RectTransform g = new GameObject("blank", typeof(RectTransform)).GetComponent<RectTransform>();
             g.SetParent(_blankDisplay, false);
             var I = g.gameObject.AddComponent<Image>();
-            I.sprite = GameDataManager._I._blankSprite;
+            I.sprite = AssetManager._I._blankSprite;
             I.color = Color.blue;
         }
     }

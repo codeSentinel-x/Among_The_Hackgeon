@@ -3301,7 +3301,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2
@@ -10391,7 +10391,6 @@ GameObject:
   - component: {fileID: 1639582106}
   - component: {fileID: 1639582105}
   - component: {fileID: 1639582107}
-  - component: {fileID: 1639582108}
   - component: {fileID: 1639582109}
   - component: {fileID: 1639582110}
   m_Layer: 0
@@ -10413,7 +10412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baf9a1591cb8f91e870691258d95e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings: {fileID: 1006652733}
+  _settings: {fileID: 447454182}
   _help: {fileID: 213077884}
   _readme: {fileID: 1006838952}
   _isReadmeShowed: 0
@@ -10470,19 +10469,6 @@ MonoBehaviour:
   _loopSource: {fileID: 2085390014}
   _combatSource: {fileID: 1246464716}
   _isCombat: 0
---- !u!114 &1639582108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639582104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7b0d7a116095a4f92ef4a3e7cd6f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _saveIndex: 0
 --- !u!114 &1639582109
 MonoBehaviour:
   m_ObjectHideFlags: 0

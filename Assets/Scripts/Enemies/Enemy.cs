@@ -23,16 +23,16 @@ public class Enemy : MonoBehaviour, IDamageable {
     private float _currentHealth;
     private float _currentSpeed;
     public bool _spawnedByBoss;
-    private GameDataManager _gDM;
-    private GameAudioManager _gAM;
+    private AssetManager _gDM;
+    private AudioManager _gAM;
     private GameManager _gM;
     public void PlaySound(AudioClip clip) {
         _gAM.PlaySoundEffect(transform.position, clip);
 
     }
     public void Awake() {
-        _gDM = GameDataManager._I;
-        _gAM = GameAudioManager._I;
+        _gDM = AssetManager._I;
+        _gAM = AudioManager._I;
         Timer._objectToDestroy.Add(transform.parent.gameObject);
 
         _weapon = new(_defaultSetting._defaultWeapon);
@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour, IDamageable {
 
         _rgb = GetComponent<Rigidbody2D>();
 
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.EnemySpawn, transform.position);
         PlaySound(_gAM._enemySpawnSound);
     }
     void Update() {
@@ -109,20 +110,19 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void Damage(float v) {
         v -= v * GameManager._gSettings._enemyDamageReductionMultiplier;
         _currentHealth -= v;
-        _ = Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.EnemyDamage, transform.position);
         if (_currentHealth <= 0) Die();
         PlaySound(_gAM._enemyDamageSound);
 
     }
     public void Die() {
-        _ = Instantiate(_dieParticle, transform.position, Quaternion.identity);
+        ParticleAssetManager._I.InstantiateParticles(ParticleType.EnemyDie, transform.position);
         if (UnityEngine.Random.Range(0f, 1f) < 0.3f * GameManager._gSettings._specialItemSpawnChange) _ = Instantiate(MyRandom.GetFromArray<Transform>(_gDM._itemsToSpawn), transform.position, Quaternion.identity);
         if (!_spawnedByBoss) _ = _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
         PlaySound(_gAM._enemyDieSound);
     }
-    public Transform _dieParticle;
     void OnDestroy() {
         if (!_spawnedByBoss) if (_currentRoom != null) _currentRoom.EnemiesDie();
 

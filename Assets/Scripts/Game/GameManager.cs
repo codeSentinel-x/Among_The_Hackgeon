@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
     public static GameSettings _gSettings;
     public static Action _onVolumeChange;
-    public GameObject _settings;
+    public Canvas _settings;
     public static GameManager _I;
     void Awake() {
         if (_I != null) Destroy(gameObject);
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(_help);
         DontDestroyOnLoad(_readme);
+        DontDestroyOnLoad(_settings);
         foreach (var t in GetComponentsInChildren<Transform>()) {
             DontDestroyOnLoad(t.gameObject);
         }
@@ -86,7 +87,7 @@ public class GameManager : MonoBehaviour {
         }
     }
     public void OpenSetting() {
-        _settings.SetActive(true);
+        _settings.transform.GetChild(0).gameObject.SetActive(true);
         try { _gSettings = SaveSystem.Load<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings"); } catch (System.Exception) { }
         // _gSettings ??= new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1);
 
@@ -124,9 +125,9 @@ public class GameManager : MonoBehaviour {
     public void LoadStartScreen() => SceneManager.LoadScene(0);
     public static void Exit() => Application.Quit();
 
-    public void CloseSettingWithoutSaving() => _settings.SetActive(false);
+    public void CloseSettingWithoutSaving() => _settings.transform.GetChild(0).gameObject.SetActive(false);
     public void CloseSettingWithSave() {
-        _settings.SetActive(false);
+        _settings.transform.GetChild(0).gameObject.SetActive(false);
         SaveSettings();
     }
     public void SaveSettings() => SaveSystem.Save<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings", _gSettings);

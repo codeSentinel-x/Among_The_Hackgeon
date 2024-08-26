@@ -35,7 +35,7 @@ public class BulletMono : MonoBehaviour {
 
     }
     void OnCollisionEnter2D(Collision2D col) {
-        Debug.Log($"Collision with: {col.gameObject.name} (layer:{col.gameObject.layer},tag:{col.gameObject.layer}), Root parent: {col.transform.parent.name}");
+        Debug.Log($"Collision with: {col.gameObject.name} (layer:{col.gameObject.layer},tag:{col.gameObject.layer})");
         if (col.collider.isTrigger) return;
         if (col.gameObject.layer == gameObject.layer) return;
         if (col.gameObject.CompareTag(_tagToIgnore)) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
@@ -45,7 +45,7 @@ public class BulletMono : MonoBehaviour {
         if (unit != null) {
             unit.Damage(_bulletDamage);
         } else {
-            _ = Instantiate(GameDataManager._I._collisionParticle, transform.position, quaternion.identity);
+            ParticleAssetManager._I.InstantiateParticles(ParticleType.CollisionParticle, transform.position);
         }
         Destroy(transform.parent.gameObject);
     }

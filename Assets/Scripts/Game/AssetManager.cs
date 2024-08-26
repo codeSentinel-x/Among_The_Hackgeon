@@ -7,10 +7,10 @@ public enum WeaponType {
     Auto,
     MachineGun,
 }
-public class GameDataManager : MonoBehaviour {
+public class AssetManager : MonoBehaviour {
 
     [Header("Prefabs")]
-    public static GameDataManager _I;
+    public static AssetManager _I;
     public Transform _dungeonPrefab;
     public Transform _playerPrefab;
     public Transform _bossPrefab;
@@ -24,11 +24,7 @@ public class GameDataManager : MonoBehaviour {
     public Sprite[] _closedDoorSprite;
     public Sprite[] _openedDoorSprite; //0 - up; 1- right, 2 - down; 3 - left
 
-    [Header("Enemy particles")]
-    public Transform _spawnParticle;
-    public Transform _collisionParticle;
-    public Transform _loopResetParticle;
-    public Transform _damageParticle;
+
     [Header("Sprites")]
     public Sprite _bulletSprite;
     public Sprite _blankSprite;
@@ -55,8 +51,6 @@ public class GameDataManager : MonoBehaviour {
     }
     public static WeaponSO LoadWeaponByName(string name) => Resources.Load<WeaponSO>($"Weapons/{name}");
     public static SpecialItemSO LoadItemByName(string name) => Resources.Load<SpecialItemSO>($"Items/{name}");
-    public void InstantiateParticles(Vector3 pos, Transform pref) => Instantiate(pref, pos, Quaternion.identity);
-    public void InstantiateParticles(Transform parent, Transform pref) => Instantiate(parent, pref);
 
 
 }

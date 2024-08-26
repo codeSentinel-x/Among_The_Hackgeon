@@ -25,7 +25,7 @@ public class SpecialItemPickUp : MonoBehaviour {
     public string _name;
     public SpecialItemSO _defaultSetting;
     void Awake() {
-        _defaultSetting = GameDataManager.LoadItemByName(_name);
+        _defaultSetting = AssetManager.LoadItemByName(_name);
         GetComponent<SpriteRenderer>().sprite = _defaultSetting._sprite;
     }
     public void Apply() {

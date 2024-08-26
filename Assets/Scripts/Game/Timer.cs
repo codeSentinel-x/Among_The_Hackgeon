@@ -19,12 +19,14 @@ public class Timer : MonoBehaviour {
         _objectToDestroy = new();
         _I = this;
         _time = _resetTime;
-        GameDataManager._I.Setup();
+        AssetManager._I.Setup();
     }
     void Update() {
         _time -= Time.deltaTime;
         _display.text = _time.ToString("f0");
-        if (_time < 9 && !_spawned) { Soundtrack._I.PlayLoopResetApproach(); _ = Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform); _spawned = true; }
+        if (_time < 9 && !_spawned) {
+            Soundtrack._I.PlayLoopResetApproach(); ParticleAssetManager._I.InstantiateParticles(ParticleType.LoopReset, PlayerController._I.transform); _spawned = true;
+        }
         if (_time <= 0) LoadScene();
     }
     public void PlayerDie() {
@@ -52,7 +54,6 @@ public class Timer : MonoBehaviour {
     public GameObject _boomParticle;
     IEnumerator BreakLoopCoroutine() {
         Soundtrack._I.PlayLoopResetApproach();
-        _ = Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform);
         yield return new WaitForSeconds(7);
         _ = Instantiate(_boomParticle, PlayerController._I.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1);

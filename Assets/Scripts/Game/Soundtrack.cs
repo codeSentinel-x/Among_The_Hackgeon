@@ -10,7 +10,7 @@ public class Soundtrack : MonoBehaviour {
     public AudioSource _loopSource;
     public AudioSource _combatSource;
     public bool _isCombat;
-    private GameAudioManager _gAM;
+    private AudioManager _gAM;
     private GameManager _gM;
     private float _musicVolume;
 
@@ -18,7 +18,7 @@ public class Soundtrack : MonoBehaviour {
         _I = this;
     }
     void Start() {
-        _gAM = GameAudioManager._I;
+        _gAM = AudioManager._I;
         RoomController._onCombatStart += PlayCombat;
         RoomController._onCombatEnd += CombatEnd;
         ChangeVolume();
