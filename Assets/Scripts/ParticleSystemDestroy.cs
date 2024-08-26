@@ -8,6 +8,6 @@ public class ParticleSystemDestroy : MonoBehaviour {
     }
 
     void Update() {
-        if (!_particle.isEmitting) Destroy(this.gameObject);
+        if (!_particle.isEmitting) Destroy(gameObject);
     }
 }

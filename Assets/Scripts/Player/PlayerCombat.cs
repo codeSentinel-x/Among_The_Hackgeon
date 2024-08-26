@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Classes;
-using MyUtils.Custom;
 using MyUtils.Interfaces;
 using UnityEngine;
 
@@ -99,10 +98,12 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); /*Debug.Log("No bullets");*/ return; }
         // Debug.Log("Piu");
         float sp = UnityEngine.Random.Range(0f, _currentWeapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
+
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
-        b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, "Player");
+        b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, 3, gameObject.tag);
         b._bulletDamage *= GameManager._gSettings._playerDamageMultiplier;
+
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
         PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);

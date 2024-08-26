@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using MyUtils.Classes;
 using TMPro;
 using UnityEngine;
@@ -11,14 +9,17 @@ public class GameManager : MonoBehaviour {
     public static GameSettings _gSettings;
     public static Action _onVolumeChange;
     public GameObject _settings;
+    public static GameManager _I;
     void Awake() {
+        if (_I != null) Destroy(gameObject);
         try { _gSettings = SaveSystem.Load<GameSettings>(SaveSystem.SETTINGS_DEFAULT_SAVE_PATH, "defaultSettings"); } catch (System.Exception) { }
         if (_gSettings == null) {
             _gSettings = new(0.5f, 0.5f, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 60);
             Debug.Log("Creating Save");
             SaveSettings();
         }
-        DontDestroyOnLoad(this.gameObject);
+        _I = this;
+        DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(_help);
         DontDestroyOnLoad(_readme);
         foreach (var t in GetComponentsInChildren<Transform>()) {

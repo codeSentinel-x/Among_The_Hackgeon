@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class GameAudioManager : MonoBehaviour {
     public static GameAudioManager _I { get; private set; }
@@ -54,10 +51,9 @@ public class GameAudioManager : MonoBehaviour {
         // DontDestroyOnLoad(gameObject);
     }
     public void PlaySoundEffect(Vector3 pos, AudioClip clip) {
-        var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<AudioSource>();
-        s.clip = clip;
-        s.volume = GameManager._gSettings._soundsVolume;
-        s.Play();
+        var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<SoundPlayer>();
+        s.Play(clip);
+        
     }
     public AudioClip GetNormalByIndex(int i) => _defaultSound[i];
 

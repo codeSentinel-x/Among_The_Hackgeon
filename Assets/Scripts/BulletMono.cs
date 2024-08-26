@@ -31,7 +31,7 @@ public class BulletMono : MonoBehaviour {
         _maxDist = s._maxDist;
         _tagToIgnore = tag;
         _layerToIgnore = layerToIgnore;
-
+        _rgb.excludeLayers += layerToIgnore;
     }
     void OnCollisionEnter2D(Collision2D col) {
         // Debug.Log($"Collision with{col.gameObject.name}");
