@@ -32,10 +32,6 @@ public class Boss : MonoBehaviour, IDamageable {
     private AssetManager _gDM;
     private AudioManager _gAM;
     private GameManager _gM;
-    public void PlaySound(AudioClip clip) {
-        _gAM.PlaySoundEffect(transform.position, clip);
-
-    }
     void Awake() {
         _gDM = AssetManager._I;
         _gAM = AudioManager._I;
@@ -46,7 +42,7 @@ public class Boss : MonoBehaviour, IDamageable {
         Timer._objectToDestroy.Add(gameObject);
         _sprites = GetComponentsInChildren<SpriteRenderer>();
         ParticleAssetManager._I.InstantiateParticles(ParticleType.BossSpawn, transform.position);
-        PlaySound(_gAM._enemySpawnSound);
+        AudioManager._I.PlaySoundEffect(AudioType.BossSpawn, transform.position);
         _target = PlayerController._I.transform;
     }
     public int _enemiesCount;
@@ -131,7 +127,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _nextShootTime = Time.time + _currentStageSO._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _currentStageSO._shootDelays.Count) _delayIndex = 0;
-        PlaySound(_gAM.GetWeaponSound(WeaponType.Single));
+        AudioManager._I.PlaySoundEffect(AudioType.BossShoot, WeaponType.Single, transform.position); //TODO apply actual weapon type
 
     }
     private IEnumerator Reload() {
@@ -141,7 +137,7 @@ public class Boss : MonoBehaviour, IDamageable {
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        PlaySound(_gAM._reloadEndSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerReloadEnd, transform.position); //Todo change to actual boss reload sound and apply on start too
     }
     private void RotateWeaponToPlayer() {
 
@@ -167,7 +163,7 @@ public class Boss : MonoBehaviour, IDamageable {
             if (_stage < 5) ParticleAssetManager._I.InstantiateParticles(ParticleType.BossStageChange, transform.position);
             else Die();
         }
-        PlaySound(_gAM._playerDamageSound);
+        AudioManager._I.PlaySoundEffect(AudioType.BossDamage, transform.position);
         BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
 
     }
@@ -177,7 +173,7 @@ public class Boss : MonoBehaviour, IDamageable {
         Soundtrack._I.CombatEnd();
 
         _currentRoom._onRoomClear?.Invoke(_currentRoom);
-        PlaySound(_gAM._enemyDieSound);
+        AudioManager._I.PlaySoundEffect(AudioType.BossSpawn, transform.position);
         Destroy(transform.parent.gameObject);
     }
     void OnDestroy() {

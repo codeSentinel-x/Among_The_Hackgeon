@@ -108,12 +108,12 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _currentWeapon.Shoot(_shootDelayMult);
         PlayerUI._I.DecaresBullet(1, _currentWeapon._bulletsInMagazine, _currentWeapon._allBullets);
-        PlaySound(_gAM.GetWeaponSound(WeaponType.Single));
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerShoot, WeaponType.Single, transform.position); //TODO apply weapon type
 
     }
     public void NextWeapon() {
         if (_isReloading) return;
-        PlaySound(_gAM._weaponChangeSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerWeaponChange, transform.position);
         _currentWeaponIndex += 1;
         if (_currentWeaponIndex >= _weapons.Count) _currentWeaponIndex = 0;
         _currentWeapon = _weapons[_currentWeaponIndex];
@@ -125,7 +125,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     }
     public void PreviousWeapon() {
         if (_isReloading) return;
-        PlaySound(_gAM._weaponChangeSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerWeaponChange, transform.position);
         _currentWeaponIndex -= 1;
         if (_currentWeaponIndex < 0) _currentWeaponIndex = _weapons.Count - 1;
         _currentWeapon = _weapons[_currentWeaponIndex];
@@ -139,7 +139,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         if (_currentWeapon._bulletsInMagazine == _currentWeapon._defaultSettings._maxBullet) yield return null;
-        PlaySound(_gAM._reloadStartSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerReloadStart, transform.position);
         _isReloading = true;
         _ = StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
         yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
@@ -147,7 +147,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         Debug.Log("Reloaded");
         _isReloading = false;
         ResetBulletDisplay();
-        PlaySound(_gAM._reloadEndSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerReloadEnd, transform.position);
 
     }
 
@@ -180,13 +180,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After first reduction {v2}, after second reduction {v3}");
         _onPlayerHealthChange?.Invoke(v);
-        PlaySound(_gAM._playerDamageSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerDamage, transform.position);
     }
     public void RestoreHealth(float v) {
         _currentHealth += v;
         if (_currentHealth > _maxHealth) _currentHealth = _maxHealth;
         _onPlayerHealthChange?.Invoke(v);
-        PlaySound(_gAM._playerHealSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerHeal, transform.position);
     }
 
     private void Die() {
@@ -212,16 +212,12 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         _blankAmount -= 1;
         ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerBlank, transform.position);
         PlayerUI._I.DecaresBlank(1);
-        PlaySound(_gAM._blankSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerBlank, transform.position);
         foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }
     }
     public void AddBlank(int val = 1) {
         _blankAmount += val;
         PlayerUI._I.IncreaseBlank(val);
-    }
-    public void PlaySound(AudioClip clip) {
-        _gAM.PlaySoundEffect(transform.position, clip);
-
     }
     public void MyLog() {
 #if UNITY_EDITOR 

@@ -48,6 +48,11 @@ public class AudioManager : MonoBehaviour {
         s.Play(GetSound(type));
 
     }
+    public void PlaySoundEffect(AudioType aType, WeaponType wType, Vector3 position) {
+        var s = Instantiate(_soundPlayerPrefabs, position, Quaternion.identity).GetComponent<SoundPlayer>();
+        s.Play(GetSound(aType, wType));
+
+    }
     public AudioClip GetSound(AudioType type) {
         return type switch {
             AudioType.PlayerDamage => _playerDamageSound,
@@ -88,10 +93,10 @@ public class AudioManager : MonoBehaviour {
             _ => throw new System.ArgumentException($"No sounds for {name}"),
         };
         return type switch {
-            WeaponType.Single => array[0],
-            WeaponType.Sniper => array[1],
-            WeaponType.Auto => array[2],
-            WeaponType.MachineGun => array[3],
+            WeaponType.Single => array.Length > 0 ? array[0] : null,
+            WeaponType.Sniper => array.Length > 1 ? array[1] : null,
+            WeaponType.Auto => array.Length > 2 ? array[2] : null,
+            WeaponType.MachineGun => array.Length > 3 ? array[3] : null,
             _ => null,
         };
 

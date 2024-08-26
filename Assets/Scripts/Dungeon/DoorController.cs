@@ -2,6 +2,7 @@ using MyUtils.Enums;
 using MyUtils.Interfaces;
 using UnityEngine;
 
+//TODO //FIXME MAKE THIS CODE MORE FLEXIBLE AND STOP REPEATING SAME FUNCTIONS AGAIN AND AGAIN!!!!!!!  
 [RequireComponent(typeof(AudioSource))]
 public class DoorController : MonoBehaviour {
     public DoorOpenType _doorType;
@@ -154,7 +155,7 @@ public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return; }
+        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
@@ -362,7 +363,7 @@ public class VisibleDoor : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return;
+        OpenDoor(); AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); return;
 
     }
 }
@@ -445,7 +446,7 @@ public class BossEnterDoor : MonoBehaviour, IDoor, IDamageable {
     public void Damage(float v) {
         if (!PlayerController._hasKey) return;
         if (_opened || _hidden) return;
-        OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return;
+        OpenDoor(); AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); return;
 
     }
 }
@@ -500,7 +501,7 @@ public class BossDoorOnShoot : MonoBehaviour, IDoor, IDamageable {
 
     public void Damage(float v) {
         if (_opened || _hidden) return;
-        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(transform.position, AudioManager._I._doorOpenSound); return; }
+        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); return; }
         _stage--;
         _renderer.sprite = _pos switch {
             _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],

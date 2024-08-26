@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
         if (_delayIndex >= _defaultSetting._shootDelays.Count) _delayIndex = 0;
-        PlaySound(_gAM.GetWeaponSound(WeaponType.Single));
+        AudioManager._I.PlaySoundEffect(AudioType.EnemyShoot, WeaponType.Single, transform.position); //TODO apply weapon type
 
     }
     private IEnumerator Reload() {
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _weapon.Reload();
         Debug.Log("Reloaded");
         _isReloading = false;
-        PlaySound(_gAM._reloadEndSound);
+        AudioManager._I.PlaySoundEffect(AudioType.PlayerReloadEnd, transform.position); //Todo maybe change to enemy reload
     }
     private void RotateWeaponToPlayer() {
 
@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         ParticleAssetManager._I.InstantiateParticles(ParticleType.EnemyDamage, transform.position);
         if (_currentHealth <= 0) Die();
-        PlaySound(_gAM._enemyDamageSound);
+        AudioManager._I.PlaySoundEffect(AudioType.EnemyDamage, transform.position);
 
     }
     public void Die() {
@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         if (!_spawnedByBoss) _ = _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
-        PlaySound(_gAM._enemyDieSound);
+        AudioManager._I.PlaySoundEffect(AudioType.EnemyDie, transform.position);
     }
     void OnDestroy() {
         if (!_spawnedByBoss) if (_currentRoom != null) _currentRoom.EnemiesDie();

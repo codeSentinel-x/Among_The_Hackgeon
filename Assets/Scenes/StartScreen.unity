@@ -10576,9 +10576,9 @@ MonoBehaviour:
   - {fileID: 6663409543647279799, guid: 01c23a9715ea60b368b7673ad3ec153b, type: 3}
   - {fileID: 6857713087635094318, guid: dede3b327129a767e8d928e45a94db16, type: 3}
   _UtilityItemPrefab:
-  - {fileID: 76299804114678841, guid: 4deb1c0a74aa9202d805fb6db05ca494, type: 3}
-  - {fileID: 5951837233147493547, guid: 056e3b1949969441a94a816b266bd3d8, type: 3}
-  - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
+  - {fileID: 8462576055612248526, guid: 4aa6aa8e6fbbfaa98891c15ba59ebb47, type: 3}
+  - {fileID: 1578575357667916303, guid: 0bb33db9191acaa4c834d755e076b2d1, type: 3}
+  - {fileID: 5625215781377381978, guid: d7eaf9b92ac6fd25ab6be01cb22fee13, type: 3}
   _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
   _bossKeyPrefab: {fileID: 4655514917940395037, guid: 77ab7cb7a0f7e6e90b7d1e45897dbc25, type: 3}
 --- !u!114 &1639582111
