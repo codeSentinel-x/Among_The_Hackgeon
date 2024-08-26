@@ -38,30 +38,12 @@ public class PlayerController : MonoBehaviour {
             if (_currentItemInRange != null) {
                 AudioManager._I.PlaySoundEffect(AudioType.PlayerPickup, transform.position);
                 switch (_currentItemInRange._itemType) {
-                    case ItemType.Ammo: {
-                            GetComponent<PlayerCombat>().AddAmmo();
-                            break;
-                        }
-                    case ItemType.Healing: {
-                            GetComponent<PlayerCombat>().RestoreHealth();
-                            break;
-                        }
-                    case ItemType.Weapon: {
-                            GetComponent<PlayerCombat>().AddWeapon(AssetManager.LoadWeaponByName(_currentItemInRange._name));
-                            break;
-                        }
-                    case ItemType.Special: {
-                            _currentItemInRange.GetComponent<SpecialItemPickUp>().Apply();
-                            break;
-                        }
-                    case ItemType.Blank: {
-                            GetComponent<PlayerCombat>().AddBlank();
-                            break;
-                        }
-                    case ItemType.Key: {
-                            _hasKey = true;
-                            break;
-                        }
+                    case ItemType.Ammo: { GetComponent<PlayerCombat>().AddAmmo(); break; }
+                    case ItemType.Healing: { GetComponent<PlayerCombat>().RestoreHealth(); break; }
+                    case ItemType.Weapon: { GetComponent<PlayerCombat>().AddWeapon(AssetManager.LoadWeaponByName(_currentItemInRange._name)); break; }
+                    case ItemType.Special: { _currentItemInRange.GetComponent<SpecialItemPickUp>().Apply(); break; }
+                    case ItemType.Blank: { GetComponent<PlayerCombat>().AddBlank(); break; }
+                    case ItemType.Key: { _hasKey = true; break; }
 
                     default: break;
                 }

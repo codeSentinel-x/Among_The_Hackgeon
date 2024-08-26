@@ -14,7 +14,7 @@ public class RoomController : MonoBehaviour {
     public bool _found;
     public Transform[] _spawnPoints;
     public LayerMask _roomLayer;
-    // public PolygonCollider2D _cameraBoundaries;
+
     public bool _wasInvoked;
     public Action _onPlayerEnter;
     public Action<RoomController> _onRoomClear;

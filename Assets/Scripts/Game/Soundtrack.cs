@@ -10,15 +10,15 @@ public class Soundtrack : MonoBehaviour {
     public AudioSource _loopSource;
     public AudioSource _combatSource;
     public bool _isCombat;
-    private AudioManager _gAM;
-    private GameManager _gM;
+    private AudioManager _audioM;
+    private GameManager _gameM;
     private float _musicVolume;
 
     void Awake() {
         _I = this;
     }
     void Start() {
-        _gAM = AudioManager._I;
+        _audioM = AudioManager._I;
         RoomController._onCombatStart += PlayCombat;
         RoomController._onCombatEnd += CombatEnd;
         ChangeVolume();
@@ -40,13 +40,13 @@ public class Soundtrack : MonoBehaviour {
         }
     }
     public void PlayLoopResetApproach() {
-        _loopSource.clip = _gAM._approachingLoopResetSound;
+        _loopSource.clip = _audioM._approachingLoopResetSound;
         _normalSource.volume = .33f * _musicVolume;
         _combatSource.volume = .33f * _musicVolume;
         _loopSource.Play();
     }
     public void PlayLoopBreak() {
-        _loopSource.clip = _gAM._loopBreakSound;
+        _loopSource.clip = _audioM._loopBreakSound;
         _normalSource.volume = 0 * _musicVolume;
         _combatSource.volume = 0 * _musicVolume;
         _loopSource.Play();
@@ -59,14 +59,14 @@ public class Soundtrack : MonoBehaviour {
     public void PlayLoopReset() {
         _normalSource.volume = _musicVolume;
         _combatSource.volume = _musicVolume;
-        _loopSource.clip = _gAM._loopResetSound;
+        _loopSource.clip = _audioM._loopResetSound;
         _loopSource.Play();
     }
     public void PlayCombat() {
         Debug.Log("CombatStart");
         _normalSource.Stop();
         _isCombat = true;
-        if (_combatSource.clip == null) _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_gAM._combatMusic);
+        if (_combatSource.clip == null) _combatSource.clip = MyRandom.GetFromArray<AudioClip>(_audioM._combatMusic);
         _combatSource.Play();
     }
     public void StopCombat() {
@@ -77,9 +77,9 @@ public class Soundtrack : MonoBehaviour {
     }
     public void PlayNormal() {
         index++;
-        if (index == _gAM._defaultMusic.Length) index = 0;
+        if (index == _audioM._defaultMusic.Length) index = 0;
 
-        _normalSource.clip = _gAM.GetNormalByIndex(index);
+        _normalSource.clip = _audioM.GetNormalByIndex(index);
         _normalSource.Play();
     }
 }

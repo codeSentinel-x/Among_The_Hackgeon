@@ -2,17 +2,18 @@ using MyUtils.Functions;
 using MyUtils.Interfaces;
 using UnityEngine;
 
-public class Chest : MonoBehaviour, IDamageable {
+public class Chest : MonoBehaviour, IInteractable {
 
     public bool _chestWithKey;
     void Awake() {
         ParticleAssetManager._I.InstantiateParticles(ParticleType.ChestSpawn, transform.position);
     }
-    public void Damage(float v) {
+    public void Interact() {
         Open();
     }
     public void Open() {
         ParticleAssetManager._I.InstantiateParticles(ParticleType.ChestOpen, transform.position);
+        AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); //todo xif this
         if (_chestWithKey) _chestWithKey = Random.Range(0f, 1f) > 0.66f;
         if (!_chestWithKey) {
             _ = Instantiate(MyRandom.GetFromArray<Transform>(AssetManager._I._weaponsPrefab), transform.position + new Vector3(Random.Range(1f, 3f), 0), Quaternion.identity);
