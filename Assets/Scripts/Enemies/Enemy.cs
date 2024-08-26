@@ -26,10 +26,7 @@ public class Enemy : MonoBehaviour, IDamageable {
     private AssetManager _gDM;
     private AudioManager _gAM;
     private GameManager _gM;
-    public void PlaySound(AudioClip clip) {
-        _gAM.PlaySoundEffect(transform.position, clip);
 
-    }
     public void Awake() {
         _gDM = AssetManager._I;
         _gAM = AudioManager._I;
@@ -47,7 +44,7 @@ public class Enemy : MonoBehaviour, IDamageable {
         _rgb = GetComponent<Rigidbody2D>();
 
         ParticleAssetManager._I.InstantiateParticles(ParticleType.EnemySpawn, transform.position);
-        PlaySound(_gAM._enemySpawnSound);
+        AudioManager._I.PlaySoundEffect(AudioType.EnemySpawn, transform.position);
     }
     void Update() {
         RotateWeaponToPlayer();

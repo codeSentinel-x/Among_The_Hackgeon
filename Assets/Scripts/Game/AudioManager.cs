@@ -1,60 +1,126 @@
 using UnityEngine;
-
 public class AudioManager : MonoBehaviour {
-    public static AudioManager _I { get; private set; }
+    public static AudioManager _I;
     public Transform _soundPlayerPrefabs;
-    #region Audio clips
+
     [Header("Player sounds")]
     public AudioClip _playerDamageSound;
-    public AudioClip _weaponChangeSound;
-    public AudioClip _dashSound;
-    public AudioClip _blankSound;
+    public AudioClip _playerWeaponChangeSound;
+    public AudioClip _playerDashSound;
+    public AudioClip _playerBlankSound;
     public AudioClip _playerHealSound;
-    public AudioClip _pickupSound;
-    public AudioClip _reloadStartSound;
-    public AudioClip _reloadEndSound;
-    public AudioClip[] _shootSounds;
+    public AudioClip _playerPickupSound;
+    public AudioClip _playerReloadStartSound;
+    public AudioClip _playerReloadEndSound;
+    public AudioClip[] _playerShootSounds;
     [Header("Enemy sounds")]
     public AudioClip _enemySpawnSound;
     public AudioClip _enemyDamageSound;
     public AudioClip _enemyDieSound;
-    public AudioClip _bossDie;
+    public AudioClip[] _enemyShootSounds;
+    [Header("Boss sounds")]
+    public AudioClip _bossSpawnSound;
+    public AudioClip _bossDamageSound;
+    public AudioClip _bossInvincibleStartSound;
+    public AudioClip _bossInvincibleEndSound;
+    public AudioClip _bossDieSound;
+    public AudioClip[] _bossShootSounds;
     [Header("Dungeon sounds")]
     public AudioClip _doorOpenSound;
-    public AudioClip _approachingLoopReset;
+    public AudioClip _approachingLoopResetSound;
     public AudioClip _loopResetSound;
-    public AudioClip _loopBreak;
+    public AudioClip _loopBreakSound;
     [Header("Soundtrack")]
-    public AudioClip[] _startScreenSound;
-    public AudioClip[] _defaultSound;
-    public AudioClip[] _combatSound;
-    public AudioClip GetWeaponSound(WeaponType type) {
-        switch (type) {
-            case WeaponType.Single: {
-                    return _shootSounds[0];
-                }
-            case WeaponType.Sniper: {
-                    return _shootSounds[1];
-                }
-            case WeaponType.Auto: {
-                    return _shootSounds[2];
-                }
-            case WeaponType.MachineGun: {
-                    return _shootSounds[3];
-                }
-            default: return null;
-        }
-    }
-    #endregion
+    public AudioClip[] _startScreenMusic;
+    public AudioClip[] _defaultMusic;
+    public AudioClip[] _combatMusic;
     void Awake() {
         _I = this;
-        // DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
-    public void PlaySoundEffect(Vector3 pos, AudioClip clip) {
+    public void PlaySoundEffect(AudioType type, Vector3 pos) {
         var s = Instantiate(_soundPlayerPrefabs, pos, Quaternion.identity).GetComponent<SoundPlayer>();
-        s.Play(clip);
+        s.Play(GetSound(type));
 
     }
-    public AudioClip GetNormalByIndex(int i) => _defaultSound[i];
+    public void PlaySoundEffect(AudioType type, Transform parent) {
+        var s = Instantiate(_soundPlayerPrefabs, parent).GetComponent<SoundPlayer>();
+        s.Play(GetSound(type));
 
+    }
+    public AudioClip GetSound(AudioType type) {
+        return type switch {
+            AudioType.PlayerDamage => _playerDamageSound,
+            AudioType.PlayerWeaponChange => _playerWeaponChangeSound,
+            AudioType.PlayerBlank => _playerBlankSound,
+            AudioType.PlayerHeal => _playerHealSound,
+            AudioType.PlayerPickup => _playerPickupSound,
+            AudioType.PlayerReloadStart => _playerReloadStartSound,
+            AudioType.PlayerReloadEnd => _playerReloadEndSound,
+            AudioType.EnemySpawn => _enemySpawnSound,
+            AudioType.EnemyDamage => _playerDamageSound,
+            AudioType.EnemyDie => _enemyDieSound,
+            AudioType.BossSpawn => _bossSpawnSound,
+            AudioType.BossDamage => _bossDamageSound,
+            AudioType.BossInvincibleStart => _bossInvincibleStartSound,
+            AudioType.BossInvincibleEnd => _bossInvincibleEndSound,
+            AudioType.BossDie => _bossDieSound,
+            AudioType.DoorOpen => _doorOpenSound,
+            AudioType.ApproachingLoopReset => _approachingLoopResetSound,
+            AudioType.LoopReset => _loopResetSound,
+            AudioType.LoopBreak => _loopBreakSound,
+            _ => null,
+        };
+    }
+    public AudioClip GetSound(AudioType aType, WeaponType wType) {
+        return aType switch {
+            AudioType.PlayerShoot => GetWeaponSound(wType, "player"),
+            AudioType.EnemyShoot => GetWeaponSound(wType, "enemy"),
+            AudioType.BossShoot => GetWeaponSound(wType, "boss"),
+            _ => null,
+        };
+    }
+    public AudioClip GetWeaponSound(WeaponType type, string name) {
+        AudioClip[] array = name switch {
+            "player" => _playerShootSounds,
+            "enemy" => _enemyShootSounds,
+            "boss" => _bossShootSounds,
+            _ => throw new System.ArgumentException($"No sounds for {name}"),
+        };
+        return type switch {
+            WeaponType.Single => array[0],
+            WeaponType.Sniper => array[1],
+            WeaponType.Auto => array[2],
+            WeaponType.MachineGun => array[3],
+            _ => null,
+        };
+
+    }
+    public AudioClip GetNormalByIndex(int i) => _defaultMusic[i];
+
+}
+public enum AudioType {
+    PlayerDamage,
+    PlayerWeaponChange,
+    PlayerDash,
+    PlayerBlank,
+    PlayerHeal,
+    PlayerPickup,
+    PlayerReloadStart,
+    PlayerReloadEnd,
+    PlayerShoot,
+    EnemySpawn,
+    EnemyDamage,
+    EnemyDie,
+    EnemyShoot,
+    BossSpawn,
+    BossDamage,
+    BossInvincibleStart,
+    BossInvincibleEnd,
+    BossDie,
+    BossShoot,
+    DoorOpen,
+    ApproachingLoopReset,
+    LoopReset,
+    LoopBreak,
 }

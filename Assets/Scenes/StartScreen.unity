@@ -10393,6 +10393,7 @@ GameObject:
   - component: {fileID: 1639582107}
   - component: {fileID: 1639582109}
   - component: {fileID: 1639582110}
+  - component: {fileID: 1639582111}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10562,10 +10563,6 @@ MonoBehaviour:
   - {fileID: 863008621, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
   - {fileID: 297431439, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
   - {fileID: 1328269469, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
-  _spawnParticle: {fileID: 734948581723939815, guid: 90f7c0a09988af0b0a1de178df2cc322, type: 3}
-  _collisionParticle: {fileID: 7042683557990041811, guid: b183120fee886a7f8b2da33c8c894e80, type: 3}
-  _loopResetParticle: {fileID: 8789328693553503189, guid: 1780f408d7324682eaec5304a704aa93, type: 3}
-  _damageParticle: {fileID: 9171469041363178228, guid: 92b63f9523e9a4562a406e4feff07be1, type: 3}
   _bulletSprite: {fileID: 3098933925591197577, guid: 51f98ea6cfb629d879f49435067e1f88, type: 3}
   _blankSprite: {fileID: 3098933925591197577, guid: 51f98ea6cfb629d879f49435067e1f88, type: 3}
   _endCanvas: {fileID: 6069201635715361030, guid: 4b8eebf70372a8144ab2de4489b71b91, type: 3}
@@ -10583,7 +10580,34 @@ MonoBehaviour:
   - {fileID: 5951837233147493547, guid: 056e3b1949969441a94a816b266bd3d8, type: 3}
   - {fileID: 5912407410694496021, guid: 29ec9387901a08377930e51041d8fe72, type: 3}
   _chestPrefab: {fileID: 123809717052594193, guid: 91e422d58b032865cbc02ee29f253f70, type: 3}
-  _bossKeyPrefab: {fileID: 5521132777385142467, guid: 05798482fdc6401369a15d12bf80fa17, type: 3}
+  _bossKeyPrefab: {fileID: 4655514917940395037, guid: 77ab7cb7a0f7e6e90b7d1e45897dbc25, type: 3}
+--- !u!114 &1639582111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639582104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917bcefd81dde73ebb8f6c88695ce8db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chestSpawnParticle: {fileID: 7570797358742718297, guid: 308c172014f27041ba12ec32d8a55697, type: 3}
+  _chestOpenParticle: {fileID: 7570797358742718297, guid: 308c172014f27041ba12ec32d8a55697, type: 3}
+  _enemySpawnParticle: {fileID: 734948581723939815, guid: 90f7c0a09988af0b0a1de178df2cc322, type: 3}
+  _enemyDamageParticle: {fileID: 9171469041363178228, guid: 92b63f9523e9a4562a406e4feff07be1, type: 3}
+  _enemyDieParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
+  _bossSpawnParticle: {fileID: 734948581723939815, guid: 90f7c0a09988af0b0a1de178df2cc322, type: 3}
+  _bossDamageParticle: {fileID: 9171469041363178228, guid: 92b63f9523e9a4562a406e4feff07be1, type: 3}
+  _bossStageChangeParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
+  _bossInvincibleStopParticle: {fileID: 7570797358742718297, guid: 308c172014f27041ba12ec32d8a55697, type: 3}
+  _bossDieParticle: {fileID: 2542456795584451157, guid: c40a8489d46117a09bcdc29835161fe2, type: 3}
+  _playerSpawnParticle: {fileID: 734948581723939815, guid: 90f7c0a09988af0b0a1de178df2cc322, type: 3}
+  _playerDamageParticle: {fileID: 9171469041363178228, guid: 92b63f9523e9a4562a406e4feff07be1, type: 3}
+  _playerBlankParticle: {fileID: 3935288263477356131, guid: 947d67699afbfdf60b91265eed16be5d, type: 3}
+  _collisionParticle: {fileID: 7042683557990041811, guid: b183120fee886a7f8b2da33c8c894e80, type: 3}
+  _loopResetParticle: {fileID: 8789328693553503189, guid: 1780f408d7324682eaec5304a704aa93, type: 3}
 --- !u!1 &1668125996
 GameObject:
   m_ObjectHideFlags: 0

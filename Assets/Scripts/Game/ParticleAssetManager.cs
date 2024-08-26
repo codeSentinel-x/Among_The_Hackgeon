@@ -1,26 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum ParticleType {
-    ChestSpawn,
-    ChestOpen,
-    EnemySpawn,
-    EnemyDamage,
-    EnemyDie,
-    BossSpawn,
-    BossDamage,
-    BossStageChange,
-    BossInvincibleStop,
-    BossDie,
-    PlayerSpawn,
-    PlayerDamage,
-    PlayerBlank,
-    CollisionParticle,
-    LoopReset,
-}
 public class ParticleAssetManager : MonoBehaviour {
     public static ParticleAssetManager _I;
+
     [Header("Chest particles")]
     public Transform _chestSpawnParticle;
     public Transform _chestOpenParticle;
@@ -46,6 +28,14 @@ public class ParticleAssetManager : MonoBehaviour {
     public Transform _loopResetParticle;
 
 
+    void Awake() {
+        _I = GetComponent<ParticleAssetManager>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void InstantiateParticles(ParticleType type, Vector3 pos) => Instantiate(GetParticle(type), pos, Quaternion.identity);
+    public void InstantiateParticles(ParticleType type, Transform parent) => Instantiate(GetParticle(type), parent);
+
     public Transform GetParticle(ParticleType type) {
         return type switch {
             ParticleType.ChestSpawn => _chestSpawnParticle,
@@ -66,11 +56,22 @@ public class ParticleAssetManager : MonoBehaviour {
             _ => null,
         };
     }
-    public void InstantiateParticles(ParticleType type, Vector3 pos) => Instantiate(GetParticle(type), pos, Quaternion.identity);
-    public void InstantiateParticles(ParticleType type, Transform parent) => Instantiate(GetParticle(type), parent);
 
-    void Awake() {
-        _I = GetComponent<ParticleAssetManager>();
-    }
-
+}
+public enum ParticleType {
+    ChestSpawn,
+    ChestOpen,
+    EnemySpawn,
+    EnemyDamage,
+    EnemyDie,
+    BossSpawn,
+    BossDamage,
+    BossStageChange,
+    BossInvincibleStop,
+    BossDie,
+    PlayerSpawn,
+    PlayerDamage,
+    PlayerBlank,
+    CollisionParticle,
+    LoopReset,
 }

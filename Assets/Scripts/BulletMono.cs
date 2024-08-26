@@ -1,6 +1,5 @@
 using MyUtils.Interfaces;
 using MyUtils.Structs;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class BulletMono : MonoBehaviour {
