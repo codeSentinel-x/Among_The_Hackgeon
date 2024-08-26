@@ -15,6 +15,7 @@ public class GameDataManager : MonoBehaviour {
     public Transform _playerPrefab;
     public Transform _bossPrefab;
     public EnemyPrefabGetter _enemyPref;
+    public Transform[] _itemsToSpawn;
 
     [Header("Door sprites")]
     public Sprite[] _destroyableDoorSpritesHorizontal;

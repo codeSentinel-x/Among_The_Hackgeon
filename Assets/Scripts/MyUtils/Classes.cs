@@ -109,7 +109,7 @@ namespace MyUtils.Classes {
             InvokeOnChangeAction();
         }
         public void RemoveModifier(float modifier) {
-            if (modifier != 0) _modifiers.Remove(modifier);
+            if (modifier != 0) _ = _modifiers.Remove(modifier);
             InvokeOnChangeAction();
         }
         public void AddMultiplier(float multiplier) {
@@ -117,7 +117,7 @@ namespace MyUtils.Classes {
             InvokeOnChangeAction();
         }
         public void RemoveMultiplier(float multiplier) {
-            if (multiplier != 0) _multipliers.Remove(multiplier);
+            if (multiplier != 0) _ = _multipliers.Remove(multiplier);
             InvokeOnChangeAction();
         }
         public void ClearAllModifiers() {

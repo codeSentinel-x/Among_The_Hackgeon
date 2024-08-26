@@ -25,16 +25,17 @@ public class BulletMono : MonoBehaviour {
         } else Destroy(transform.parent.gameObject);
 
     }
-    public void Setup(BulletSetting s, float bSMult, LayerMask layerToIgnore, string tag) {
+    public void Setup(BulletSetting s, float bSMult, LayerMask layerToIgnore, string tag, Collider2D colToIgnore) {
         _bulletDamage = s._damage;
         _speed = s._speed * bSMult;
         _maxDist = s._maxDist;
         _tagToIgnore = tag;
+        Physics2D.IgnoreCollision(colToIgnore, this.col);
         _layerToIgnore = layerToIgnore;
-        _rgb.excludeLayers += layerToIgnore;
+
     }
     void OnCollisionEnter2D(Collision2D col) {
-        // Debug.Log($"Collision with{col.gameObject.name}");
+        Debug.Log($"Collision with: {col.gameObject.name} (layer:{col.gameObject.layer},tag:{col.gameObject.layer}), Root parent: {col.transform.parent.name}");
         if (col.collider.isTrigger) return;
         if (col.gameObject.layer == gameObject.layer) return;
         if (col.gameObject.CompareTag(_tagToIgnore)) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
@@ -44,7 +45,7 @@ public class BulletMono : MonoBehaviour {
         if (unit != null) {
             unit.Damage(_bulletDamage);
         } else {
-            Instantiate(GameDataManager._I._collisionParticle, transform.position, quaternion.identity);
+            _ = Instantiate(GameDataManager._I._collisionParticle, transform.position, quaternion.identity);
         }
         Destroy(transform.parent.gameObject);
     }

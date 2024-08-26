@@ -10550,6 +10550,10 @@ MonoBehaviour:
       _enemyPref: {fileID: 7086293667160900216, guid: 3b48221bbe6d91bb896d59493d3312db, type: 3}
     - _spawnChange: 0
       _enemyPref: {fileID: 7086293667160900216, guid: 752d3c009b9c991fda11473c9d32684e, type: 3}
+  _itemsToSpawn:
+  - {fileID: 8462576055612248526, guid: 4aa6aa8e6fbbfaa98891c15ba59ebb47, type: 3}
+  - {fileID: 1578575357667916303, guid: 0bb33db9191acaa4c834d755e076b2d1, type: 3}
+  - {fileID: 5625215781377381978, guid: d7eaf9b92ac6fd25ab6be01cb22fee13, type: 3}
   _destroyableDoorSpritesHorizontal:
   - {fileID: 1417840712, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}
   - {fileID: 274438417, guid: a374c84c9cf4f056f9da3e2b38aa4f3c, type: 3}

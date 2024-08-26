@@ -20,7 +20,7 @@ public class PlayerInteractions : MonoBehaviour
     void OnTriggerExit2D(Collider2D other){
         if(other.TryGetComponent<IInteractable>(out var i)) {
             if (!_objectsInRange.Contains(i)) return;
-            _objectsInRange.Remove(i);
+            _ = _objectsInRange.Remove(i);
         }
     }
     void Update(){

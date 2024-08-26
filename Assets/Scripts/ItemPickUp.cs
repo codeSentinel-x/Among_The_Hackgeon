@@ -33,7 +33,7 @@ public class ItemPickUp : MonoBehaviour {
         }
     }
     void OnDestroy() {
-        Instantiate(_pickupParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(_pickupParticle, transform.position, Quaternion.identity);
     }
 
 }

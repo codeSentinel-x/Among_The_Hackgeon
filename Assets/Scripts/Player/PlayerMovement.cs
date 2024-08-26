@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour {
         if (_currentStamina >= _dashStaminaUsage) {
             _currentStamina -= _dashStaminaUsage;
             _rgb.AddForce(_dir.normalized * _dashPower, ForceMode2D.Impulse);
-            StartCoroutine(StopMoving(_dashDuration));
+            _ = StartCoroutine(StopMoving(_dashDuration));
             _staminaCounter = _staminaRegDelay;
             PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
             _onDashStart?.Invoke();

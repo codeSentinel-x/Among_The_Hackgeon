@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour, IDamageable {
     public Transform _firePoint;
     public Transform _weaponHolder;
     public SpriteRenderer _weaponSR;
-    public Transform[] _objectToSpawn;
     public Vector2 _moveDirection;
     public float _nextMoveDirectionChange;
     public float _minPlayerDist;
@@ -40,11 +39,11 @@ public class Enemy : MonoBehaviour, IDamageable {
         _weapon.Setup(null, _weaponSR);
         _weapon._bulletsInMagazine = _weapon._defaultSettings._maxBullet;
         _nextShootTime = Time.time + _defaultSetting._firstShootDelay.GetValue();
-        
+
         _target = PlayerController._I.transform;
         _currentHealth = _defaultSetting._maxHealth * GameManager._gSettings._enemyMaxHealthMultiplier;
         _currentSpeed = _defaultSetting._speed.GetValue() * GameManager._gSettings._enemySpeedMultiplier;
-        
+
         _rgb = GetComponent<Rigidbody2D>();
 
         PlaySound(_gAM._enemySpawnSound);
@@ -68,14 +67,13 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void Shoot() {
         if (_isReloading) return;
         if (_weapon._nextShoot > Time.time) return;
-        if (_weapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); _weapon._allBullets += 30; Debug.Log("No bullets"); return; }
+        if (_weapon._bulletsInMagazine <= 0) { _ = StartCoroutine(Reload()); _weapon._allBullets += 30; Debug.Log("No bullets"); return; }
         // Debug.Log("Piu");
         float sp = UnityEngine.Random.Range(0f, _weapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
-        b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, "Enemy");
+        b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, gameObject.tag, GetComponent<Collider2D>());
         b._bulletDamage = _defaultSetting._baseDamage.GetValue() * GameManager._gSettings._enemyDamageMultiplier;
-        Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         _weapon.Shoot(1);
         _nextShootTime = Time.time + _defaultSetting._shootDelays[_delayIndex].GetValue();
         _delayIndex++;
@@ -111,15 +109,15 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void Damage(float v) {
         v -= v * GameManager._gSettings._enemyDamageReductionMultiplier;
         _currentHealth -= v;
-        Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
         PlaySound(_gAM._enemyDamageSound);
 
     }
     public void Die() {
-        Instantiate(_dieParticle, transform.position, Quaternion.identity);
-        if (UnityEngine.Random.Range(0f, 1f) < 0.3f * GameManager._gSettings._specialItemSpawnChange) Instantiate(MyRandom.GetFromArray<Transform>(_objectToSpawn), transform.position, Quaternion.identity);
-        if (!_spawnedByBoss) _currentRoom._enemies.Remove(this);
+        _ = Instantiate(_dieParticle, transform.position, Quaternion.identity);
+        if (UnityEngine.Random.Range(0f, 1f) < 0.3f * GameManager._gSettings._specialItemSpawnChange) _ = Instantiate(MyRandom.GetFromArray<Transform>(_gDM._itemsToSpawn), transform.position, Quaternion.identity);
+        if (!_spawnedByBoss) _ = _currentRoom._enemies.Remove(this);
         else { Boss._I._enemiesCount -= 1; Boss._I.ChangeName(); };
         Destroy(transform.parent.gameObject);
         PlaySound(_gAM._enemyDieSound);

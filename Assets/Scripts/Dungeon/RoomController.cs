@@ -125,7 +125,7 @@ public class RoomController : MonoBehaviour {
                 _enemies = new();
                 wasInvokedOnClear = true;
                 if (_roomDifficulty == 5) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
-                else if (_roomDifficulty >= 3) Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity);
+                else if (_roomDifficulty >= 3) _ = Instantiate(GameDataManager._I._chestPrefab, transform.position, Quaternion.identity);
                 // _onCombatEnd?.Invoke();
                 Soundtrack._I.CombatEnd();
 
@@ -171,7 +171,7 @@ public class RoomController : MonoBehaviour {
         wasInvokedOnClear = false;
         foreach (var c in _spawnPoints) {
             var g = Instantiate(GameDataManager._I._enemyPref.GetEnemy(1), c.position, Quaternion.identity);
-            Instantiate(GameDataManager._I._spawnParticle, c.position, Quaternion.identity);
+            _ = Instantiate(GameDataManager._I._spawnParticle, c.position, Quaternion.identity);
             var e = g.GetComponentInChildren<Enemy>();
             e._currentRoom = this;
             _enemies.Add(e);
@@ -189,7 +189,7 @@ public class RoomController : MonoBehaviour {
         _wasInvoked = true;
         wasInvokedOnClear = false;
         var g = Instantiate(GameDataManager._I._bossPrefab, transform.position, Quaternion.identity);
-        Instantiate(GameDataManager._I._spawnParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(GameDataManager._I._spawnParticle, transform.position, Quaternion.identity);
         var e = g.GetComponentInChildren<Boss>();
         e._currentRoom = this;
 

@@ -19,7 +19,7 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
         _rgb = GetComponent<Rigidbody2D>();
     }
     public void Damage(float v) {
-        Instantiate(_damageParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(_damageParticle, transform.position, Quaternion.identity);
         switch (_type) {
             case ObstacleType.PushableExploding: {
                     _durability -= 1;
@@ -41,7 +41,7 @@ public class Obstacles : MonoBehaviour, IDamageable, IInteractable {
 
     private void Explode() {
         Debug.Log($"{name} exploded");
-        Instantiate(_explosionParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(_explosionParticle, transform.position, Quaternion.identity);
     }
 
     public void Interact() {

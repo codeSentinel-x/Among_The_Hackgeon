@@ -87,7 +87,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         } else {
             if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
         }
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
+        if (Input.GetKeyDown(KeyCode.R) && !_isReloading) _ = StartCoroutine(Reload());
         if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
         if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
         if (Input.GetKeyDown(KeyCode.Q)) UseBlank();
@@ -95,13 +95,13 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public void Shoot() {
         if (_isReloading) return;
         if (_currentWeapon._nextShoot > Time.time) return;
-        if (_currentWeapon._bulletsInMagazine <= 0) { StartCoroutine(Reload()); /*Debug.Log("No bullets");*/ return; }
+        if (_currentWeapon._bulletsInMagazine <= 0) { _ = StartCoroutine(Reload()); /*Debug.Log("No bullets");*/ return; }
         // Debug.Log("Piu");
         float sp = UnityEngine.Random.Range(0f, _currentWeapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
 
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_currentWeapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
-        b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, 3, gameObject.tag);
+        b.Setup(_currentWeapon._defaultSettings._bulletSetting, _bulletSpeedMult, gameObject.layer, gameObject.tag, GetComponent<Collider2D>());
         b._bulletDamage *= GameManager._gSettings._playerDamageMultiplier;
 
         Physics2D.IgnoreCollision(b.GetComponent<Collider2D>(), GetComponent<Collider2D>());
@@ -140,7 +140,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._bulletsInMagazine == _currentWeapon._defaultSettings._maxBullet) yield return null;
         PlaySound(_gAM._reloadStartSound);
         _isReloading = true;
-        StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
+        _ = StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));
         yield return new WaitForSeconds(_currentWeapon._reloadTime * _reloadSpeedMult);
         _currentWeapon.Reload();
         Debug.Log("Reloaded");
@@ -175,7 +175,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         var v2 = v1 - v1 * _damageReduction;
         var v3 = v2 - v2 * GameManager._gSettings._playerDamageReductionMultiplier;
         _currentHealth -= v3;
-        Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(GameDataManager._I._damageParticle, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
         Debug.Log($"Base damage: {v}, After ignore: {v1}, After first reduction {v2}, after second reduction {v3}");
         _onPlayerHealthChange?.Invoke(v);
@@ -209,7 +209,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     public void UseBlank() {
         if (_blankAmount <= 0) return;
         _blankAmount -= 1;
-        Instantiate(_blankParticle, transform.position, Quaternion.identity);
+        _ = Instantiate(_blankParticle, transform.position, Quaternion.identity);
         PlayerUI._I.DecaresBlank(1);
         PlaySound(_gAM._blankSound);
         foreach (var g in GameObject.FindGameObjectsWithTag("Bullet")) { Destroy(g.transform.parent.gameObject); }

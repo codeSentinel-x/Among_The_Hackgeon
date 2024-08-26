@@ -11,7 +11,7 @@ public static class SaveSystem {
     public static void Save<T>(string path, string name, T data, string ext = ".json") {
         path = Path.Combine(PERSISTANCE_DATA_PATH, path);
         try {
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            if (!Directory.Exists(path)) _ = Directory.CreateDirectory(path);
             string fullPath = Path.Combine(path, name + ext);
             string jsonData = JsonUtility.ToJson(data);
             using FileStream stream = new(fullPath, FileMode.Create);
@@ -26,7 +26,7 @@ public static class SaveSystem {
     public static List<string> GetAllFileNameFromDirectory(string path, string ext = ".json") {
         List<string> result = new();
         string fullPath = Path.Combine(PERSISTANCE_DATA_PATH, path);
-        if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+        if (!Directory.Exists(fullPath)) _ = Directory.CreateDirectory(fullPath);
         try {
             foreach (var s in Directory.GetFiles(fullPath, "*" + ext, SearchOption.TopDirectoryOnly)) {
                 string name = Path.GetFileNameWithoutExtension(s);

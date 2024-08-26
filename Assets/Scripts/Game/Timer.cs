@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour {
     void Update() {
         _time -= Time.deltaTime;
         _display.text = _time.ToString("f0");
-        if (_time < 9 && !_spawned) { Soundtrack._I.PlayLoopResetApproach(); Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform); _spawned = true; }
+        if (_time < 9 && !_spawned) { Soundtrack._I.PlayLoopResetApproach(); _ = Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform); _spawned = true; }
         if (_time <= 0) LoadScene();
     }
     public void PlayerDie() {
@@ -46,15 +46,15 @@ public class Timer : MonoBehaviour {
         if (_broken) return;
         _time = 999;
         _broken = true;
-        StartCoroutine(BreakLoopCoroutine());
+        _ = StartCoroutine(BreakLoopCoroutine());
     }
     public GameObject _endScreen;
     public GameObject _boomParticle;
     IEnumerator BreakLoopCoroutine() {
         Soundtrack._I.PlayLoopResetApproach();
-        Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform);
+        _ = Instantiate(GameDataManager._I._loopResetParticle, PlayerController._I.transform);
         yield return new WaitForSeconds(7);
-        Instantiate(_boomParticle, PlayerController._I.transform.position, Quaternion.identity);
+        _ = Instantiate(_boomParticle, PlayerController._I.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(1);
         _endScreen.SetActive(true);
         Soundtrack._I.PlayLoopBreak();

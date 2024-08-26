@@ -14,7 +14,7 @@ public class Torch : MonoBehaviour {
     void Awake() {
         intensity = 0;
         outer = 0;
-        if (_test) StartCoroutine(LightCycle());
+        if (_test) _ = StartCoroutine(LightCycle());
     }
     public IEnumerator LightCycle() {
         for (int i = 0; i < 10; i++) {
@@ -27,11 +27,11 @@ public class Torch : MonoBehaviour {
     }
     public void StartLightsUp() {
         StopCoroutine(LightsDown());
-        StartCoroutine(LightsUp());
+        _ = StartCoroutine(LightsUp());
     }
     public void StartLightsDown() {
         StopCoroutine(LightsUp());
-        StartCoroutine(LightsDown());
+        _ = StartCoroutine(LightsDown());
     }
     public IEnumerator LightsUp() {
         // StopCoroutine(LightsDown());
