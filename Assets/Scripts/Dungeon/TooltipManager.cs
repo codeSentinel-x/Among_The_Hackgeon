@@ -11,10 +11,9 @@ public class TooltipManager : MonoBehaviour {
         _I = this;
         DontDestroyOnLoad(_tooltipCanvas);
     }
-    public void ShowTooltip<T>(TooltipType type, T source, Vector3 pos) where T : ScriptableObject {
+    public void ShowTooltip<T>(TooltipType type, T source) where T : ScriptableObject {
         var v = GetTooltip(type);
         v.SetActive(true);
-        v.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(pos);
         v.GetComponent<Tooltip>().Setup(source);
     }
     public void HideTooltip(TooltipType type) {

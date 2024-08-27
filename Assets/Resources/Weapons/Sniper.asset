@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a3f0feb0053c68c955247ffe545d3d, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
+  _name: Sniper Rifle
+  _shortDesc: Are you shaking?
   _sprite: {fileID: 21300000, guid: 85de437ebec186eeabcac24c5b4faabc, type: 3}
   _firePointPos: {x: -0.586, y: 0.023, z: 0}
   _spread: 1

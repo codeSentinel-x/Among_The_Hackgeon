@@ -1,8 +1,10 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour {
+    public Image _image;
     public TextMeshProUGUI _nameText;
     public TextMeshProUGUI _shortDescText;
     public TextMeshProUGUI _longDescText;
@@ -10,9 +12,10 @@ public class Tooltip : MonoBehaviour {
     public void Setup<T>(T source) where T : ScriptableObject {
         switch (source) {
             case WeaponSO w: {
+                    _image.sprite = w._sprite;
                     _nameText.text = w._name;
                     _shortDescText.text = w._shortDesc;
-                    _longDescText.text = $"Damage: {w._bulletSetting._damage}\nSpread: {w._spread}{Convert.ToChar(248)}\nAmmo: {w._maxBullet}\nReload time: {w._reloadTime}\nShoot delay:{w._shotDelay}\nIs automatic: {w._auto}";
+                    _longDescText.text = $"D:{w._bulletSetting._damage} S:{w._spread} A:{w._maxBullet} R:{w._reloadTime} D:{w._shotDelay}";
                     break;
                 }
             case SpecialItemSO s: {

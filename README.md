@@ -1,15 +1,15 @@
 <h1>Welcome to my project (Among the hackgeon) created for arcade gameJam</h1>
 <h2>I decided to finish this game after jam. because I didn't add a lot of things that I was planning;</h2>
 <h2>What's new?</h2>
-<h3>I changed room lights from static to dynamic</h3>
-<h3>I started refactoring scripts</h3>
-<h3>Moved sound manager, game manager, and some more to separate files, to make it more flexible and intuitive</h3>
+<h3>Refactored lots of scripts</h3>
+<h3>Added weapon tooltip</h3>
+<h3>Applied all sounds effects</h3>
 <h3>Shadows!</h3>
+<h3>Added some new particles</h3>
 <h3>Fixed few errors, and added much more</h3>
-<h3>Added some new particles and lights</h3>
-<h3>There's a lot of bugs, cuz I didn't finish refactoring</h3>
+<h3>Game still contains some errors and lack some mechanics after refactoring (I am working on it)</h3>
 
-***Old one***
+<---Old one--->
 <h1>Welcome to my project (Among the hackgeon) created for arcade game jam</h1>
 <h2>This is amazing dungeon game, where your goal is to find a way to escape</h2>
 <h3>Dungeon is looped and reset every 333 seconds, fight enemies, look for hidden thing and much more. Good luck</h3>

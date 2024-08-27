@@ -16,6 +16,7 @@ public class ItemPickUp : MonoBehaviour {
     void Awake() {
         if (_itemType == ItemType.Weapon) {
             GetComponent<SpriteRenderer>().sprite = AssetManager.LoadWeaponByName(_name)._sprite;
+            GetComponent<TooltipShower>().Setup(AssetManager.LoadWeaponByName(_name));
         }
     }
     void OnTriggerEnter2D(Collider2D other) {
