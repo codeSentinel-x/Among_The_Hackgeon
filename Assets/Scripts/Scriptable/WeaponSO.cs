@@ -3,6 +3,8 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable/Weapon")]
 public class WeaponSO : ScriptableObject {
+    public string _name;
+    public string _shortDesc;
     public Sprite _sprite;
     public Vector3 _firePointPos;
     public float _spread;
