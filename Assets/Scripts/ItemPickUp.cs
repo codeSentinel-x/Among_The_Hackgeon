@@ -16,17 +16,22 @@ public class ItemPickUp : MonoBehaviour {
     void Awake() {
         if (_itemType == ItemType.Weapon) {
             GetComponent<SpriteRenderer>().sprite = AssetManager.LoadWeaponByName(_name)._sprite;
-            GetComponent<TooltipShower>().Setup(AssetManager.LoadWeaponByName(_name));
+        }
+    }
+    void Start() {
+        if (_itemType == ItemType.Weapon) {
+            AssetManager.LoadWeaponByName(_name);
+        } else if (_itemType == ItemType.Special) {
+            GetComponent<TooltipShower>().Setup(AssetManager.LoadItemByName(_name));
         }
     }
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             var p = other.gameObject.GetComponent<PlayerController>();
             p._currentItemInRange = this;
-
         }
-
     }
+
     void OnTriggerExit2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             var p = other.gameObject.GetComponent<PlayerController>();
@@ -37,4 +42,7 @@ public class ItemPickUp : MonoBehaviour {
         _ = Instantiate(_pickupParticle, transform.position, Quaternion.identity);
     }
 
+}
+public class Source<T> {
+    public T value;
 }

@@ -19,6 +19,10 @@ public class Tooltip : MonoBehaviour {
                     break;
                 }
             case SpecialItemSO s: {
+                    _image.sprite = s._sprite;
+                    _nameText.text = s._name;
+                    _shortDescText.text = s._shortDesc;
+                    _longDescText.text = "|_null_|";
                     break;
                 }
         }

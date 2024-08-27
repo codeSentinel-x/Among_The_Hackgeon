@@ -9,11 +9,12 @@ public class SoundPlayer : MonoBehaviour {
         _source.volume = GameManager._gSettings._soundsVolume;
         _source.clip = clip;
         _source.Play();
-        _started = true;
         _minLifeTime = Time.time + 1;
+        _started = true;
     }
     void Update() {
-        // if (!_started && Time.time < _minLifeTime) return;
-        // if (_source.isPlaying) Destroy(gameObject);
+        if (!_started) return;
+        if (Time.time < _minLifeTime) return;
+        if (!_source.isPlaying) Destroy(gameObject);
     }
 }
