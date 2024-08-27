@@ -11708,8 +11708,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
-  m_Resource: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13911,8 +13911,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
-  m_Resource: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -15571,34 +15571,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundPlayerPrefabs: {fileID: 706852123390672661, guid: 62272dfb1b03ce6e59710306c4c76044, type: 3}
   _playerDamageSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _playerWeaponChangeSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _playerWeaponChangeSound: {fileID: 8300000, guid: 3fb5208c19ed6c34fba23b1d81a67377, type: 3}
   _playerDashSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _playerBlankSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _playerBlankSound: {fileID: 8300000, guid: ed4579c85cf4c514ca14a91fe48f1780, type: 3}
   _playerHealSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
   _playerPickupSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _playerReloadStartSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _playerReloadEndSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _playerShootSounds: []
-  _enemySpawnSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _playerReloadStartSound: {fileID: 8300000, guid: 8ef9910cbbea2eb419a97151cec5d358, type: 3}
+  _playerReloadEndSound: {fileID: 8300000, guid: c11fb3b3ced9fff40a645a5a5d1157a1, type: 3}
+  _playerShootSounds:
+  - {fileID: 8300000, guid: de812cfb519929c4aad9d296f655c81d, type: 3}
+  _enemySpawnSound: {fileID: 8300000, guid: cfa16117c62143e4c9055eb2c083673f, type: 3}
   _enemyDamageSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _enemyDieSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _enemyShootSounds: []
-  _bossSpawnSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _enemyDieSound: {fileID: 8300000, guid: e70eb034c8ae4fe42b00d809716998e4, type: 3}
+  _enemyShootSounds:
+  - {fileID: 8300000, guid: 60a0682fbc82bd244bdae3f3445cfd17, type: 3}
+  _bossSpawnSound: {fileID: 8300000, guid: cfa16117c62143e4c9055eb2c083673f, type: 3}
   _bossDamageSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _bossInvincibleStartSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _bossInvincibleEndSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _bossDieSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _bossShootSounds: []
-  _doorOpenSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _approachingLoopResetSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _loopResetSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
-  _loopBreakSound: {fileID: 8300000, guid: c59c1ab82c5406813a8042aee733f544, type: 3}
+  _bossInvincibleStartSound: {fileID: 8300000, guid: ffa45816b43df074790e9986c5b85b3c, type: 3}
+  _bossInvincibleEndSound: {fileID: 8300000, guid: ba5b9da8b3b9af742abfa0fd399e1a0f, type: 3}
+  _bossDieSound: {fileID: 8300000, guid: 0c4f452a658af404d9e375bd5ee7bd63, type: 3}
+  _bossShootSounds:
+  - {fileID: 8300000, guid: 5ff5bd936a30a904da907f35c8dd382e, type: 3}
+  _doorOpenSound: {fileID: 8300000, guid: 45e5a2d015897d34780787ab6e691387, type: 3}
+  _approachingLoopResetSound: {fileID: 8300000, guid: a02c66a834e307766ab6eafd140b5c69, type: 3}
+  _loopResetSound: {fileID: 8300000, guid: 1064f0a2527eb6cc59052306a63aecbd, type: 3}
+  _loopBreakSound: {fileID: 8300000, guid: 0b433512473ac4f30b0e869699e34c19, type: 3}
   _startScreenMusic:
-  - {fileID: 8300000, guid: 132a401c732fe4a82abb758b873177be, type: 3}
+  - {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
   _defaultMusic:
   - {fileID: 8300000, guid: 132a401c732fe4a82abb758b873177be, type: 3}
+  - {fileID: 8300000, guid: 655411d4dc5044d369d0988d68e06aef, type: 3}
+  - {fileID: 8300000, guid: fa7a8bfa79c274e4990b7299b26a9603, type: 3}
+  - {fileID: 8300000, guid: 40c85a1e0ba5a45dbbd49b04c664cac2, type: 3}
   _combatMusic:
-  - {fileID: 8300000, guid: 132a401c732fe4a82abb758b873177be, type: 3}
+  - {fileID: 8300000, guid: 5d56073ba35a746fdb4b09f4743c7d26, type: 3}
 --- !u!114 &1639582110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18321,12 +18327,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
-  m_Resource: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -18546,8 +18552,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
-  m_Resource: {fileID: 8300000, guid: dab103ec487224458b243dcca4449ba9, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

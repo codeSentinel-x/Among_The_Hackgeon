@@ -24,6 +24,16 @@ public class Soundtrack : MonoBehaviour {
         ChangeVolume();
         _combatSource.Stop();
         GameManager._onVolumeChange += ChangeVolume;
+        DontDestroyOnLoad(gameObject);
+        PlayStartScreen();
+    }
+    public void PlayStartScreen() {
+        _combatSource.Stop();
+        _normalSource.Stop();
+        _loopSource.Stop();
+        _startScreenSource.clip = MyRandom.GetFromArray<AudioClip>(_audioM._startScreenMusic);
+        _startScreenSource.Play();
+
     }
 
     public void ChangeVolume() {
@@ -35,7 +45,7 @@ public class Soundtrack : MonoBehaviour {
 
     }
     void Update() {
-        if (!_normalSource.isPlaying && !_isCombat) {
+        if (!_normalSource.isPlaying && !_isCombat && !_startScreenSource.isPlaying) {
             PlayNormal();
         }
     }
@@ -76,6 +86,7 @@ public class Soundtrack : MonoBehaviour {
         _normalSource.Play();
     }
     public void PlayNormal() {
+        _startScreenSource.Stop();
         index++;
         if (index == _audioM._defaultMusic.Length) index = 0;
 

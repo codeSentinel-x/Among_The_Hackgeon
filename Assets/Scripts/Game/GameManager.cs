@@ -121,8 +121,8 @@ public class GameManager : MonoBehaviour {
     }
     public static void Pause() => Time.timeScale = 0;
     public static void Unpause() => Time.timeScale = 1;
-    public void LoadGame() => SceneManager.LoadScene(1);
-    public void LoadStartScreen() => SceneManager.LoadScene(0);
+    public void LoadGame() { SceneManager.LoadScene(1); Soundtrack._I.PlayNormal(); }
+    public void LoadStartScreen() { SceneManager.LoadScene(0); Soundtrack._I.PlayStartScreen(); }
     public static void Exit() => Application.Quit();
 
     public void CloseSettingWithoutSaving() => _settings.transform.GetChild(0).gameObject.SetActive(false);
