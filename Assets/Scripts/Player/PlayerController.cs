@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     public Camera _cam;
     public RoomController _currentRoom;
     public ItemPickUp _currentItemInRange;
-    public List<SpecialItemPickUp> _inventory;
+    public List<string> _inventory = new();
     void Awake() {
         _I = this;
 
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 
                     default: break;
                 }
+                _inventory.Add(_currentItemInRange._name);
                 Destroy(_currentItemInRange.gameObject);
             }
         }

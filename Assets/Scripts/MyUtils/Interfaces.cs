@@ -3,6 +3,7 @@ namespace MyUtils.Interfaces {
         public void OpenDoor();
         public void UncloseDoor();
         public void CloseDoor();
+        public void InitDoor();
     }
     public interface IDamageable {
         public void Damage(float v);
