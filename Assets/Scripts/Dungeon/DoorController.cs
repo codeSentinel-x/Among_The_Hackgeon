@@ -21,24 +21,23 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
     public void Initialize() {
         if (_initialized) return;
         _initialized = true;
-        if (_doorType != DoorOpenType.BossRoom && _doorType != DoorOpenType.BossRoomDoors) _doorType = UnityEngine.Random.Range(0f, 1f) > 0.5f ? DoorOpenType.OpenOnShoot : DoorOpenType.AlwaysOpen;
+        if (_doorType != DoorOpenType.BossRoom && _doorType != DoorOpenType.BossRoomDoors) _doorType = UnityEngine.Random.Range(0f, 1f) > 0.5f ? DoorOpenType.OpenOnShoot : DoorOpenType.Normal;
         SwitchRooms();
         _init?.Invoke();
     }
     public void SwitchRooms() {
+        _closeDoor = DefaultClose;
+        _uncloseDoor = DefaultUnclose;
+        _openDoor = DefaultOpen;
+        _init = DefaultInit;
+        _damage = DefaultDamage;
         switch (_doorType) {
-            case DoorOpenType.AlwaysOpen: {
+            case DoorOpenType.Normal: {
                     _opened = false;
-
                     if (_roomToShow._roomType == RoomType.EnemyRoom)
                         _roomToShow._onPlayerEnter += () => {
                             if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                         };
-                    _closeDoor = DefaultClose;
-                    _uncloseDoor = DefaultUnclose;
-                    _openDoor = DefaultOpen;
-                    _init = DefaultInit;
-
                     break;
                 }
             case DoorOpenType.OpenOnShoot: {
@@ -47,32 +46,40 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
                         _roomToShow._onPlayerEnter += () => {
                             if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                         };
-                    _closeDoor = DefaultClose;
-                    _uncloseDoor = () => {
-                        _hidden = false;
-                        if (!_discovered) return;
-                        _opened = true;
-                        _col.isTrigger = true;
+                    _damage = () => {
+                        if (_opened || _hidden) return;
+                        if (_stage == 0) { OpenDoor(); AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); return; }
+                        _stage--;
                         _renderer.sprite = _pos switch {
-                            _ when _pos == DoorPosition.Up => _gMD._openedDoorSprite[0],
-                            _ when _pos == DoorPosition.Right => _gMD._openedDoorSprite[1],
-                            _ when _pos == DoorPosition.Down => _gMD._openedDoorSprite[2],
-                            _ when _pos == DoorPosition.Left => _gMD._openedDoorSprite[3],
+                            _ when _pos == DoorPosition.Up => _gMD._destroyableDoorSpritesHorizontal[_stage],
+                            _ when _pos == DoorPosition.Right => _gMD._destroyableDoorSpritesVerticalRight[_stage],
+                            _ when _pos == DoorPosition.Down => _gMD._destroyableDoorSpritesHorizontal[_stage],
+                            _ when _pos == DoorPosition.Left => _gMD._destroyableDoorSpritesVerticalLeft[_stage],
                             _ => _gMD._openedDoorSprite[0],
                         };
+
                     };
-                    _openDoor = DefaultOpen;
-                    _init = DefaultInit;
+                    _init = () => {
+                        _gMD = AssetManager._I;
+                        _col = GetComponent<Collider2D>();
+                        _renderer = GetComponent<SpriteRenderer>();
+                        GetComponent<DoorController>()._roomToShow._onRoomClear += (RoomController x) => { if (x == GetComponent<DoorController>()._roomToShow) UncloseDoor(); };
+                        _col.isTrigger = false;
+                        _renderer.sprite = _pos switch {
+                            _ when _pos == DoorPosition.Up => _gMD._closedDoorSprite[0],
+                            _ when _pos == DoorPosition.Right => _gMD._closedDoorSprite[1],
+                            _ when _pos == DoorPosition.Down => _gMD._closedDoorSprite[2],
+                            _ when _pos == DoorPosition.Left => _gMD._closedDoorSprite[3],
+                            _ => _gMD._closedDoorSprite[0],
+                        };
+                        _opened = false;
+                        _discovered = false;
+                    };
 
                     break;
                 }
             case DoorOpenType.BossRoom: {
                     _opened = false;
-                    _closeDoor = DefaultClose;
-                    _uncloseDoor = DefaultUnclose;
-                    _openDoor = DefaultOpen;
-                    _init = DefaultInit;
-
                     break;
                 }
             case DoorOpenType.BossRoomDoors: {
@@ -80,12 +87,6 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
                     _roomToShow._onPlayerEnter += () => {
                         if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                     };
-                    _closeDoor = DefaultClose;
-                    _uncloseDoor = DefaultUnclose;
-                    _openDoor = DefaultOpen;
-                    _init = DefaultInit;
-
-
                     break;
                 }
             case DoorOpenType.OpenOnTime: {
@@ -256,7 +257,10 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
         d._roomToShow.ShowRoom();
     }
     public void DefaultDamage() {
-
+        if (_opened || _hidden) return;
+        OpenDoor();
+        AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position);
+        return;
     }
 }
 public enum DoorPosition {

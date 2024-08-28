@@ -1,12 +1,12 @@
 namespace MyUtils.Enums {
-    public enum ObstacleType{
+    public enum ObstacleType {
         Static,
         Pushable,
         PushableExploding,
         StaticExploding,
         PushableDestroyable,
         StaticDestroyable,
-        
+
     }
     public enum RoomType {
         EnemyRoom,
@@ -17,7 +17,7 @@ namespace MyUtils.Enums {
         Tunnel,
     }
     public enum DoorOpenType {
-        AlwaysOpen,
+        Normal,
         OpenOnShoot,
         OpenOnBlank,
         OpenOnDestroyAllItemOfType,
