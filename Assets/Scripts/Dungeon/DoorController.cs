@@ -1,3 +1,4 @@
+using System;
 using MyUtils.Enums;
 using MyUtils.Interfaces;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
     public DoorPosition _pos;
     public bool _openedByDefault;
     public bool _initialized;
+    public Action _openDoor;
+    public Action _closeDoor;
+    public Action _uncloseDoor;
     void Start() {
         // _roomToShow2 = transform.parent.GetComponent<RoomController>();
         // Initialize();
@@ -24,73 +28,150 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
         if (_doorType != DoorOpenType.BossRoom && _doorType != DoorOpenType.BossRoomDoors) _doorType = UnityEngine.Random.Range(0f, 1f) > 0.5f ? DoorOpenType.OpenOnShoot : DoorOpenType.AlwaysOpen;
         switch (_doorType) {
             case DoorOpenType.AlwaysOpen: {
-                    var c = gameObject.AddComponent<VisibleDoor>();
-                    c._pos = _pos;
-                    c._opened = false;
+                    _opened = false;
 
                     if (_roomToShow._roomType == RoomType.EnemyRoom)
                         _roomToShow._onPlayerEnter += () => {
-                            if (!_roomToShow._wasInvoked) c.CloseDoor();
+                            if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                         };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
 
                     break;
                 }
             case DoorOpenType.OpenOnShoot: {
-                    var c = gameObject.AddComponent<DoorOnShoot>();
-                    c._pos = _pos;
-                    c._opened = false;
+                    _opened = false;
                     if (_roomToShow._roomType == RoomType.EnemyRoom)
                         _roomToShow._onPlayerEnter += () => {
-                            if (!_roomToShow._wasInvoked) c.CloseDoor();
+                            if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                         };
-
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
             case DoorOpenType.BossRoom: {
-                    var c = gameObject.AddComponent<BossEnterDoor>();
-                    c._pos = _pos;
-                    c._opened = false;
-                    // if (_roomToShow._roomType == RoomType.EnemyRoom)
-                    // _roomToShow._onPlayerEnter += () => {
-                    // if (!_roomToShow._wasInvoked) c.CloseDoor();
-                    // };
-                    // 
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
+
                     break;
                 }
             case DoorOpenType.BossRoomDoors: {
-                    var c = gameObject.AddComponent<BossDoorOnShoot>();
-                    c._opened = false;
-                    c._pos = _pos;
+                    _opened = false;
                     _roomToShow._onPlayerEnter += () => {
-                        if (!_roomToShow._wasInvoked) c.CloseDoor();
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
                     };
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
+
                     break;
                 }
             case DoorOpenType.OpenOnTime: {
-                    //TODO this
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _roomToShow._onPlayerEnter += () => {
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
+                    };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
             case DoorOpenType.OpenOnButtonClick: {
-                    //TODO this
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _roomToShow._onPlayerEnter += () => {
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
+                    };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
             case DoorOpenType.OpenOnPlayerStat: {
-                    //TODO this
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _roomToShow._onPlayerEnter += () => {
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
+                    };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
             case DoorOpenType.OpenOnDefeatEnemy: {
-                    //TODO this
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _roomToShow._onPlayerEnter += () => {
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
+                    };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
             case DoorOpenType.OpenOnCustomItemHold: {
-                    //TODO this
-                    //gameObject.AddComponent<DoorOnShoot>();
+                    _opened = false;
+                    _roomToShow._onPlayerEnter += () => {
+                        if (!_roomToShow._wasInvoked) _closeDoor?.Invoke();
+                    };
+                    _closeDoor = () => {
+                        //TODO
+                    };
+                    _uncloseDoor = () => {
+                        //todo
+                    };
+                    _openDoor = () => {
+                        //todo
+                    };
                     break;
                 }
         }
@@ -169,6 +250,11 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
                 };
             }
             return;
+        } else {
+            OpenDoor();
+            AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position);
+            return;
+
         }
 
 
@@ -209,7 +295,7 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
 public enum DoorPosition {
     Left, Right, Up, Down
 }
-
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class DoorOnShoot : MonoBehaviour, IDoor, IDamageable {
