@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour {
         _data._reloadSpeedMult.InvokeOnChangeAction();
         _data.__bulletSpeedMult.InvokeOnChangeAction();
         _data._shootDelayMultiplier.InvokeOnChangeAction();
+        
     }
     public void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {

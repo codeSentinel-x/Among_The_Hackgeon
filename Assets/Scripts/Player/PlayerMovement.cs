@@ -38,6 +38,14 @@ public class PlayerMovement : MonoBehaviour {
     void Start() {
         _speed += GameManager._gSettings._playerSpeedMultiplier;
         PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
+        SetInputAction();
+    }
+    public void SetInputAction() {
+        InputManager _iM = InputManager._I;
+        _iM.GetKeyPressed(KeyBindType.MoveLeft).AddListener(() => _dir += new Vector2(-1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveRight).AddListener(() => _dir += new Vector2(-1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveUp).AddListener(() => _dir += new Vector2(-1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveDown).AddListener(() => _dir += new Vector2(-1, 0));
     }
 
 

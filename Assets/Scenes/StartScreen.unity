@@ -21017,6 +21017,7 @@ GameObject:
   - component: {fileID: 1639582110}
   - component: {fileID: 1639582111}
   - component: {fileID: 1639582112}
+  - component: {fileID: 1639582113}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -21255,6 +21256,26 @@ MonoBehaviour:
   _WeaponTooltip: {fileID: 1093630475}
   _specialIemTooltip: {fileID: 1093630475}
   _itemTooltip: {fileID: 1093630475}
+--- !u!114 &1639582113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639582104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc052c7906297599db9d4d0ff5b54288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyDownArray:
+  - _type: 0
+    _keyBind:
+      _key: 97
+      _onKeyAction:
+        m_PersistentCalls:
+          m_Calls: []
+  _keyUpArray: []
 --- !u!1 &1668125996
 GameObject:
   m_ObjectHideFlags: 0

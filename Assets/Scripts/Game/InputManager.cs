@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -29,12 +30,31 @@ public class InputManager : MonoBehaviour {
             if (Input.GetKeyUp(k.Value._key)) k.Value._onKeyAction.Invoke();
         }
     }
-    public UnityEvent OnKeyPressed(KeyBindType type) {
+    public UnityEvent GetKeyPressed(KeyBindType type) {
         _keyDownBinds.TryGetValue(type, out var key);
         return key._onKeyAction;
     }
-    public void ChangeKeyBind(KeyCode newBind){
-        
+    public void ChangeKeyBind(KeyBindType type, KeyCode newBind, int mode = 0) {
+        switch (mode) {
+            case 0: {
+                    if (_keyDownBinds.TryGetValue(type, out var k)) k._key = newBind;
+                    else Debug.Log($"No value with given key: {type} in _keyDownBinds");
+                    break; 
+                }
+            case 1: {
+                    if (_keyUpBinds.TryGetValue(type, out var k)) k._key = newBind;
+                    else Debug.Log($"No value with given key: {type} in _keyUpBinds");
+                    break;
+                }
+            case 2: {
+                    if (_keyDownBinds.TryGetValue(type, out var kD)) kD._key = newBind;
+                    else Debug.Log($"No value with given key: {type} in _keyDownBinds");
+                    if (_keyUpBinds.TryGetValue(type, out var kU)) kU._key = newBind;
+                    else Debug.Log($"No value with given key: {type} in _keyUpBinds");
+                    break;
+                }
+            default: break;
+        }
     }
 }
 [Serializable]

@@ -31,7 +31,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _invincibleAfterDash;
     private float _currentHealthRatio;
     private AudioManager _gAM;
-
+    private bool _shootPressed;
     void Awake() {
         _gAM = AudioManager._I;
         SubscribeStats();
