@@ -42,10 +42,13 @@ public class PlayerMovement : MonoBehaviour {
     }
     public void SetInputAction() {
         InputManager _iM = InputManager._I;
-        _iM.GetKeyPressed(KeyBindType.MoveLeft).AddListener(() => _dir += new Vector2(-1, 0));
-        _iM.GetKeyPressed(KeyBindType.MoveRight).AddListener(() => _dir += new Vector2(-1, 0));
-        _iM.GetKeyPressed(KeyBindType.MoveUp).AddListener(() => _dir += new Vector2(-1, 0));
-        _iM.GetKeyPressed(KeyBindType.MoveDown).AddListener(() => _dir += new Vector2(-1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveLeft, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(-1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveRight, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(1, 0));
+        _iM.GetKeyPressed(KeyBindType.MoveUp, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, 1));
+        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
+        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
+        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
+        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
     }
 
 
