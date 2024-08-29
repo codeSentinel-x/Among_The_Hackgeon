@@ -23,7 +23,7 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
         _initialized = true;
         if (_doorType != DoorOpenType.BossRoom && _doorType != DoorOpenType.BossRoomDoors) _doorType = UnityEngine.Random.Range(0f, 1f) > 0.5f ? DoorOpenType.OpenOnShoot : DoorOpenType.Normal;
         SwitchRooms();
-        _init?.Invoke();
+        InitDoor();
     }
     public void SwitchRooms() {
         _closeDoor = DefaultClose;
@@ -179,21 +179,26 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
     private bool _discovered = false;
     private bool _hidden;
     public void InitDoor() {
+        Debug.Log($"Init: {gameObject.name}");
         _init?.Invoke();
     }
     public void CloseDoor() {
+        Debug.Log($"Init: {gameObject.name}");
         _closeDoor?.Invoke();
     }
 
     public void Damage(float v) {
+        Debug.Log($"Damage: {gameObject.name}");
         _damage?.Invoke();
     }
 
     public void OpenDoor() {
+        Debug.Log($"Open: {gameObject.name}");
         _openDoor?.Invoke();
     }
 
     public void UncloseDoor() {
+        Debug.Log($"Unclose: {gameObject.name}");
         _uncloseDoor?.Invoke();
     }
     public void DefaultInit() {
