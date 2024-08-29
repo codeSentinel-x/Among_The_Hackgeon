@@ -47,13 +47,12 @@ public class PlayerMovement : MonoBehaviour {
         _iM.GetKeyPressed(KeyBindType.MoveUp, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, 1));
         _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
         _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
-        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
-        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
+        _iM.GetKeyPressed(KeyBindType.Dash, KeyPressMode.KeyDown).AddListener(DashForward);
     }
 
 
 
-    public void Update() {
+    public void LateUpdate() {
         HandleInput();
         HandleStamina();
     }
@@ -71,8 +70,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void HandleInput() {
-        _dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (Input.GetKeyDown(KeyCode.Mouse1)) if (_dashToMouse) DashToMouse(Camera.main.ScreenToWorldPoint(Input.mousePosition)); else DashForward();
+        _dir = Vector2.zero;
     }
     private void DashForward() {
         if (_dir == Vector2.zero) return;

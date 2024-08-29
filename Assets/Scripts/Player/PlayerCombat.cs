@@ -41,6 +41,15 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         InitializeWeapon();
         MyLog();
         ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerSpawn, transform.position);
+        InitInput();
+    }
+
+    private void InitInput() {
+        InputManager _iM = InputManager._I;
+        _iM.GetKeyPressed(KeyBindType.Shoot, KeyPressMode.KeyDown).AddListener(Shoot);
+        _iM.GetKeyPressed(KeyBindType.UseBlank, KeyPressMode.KeyDown).AddListener(UseBlank);
+        _iM.GetKeyPressed(KeyBindType.Reload, KeyPressMode.KeyDown).AddListener(() => { if (!_isReloading) StartCoroutine(Reload()); });
+        _iM.GetKeyPressed(KeyBindType.ChangeWeapon, KeyPressMode.KeyDown).AddListener(NextWeapon);
 
     }
 
@@ -83,15 +92,6 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         ResetBulletDisplay();
     }
     private void HandleInput() {
-        if (_currentWeapon._defaultSettings._auto) {
-            if (Input.GetKey(KeyCode.Mouse0)) Shoot();
-        } else {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
-        }
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading) _ = StartCoroutine(Reload());
-        if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
-        if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
-        if (Input.GetKeyDown(KeyCode.Q)) UseBlank();
     }
     public void Shoot() {
         if (_isReloading) return;
