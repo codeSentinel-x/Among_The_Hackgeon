@@ -18,7 +18,7 @@ public class Timer : MonoBehaviour {
     void Start() {
         _objectToDestroy = new();
         _I = this;
-        _time = _resetTime;
+        _time = _resetTime * GameManager._gSettings._timeMultiplier;
         AssetManager._I.Setup();
     }
     void Update() {

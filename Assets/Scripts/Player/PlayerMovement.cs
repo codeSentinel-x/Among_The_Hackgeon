@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using MyUtils.Enums;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {

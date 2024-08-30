@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyUtils.Enums;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Events;
@@ -152,28 +153,4 @@ public struct KeyArrayElement {
 public class KeyBind {
     public KeyCode _key;
     public UnityEvent _onKeyAction;
-}
-public enum KeyBindType {
-    MoveLeft,
-    MoveRight,
-    MoveUp,
-    MoveDown,
-    UseBlank,
-    Dash,
-    Shoot,
-    Reload,
-    ChangeWeapon,
-    Loop,
-    ShowHelp,
-    ShowReadme,
-    Pause,
-    Interact,
-    Restart,
-    ExitToStartScreen,
-    Exit,
-}
-public enum KeyPressMode {
-    KeyDown,
-    KeyUP,
-    Both,
 }

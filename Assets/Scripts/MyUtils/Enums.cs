@@ -34,5 +34,28 @@ namespace MyUtils.Enums {
         Visible,
         Opened,
     }
-
+    public enum KeyBindType {
+        MoveLeft,
+        MoveRight,
+        MoveUp,
+        MoveDown,
+        UseBlank,
+        Dash,
+        Shoot,
+        Reload,
+        ChangeWeapon,
+        Loop,
+        ShowHelp,
+        ShowReadme,
+        Pause,
+        Interact,
+        Restart,
+        ExitToStartScreen,
+        Exit,
+    }
+    public enum KeyPressMode {
+        KeyDown,
+        KeyUP,
+        Both,
+    }
 }
