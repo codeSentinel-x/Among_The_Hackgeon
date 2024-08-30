@@ -2,12 +2,9 @@
 <h2>I decided to finish this game after jam. because I didn't add a lot of things that I was planning;</h2>
 <h2>What's new?</h2>
 <h3>Refactored lots of scripts</h3>
-<h3>Added weapon tooltip</h3>
-<h3>Applied all sounds effects</h3>
-<h3>Shadows!</h3>
-<h3>Added some new particles</h3>
-<h3>Fixed few errors, and added much more</h3>
-<h3>Game still contains some errors and lack some mechanics after refactoring (I am working on it)</h3>
+<h3>Added new inputManager, playerAnimation and player inventory</h3>
+<h3>All that scripts isn't fully implemented, they only make this game unplayable :(</h3>
+<h3>I was trying to fix that, but it's last time, when I am able to post scrapbook of this project so I decide to just create this preview</h3>
 
 <---Old one--->
 <h1>Welcome to my project (Among the hackgeon) created for arcade game jam</h1>

@@ -18,14 +18,15 @@ public class PlayerAnimations : MonoBehaviour {
     private static readonly int RUNNING = Animator.StringToHash("running");
     private static readonly int ATTACK = Animator.StringToHash("attack");
     private void Awake() {
-        _anim = GetComponentInChildren<Animator>();
+        //_anim = GetComponentInChildren<Animator>();
     }
 
     private void Update() {
-        var state = GetState();
-        if (state == _currentState) return;
-        _anim.CrossFade(state, 0, 0);
-        _currentState = state;
+        return;
+        // var state = GetState();
+        // if (state == _currentState) return;
+        // _anim.CrossFade(state, 0, 0);
+        // _currentState = state;
     }
 
     public int GetState() {

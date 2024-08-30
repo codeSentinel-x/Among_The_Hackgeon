@@ -39,16 +39,16 @@ public class PlayerMovement : MonoBehaviour {
     void Start() {
         _speed += GameManager._gSettings._playerSpeedMultiplier;
         PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
-        SetInputAction();
+        //TODO SetInputAction();
     }
     public void SetInputAction() {
         InputManager _iM = InputManager._I;
-        _iM.GetKeyPressed(KeyBindType.MoveLeft, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(-1, 0));
-        _iM.GetKeyPressed(KeyBindType.MoveRight, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(1, 0));
-        _iM.GetKeyPressed(KeyBindType.MoveUp, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, 1));
-        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
-        _iM.GetKeyPressed(KeyBindType.MoveDown, KeyPressMode.KeyDown).AddListener(() => _dir += new Vector2(0, -1));
-        _iM.GetKeyPressed(KeyBindType.Dash, KeyPressMode.KeyDown).AddListener(DashForward);
+        _iM.AddKeyAction(KeyBindType.MoveLeft, KeyPressMode.KeyDown, () => _dir += new Vector2(-1, 0));
+        _iM.AddKeyAction(KeyBindType.MoveRight, KeyPressMode.KeyDown, () => _dir += new Vector2(1, 0));
+        _iM.AddKeyAction(KeyBindType.MoveUp, KeyPressMode.KeyDown, () => _dir += new Vector2(0, 1));
+        _iM.AddKeyAction(KeyBindType.MoveDown, KeyPressMode.KeyDown, () => _dir += new Vector2(0, -1));
+        _iM.AddKeyAction(KeyBindType.MoveDown, KeyPressMode.KeyDown, () => _dir += new Vector2(0, -1));
+        _iM.AddKeyAction(KeyBindType.Dash, KeyPressMode.KeyDown, DashForward);
     }
 
 
@@ -71,7 +71,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void HandleInput() {
-        _dir = Vector2.zero;
+        // _dir = Vector2.zero;
+        _dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (Input.GetKeyDown(KeyCode.Mouse1)) if (_dashToMouse) DashToMouse(Camera.main.ScreenToWorldPoint(Input.mousePosition)); else DashForward();
     }
     private void DashForward() {
         if (_dir == Vector2.zero) return;

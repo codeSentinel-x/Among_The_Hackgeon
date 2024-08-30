@@ -28,17 +28,19 @@ public class InputManager : MonoBehaviour {
             if (Input.GetKeyUp(k.Value._key)) k.Value._onKeyAction.Invoke();
         }
     }
-    public UnityEvent GetKeyPressed(KeyBindType type, KeyPressMode mode) {
+    public void AddKeyAction(KeyBindType type, KeyPressMode mode, Action function) {
         switch (mode) {
             case KeyPressMode.KeyDown: {
                     _keyDownBinds.TryGetValue(type, out KeyBind key);
-                    return key._onKeyAction;
+                    key._onKeyAction += function;
+                    break;
                 }
             case KeyPressMode.KeyUP: {
                     _keyUpBinds.TryGetValue(type, out KeyBind key);
-                    return key._onKeyAction;
+                    key._onKeyAction += function;
+                    break;
                 }
-            default: return null;
+            default: break;
         }
     }
     public void ChangeKeyBind(KeyBindType type, KeyCode newBind, KeyPressMode mode) {
@@ -67,77 +69,77 @@ public class InputManager : MonoBehaviour {
         if (_keyDownBinds.TryGetValue(KeyBindType.MoveLeft, out var mLD)) {
             mLD._key = KeyCode.A;
         } else {
-            _keyDownBinds.Add(KeyBindType.MoveLeft, new KeyBind() { _key = KeyCode.A, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.MoveLeft, new KeyBind() { _key = KeyCode.A });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.MoveRight, out var mRD)) {
             mRD._key = KeyCode.R;
         } else {
-            _keyDownBinds.Add(KeyBindType.MoveRight, new KeyBind() { _key = KeyCode.R, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.MoveRight, new KeyBind() { _key = KeyCode.R });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.MoveUp, out var mUD)) {
             mUD._key = KeyCode.W;
         } else {
-            _keyDownBinds.Add(KeyBindType.MoveUp, new KeyBind() { _key = KeyCode.W, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.MoveUp, new KeyBind() { _key = KeyCode.W });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.MoveDown, out var mDD)) {
             mDD._key = KeyCode.S;
         } else {
-            _keyDownBinds.Add(KeyBindType.MoveDown, new KeyBind() { _key = KeyCode.S, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.MoveDown, new KeyBind() { _key = KeyCode.S });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Dash, out var dD)) {
             dD._key = KeyCode.Mouse1;
         } else {
-            _keyDownBinds.Add(KeyBindType.Dash, new KeyBind() { _key = KeyCode.Mouse1, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Dash, new KeyBind() { _key = KeyCode.Mouse1 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.ShowHelp, out var sHD)) {
             sHD._key = KeyCode.F1;
         } else {
-            _keyDownBinds.Add(KeyBindType.ShowHelp, new KeyBind() { _key = KeyCode.F1, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.ShowHelp, new KeyBind() { _key = KeyCode.F1 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.ShowReadme, out var sRD)) {
             sRD._key = KeyCode.F6;
         } else {
-            _keyDownBinds.Add(KeyBindType.ShowReadme, new KeyBind() { _key = KeyCode.F6, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.ShowReadme, new KeyBind() { _key = KeyCode.F6 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Interact, out var iD)) {
             iD._key = KeyCode.E;
         } else {
-            _keyDownBinds.Add(KeyBindType.Interact, new KeyBind() { _key = KeyCode.E, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Interact, new KeyBind() { _key = KeyCode.E });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Pause, out var pD)) {
             pD._key = KeyCode.F2;
         } else {
-            _keyDownBinds.Add(KeyBindType.Pause, new KeyBind() { _key = KeyCode.F2, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Pause, new KeyBind() { _key = KeyCode.F2 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.ExitToStartScreen, out var eTSD)) {
             eTSD._key = KeyCode.F3;
         } else {
-            _keyDownBinds.Add(KeyBindType.ExitToStartScreen, new KeyBind() { _key = KeyCode.F3, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.ExitToStartScreen, new KeyBind() { _key = KeyCode.F3 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Exit, out var eD)) {
             eD._key = KeyCode.F4;
         } else {
-            _keyDownBinds.Add(KeyBindType.Exit, new KeyBind() { _key = KeyCode.F4, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Exit, new KeyBind() { _key = KeyCode.F4 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Shoot, out var sD)) {
             sD._key = KeyCode.Mouse0;
         } else {
-            _keyDownBinds.Add(KeyBindType.Shoot, new KeyBind() { _key = KeyCode.Mouse0, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Shoot, new KeyBind() { _key = KeyCode.Mouse0 });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Reload, out var rD)) {
             rD._key = KeyCode.R;
         } else {
-            _keyDownBinds.Add(KeyBindType.Reload, new KeyBind() { _key = KeyCode.R, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Reload, new KeyBind() { _key = KeyCode.R });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.ChangeWeapon, out var cWD)) {
             cWD._key = KeyCode.LeftShift;
         } else {
-            _keyDownBinds.Add(KeyBindType.ChangeWeapon, new KeyBind() { _key = KeyCode.LeftShift, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.ChangeWeapon, new KeyBind() { _key = KeyCode.LeftShift });
         }
         if (_keyDownBinds.TryGetValue(KeyBindType.Loop, out var lD)) {
             lD._key = KeyCode.F5;
         } else {
-            _keyDownBinds.Add(KeyBindType.Loop, new KeyBind() { _key = KeyCode.F5, _onKeyAction = new() });
+            _keyDownBinds.Add(KeyBindType.Loop, new KeyBind() { _key = KeyCode.F5 });
         }
     }
 }
@@ -149,5 +151,5 @@ public struct KeyArrayElement {
 [Serializable]
 public class KeyBind {
     public KeyCode _key;
-    public UnityEvent _onKeyAction;
+    public Action _onKeyAction;
 }

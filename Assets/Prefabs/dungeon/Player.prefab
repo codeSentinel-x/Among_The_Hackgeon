@@ -6099,6 +6099,7 @@ GameObject:
   - component: {fileID: 7290106937047064442}
   - component: {fileID: 2647547834331040303}
   - component: {fileID: 6981408063594950703}
+  - component: {fileID: 8968470785188611163}
   m_Layer: 3
   m_Name: Scripts
   m_TagString: Player
@@ -6240,7 +6241,6 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 3773812269786617591}
   _weaponSpriteR: {fileID: 4477327506382766306}
   _defaultWeaponName: Handgun
-  _blankParticle: {fileID: 3935288263477356131, guid: 947d67699afbfdf60b91265eed16be5d, type: 3}
   _blankAmount: 3
   _rotSpeed: 100
 --- !u!114 &2647547834331040303
@@ -6310,6 +6310,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5114118962625945318}
   m_Enabled: 1
+--- !u!114 &8968470785188611163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5114118962625945318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a24435843bce187b756ec1e6c17a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentState: 0
+  _animState: 0
+  _attackDuration: 0
 --- !u!1 &5887166994219372103
 GameObject:
   m_ObjectHideFlags: 0

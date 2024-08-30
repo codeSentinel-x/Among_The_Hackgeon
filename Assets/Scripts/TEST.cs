@@ -15,6 +15,6 @@ public class TEST : MonoBehaviour {
         else if (_disableSpriteOnAwake) GetComponent<SpriteRenderer>().enabled = false;
     }
     void Start() {
-        InputManager._I.GetKeyPressed(KeyBindType.MoveLeft, KeyPressMode.KeyDown).AddListener(() => Debug.Log("Move leftPressed"));
+        InputManager._I.AddKeyAction(KeyBindType.MoveLeft, KeyPressMode.KeyDown, () => Debug.Log("Move leftPressed"));
     }
 }
