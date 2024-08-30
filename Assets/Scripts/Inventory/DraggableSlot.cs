@@ -4,62 +4,62 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DraggableSlot : MonoBehaviour {
-    public InventorySlot parentSlot;
-    public SpecialInventorySlot parentSpecialSlot;
-    public TextMeshProUGUI amountTXT;
-    public Image itemImage;
-    public Item currentItem;
+    public InventorySlot _parentSlot;
+    public SpecialInventorySlot _parentSpecialSlot;
+    public TextMeshProUGUI _amountTXT;
+    public Image _itemImage;
+    public Item _currentItem;
 
 
     public void Setup(Item item, InventorySlot slot) {
-        parentSlot = slot;
-        currentItem = Item.CreateNewItemFromItem(item);
-        itemImage.sprite = item.itemSprite;
-        if (item.amount > 1) {
-            amountTXT.enabled = true;
-            amountTXT.text = item.amount.ToString();
+        _parentSlot = slot;
+        _currentItem = Item.CreateNewItemFromItem(item);
+        _itemImage.sprite = item._itemBase._sprite;
+        if (item._amount > 1) {
+            _amountTXT.enabled = true;
+            _amountTXT.text = item._amount.ToString();
         }
     }
     public void Setup(Item item, SpecialInventorySlot slot) {
-        parentSpecialSlot = slot;
-        currentItem = Item.CreateNewItemFromItem(item);
-        itemImage.sprite = item.itemSprite;
-        if (item.amount > 1) {
-            amountTXT.enabled = true;
-            amountTXT.text = item.amount.ToString();
+        _parentSpecialSlot = slot;
+        _currentItem = Item.CreateNewItemFromItem(item);
+        _itemImage.sprite = item._itemBase._sprite;
+        if (item._amount > 1) {
+            _amountTXT.enabled = true;
+            _amountTXT.text = item._amount.ToString();
         }
     }
     public void Setup(Item item) {
-        currentItem = Item.CreateNewItemFromItem(item);
-        itemImage.sprite = item.itemSprite;
-        if (item.amount > 1) {
-            amountTXT.enabled = true;
-            amountTXT.text = item.amount.ToString();
+        _currentItem = Item.CreateNewItemFromItem(item);
+        _itemImage.sprite = item._itemBase._sprite;
+        if (item._amount > 1) {
+            _amountTXT.enabled = true;
+            _amountTXT.text = item._amount.ToString();
         }
     }
     public void Setup(Item item, int amount) {
-        currentItem = Item.CreateNewItemFromItem(item);
-        currentItem.amount = amount;
-        itemImage.sprite = item.itemSprite;
-        if (currentItem.amount > 1) {
-            amountTXT.enabled = true;
-            amountTXT.text = currentItem.amount.ToString();
+        _currentItem = Item.CreateNewItemFromItem(item);
+        _currentItem._amount = amount;
+        _itemImage.sprite = item._itemBase._sprite;
+        if (_currentItem._amount > 1) {
+            _amountTXT.enabled = true;
+            _amountTXT.text = _currentItem._amount.ToString();
         }
     }
     public void RefreshTXT() {
-        amountTXT.enabled = currentItem.amount > 1;
-        amountTXT.text = currentItem.amount.ToString();
+        _amountTXT.enabled = _currentItem._amount > 1;
+        _amountTXT.text = _currentItem._amount.ToString();
     }
     public void UpdateAmount() {
-        if (parentSpecialSlot != null) currentItem = parentSpecialSlot.item;
-        if (parentSlot != null) currentItem = parentSlot.item;
-        amountTXT.enabled = currentItem.amount > 1;
-        amountTXT.text = currentItem.amount.ToString();
+        if (_parentSpecialSlot != null) _currentItem = _parentSpecialSlot._item;
+        if (_parentSlot != null) _currentItem = _parentSlot._item;
+        _amountTXT.enabled = _currentItem._amount > 1;
+        _amountTXT.text = _currentItem._amount.ToString();
     }
     public void UpdateAmount(int newAmount) {
-        currentItem.amount = newAmount;
-        amountTXT.enabled = currentItem.amount > 1;
-        amountTXT.text = currentItem.amount.ToString();
+        _currentItem._amount = newAmount;
+        _amountTXT.enabled = _currentItem._amount > 1;
+        _amountTXT.text = _currentItem._amount.ToString();
     }
 
 }

@@ -1,58 +1,50 @@
 using UnityEngine;
 
-public class Player_Animations : MonoBehaviour
-{
+public class Player_Animations : MonoBehaviour {
 
-    private Animator anim;
-    private float lockedUntil;
-    public int currentState;
-    public AnimState animState;
-    public enum AnimState{
+    private Animator _anim;
+    private float _lockedUntil;
+    public int _currentState;
+    public AnimState _animState;
+    public enum AnimState {
         idle,
         running,
-        jumping, 
-        atack
+        attack,
+        reload,
     }
-    public float atackDuration;
-    public float jumpDuration;
+    public float _attackDuration;
 
-    private Ground ground;
     private static readonly int IDLE = Animator.StringToHash("idle");
     private static readonly int RUNNING = Animator.StringToHash("running");
-    private static readonly int ATACK = Animator.StringToHash("atack");
-    private static readonly int JUMPING = Animator.StringToHash("jumping");
-    private void Awake()
-    {
-        anim = GetComponentInChildren<Animator>();
-        ground = GetComponent<Ground>();
+    private static readonly int ATTACK = Animator.StringToHash("attack");
+    private void Awake() {
+        _anim = GetComponentInChildren<Animator>();
     }
-    
-    private void Update()
-    {
+
+    private void Update() {
         var state = GetState();
-        if (state == currentState) return;
-        anim.CrossFade(state, 0, 0);
-        currentState = state;
+        if (state == _currentState) return;
+        _anim.CrossFade(state, 0, 0);
+        _currentState = state;
     }
 
-    public int GetState(){
-        if (Time.time < lockedUntil) return currentState;
+    public int GetState() {
+        if (Time.time < _lockedUntil) return _currentState;
 
-        if (animState == AnimState.atack) return LockState(ATACK, atackDuration);
-        if (animState == AnimState.jumping) return JUMPING;
-        if (animState == AnimState.running && ground.OnGround) return RUNNING;
-        if(animState == AnimState.idle && ground.OnGround) return IDLE;
-        return JUMPING;
-        int LockState(int s, float t){
-            lockedUntil = Time.time + t;
+        if (_animState == AnimState.attack) return LockState(ATTACK, _attackDuration);
+        if (_animState == AnimState.running) return RUNNING;
+        if (_animState == AnimState.idle) return IDLE;
+        return IDLE;
+        int LockState(int s, float t) {
+            _lockedUntil = Time.time + t;
             return s;
-        } 
+        }
 
     }
-    
-    public void ChangeState(AnimState state){
-        animState = state;
-    }   
 
- 
+    public void ChangeState(AnimState state) {
+        _animState = state;
+    }
+
+
 }

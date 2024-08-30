@@ -8,6 +8,7 @@ public class SpecialItemSO : ScriptableObject {
     public string _name;
     public string _shortDesc;
     public bool _isStackable;
+    public bool _isEquipable;
     public int _maxStack;
     public int _stackSize;
 

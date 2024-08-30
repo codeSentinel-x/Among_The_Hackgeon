@@ -212,6 +212,10 @@ namespace MyUtils.Classes {
         public SpecialItemSO _itemBase;
         public int _amount;
         public int _maxAmount;
+
+        public static Item CreateNewItemFromItem(Item item) {
+            throw new NotImplementedException();
+        }
     }
 
     [System.Serializable]
@@ -283,15 +287,15 @@ namespace MyUtils.Classes {
         public int GetItemInInventoryAmount(Item item) {
             int amount = 0;
             foreach (InventorySlot slot in FindSlotsWIthItem(item)) {
-                amount += slot.item._amount;
+                amount += slot._item._amount;
             }
             return amount;
         }
 
         private List<InventorySlot> FindSlotsWIthItem(Item item) {
             List<InventorySlot> slots = new();
-            foreach (InventorySlot slot in inventoryUI.slots) {
-                if (slot.item == item) {
+            foreach (InventorySlot slot in inventoryUI._slots) {
+                if (slot._item == item) {
                     slots.Add(slot);
                 }
             }
@@ -334,8 +338,8 @@ namespace MyUtils.Classes {
 
         public void RefreshItemList() {
             itemList = new();
-            foreach (InventorySlot slot in inventoryUI.slots) {
-                if (!slot.isEmpty) itemList.Add(slot.item);
+            foreach (InventorySlot slot in inventoryUI._slots) {
+                if (!slot._isEmpty) itemList.Add(slot._item);
             }
         }
 
@@ -344,28 +348,28 @@ namespace MyUtils.Classes {
         }
         private List<InventorySlot> FindSlotsWithItemOfType(SpecialItemSO _itemBase) {
             List<InventorySlot> slots = new();
-            foreach (InventorySlot slot in inventoryUI.slots) {
-                if (slot.item._itemBase == _itemBase) slots.Add(slot);
+            foreach (InventorySlot slot in inventoryUI._slots) {
+                if (slot._item._itemBase == _itemBase) slots.Add(slot);
             }
             return slots;
         }
         private InventorySlot FindSlotWithItem(Item it) {
-            foreach (InventorySlot slot in inventoryUI.slots) {
-                if (slot.isEmpty) continue;
-                if (slot.item == it) return slot;
+            foreach (InventorySlot slot in inventoryUI._slots) {
+                if (slot._isEmpty) continue;
+                if (slot._item == it) return slot;
             }
             return null;
         }
         public InventorySlot GetEmptySlot() {
-            foreach (InventorySlot invSlot in inventoryUI.slots) {
-                if (invSlot.isEmpty) return invSlot;
+            foreach (InventorySlot invSlot in inventoryUI._slots) {
+                if (invSlot._isEmpty) return invSlot;
             }
             return null;
         }
         public List<InventorySlot> GetEmptySlots() {
             List<InventorySlot> slots = new();
-            foreach (InventorySlot slot in inventoryUI.slots) {
-                if (slot.isEmpty) slots.Add(slot);
+            foreach (InventorySlot slot in inventoryUI._slots) {
+                if (slot._isEmpty) slots.Add(slot);
             }
             return slots;
         }

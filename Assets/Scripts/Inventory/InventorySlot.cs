@@ -1,54 +1,54 @@
 using MyUtils.Classes;
+using MyUtils.Functions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
-    public Mouse_DraggableItemFromInventory mouseHandler;
-    public Inventory inventory;
-    public DraggableSlot itemSlotPF;
-    public Item item;
-    public DraggableSlot dSlot;
-
-    public bool isEmpty;
-    public bool isFull;
+    public Mouse_DraggableItemFromInventory _mouseHandler;
+    public Inventory _inventory;
+    public DraggableSlot _itemSlotPF;
+    public Item _item;
+    public DraggableSlot _dSlot;
+    public bool _isEmpty;
+    public bool _isFull;
 
     public void Setup(Inventory inv) {
-        inventory = inv;
-        isEmpty = true;
-        isFull = false;
+        _inventory = inv;
+        _isEmpty = true;
+        _isFull = false;
     }
     public void AddItem(Item it) {
-        if (dSlot != null) Destroy(dSlot.gameObject);
-        dSlot = Instantiate(itemSlotPF, this.transform).GetComponent<DraggableSlot>();
-        item = it;
-        dSlot.Setup(item, this);
-        isEmpty = false;
-        isFull = (item.amount == item.maxStack);
+        if (_dSlot != null) Destroy(_dSlot.gameObject);
+        _dSlot = Instantiate(_itemSlotPF, this.transform).GetComponent<DraggableSlot>();
+        _item = it;
+        _dSlot.Setup(_item, this);
+        _isEmpty = false;
+        _isFull = (_item._amount == _item._maxAmount);
 
     }
     public void RemoveItem() {
-        Destroy(dSlot.gameObject);
-        item = null;
-        isEmpty = true;
-        isFull = false;
+        Destroy(_dSlot.gameObject);
+        _item = null;
+        _isEmpty = true;
+        _isFull = false;
     }
 
     public void RefreshItemAmount(int amount) {
-        if (amount > item.maxStack) amount = item.maxStack;
-        item.amount = amount;
-        isFull = amount == item.maxStack;
-        dSlot.UpdateAmount();
+        if (amount > _item._maxAmount) amount = _item._maxAmount;
+        _item._amount = amount;
+        _isFull = amount == _item._maxAmount;
+        _dSlot.UpdateAmount();
     }
     public void OnPointerClick(PointerEventData eventData) {
         switch (eventData.button) {
             case PointerEventData.InputButton.Left: {
                     OnLeftClick();
-                    inventory.RefreshItemList();
+                    _inventory.RefreshItemList();
                     break;
                 }
             case PointerEventData.InputButton.Right: {
                     OnRightClick();
-                    inventory.RefreshItemList();
+                    _inventory.RefreshItemList();
 
                     break;
                 }
@@ -60,86 +60,77 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         }
     }
     public void OnLeftClick() {
-        if (Mouse_DraggableItemFromInventory.I == null) Instantiate(mouseHandler, transform.parent.parent);
-        Mouse_DraggableItemFromInventory mouseHandlerI = Mouse_DraggableItemFromInventory.I;
+        if (Mouse_DraggableItemFromInventory._I == null) Instantiate(_mouseHandler, transform.parent.parent);
+        Mouse_DraggableItemFromInventory mouseHandlerI = Mouse_DraggableItemFromInventory._I;
 
 
-        if (mouseHandlerI.hasItem) {
-            if (isEmpty) {
-                AddItem(mouseHandlerI.dSlot.currentItem);
+        if (mouseHandlerI._hasItem) {
+            if (_isEmpty) {
+                AddItem(mouseHandlerI._dSlot._currentItem);
                 mouseHandlerI.Reset();
-            }
-            else {
-                if (item.itemBase == mouseHandlerI.dSlot.currentItem.itemBase && !isFull) {
-                    int control = item.maxStack - item.amount;
-                    if (mouseHandlerI.dSlot.currentItem.amount > control) {
-                        mouseHandlerI.dSlot.UpdateAmount(mouseHandlerI.dSlot.currentItem.amount - control);
-                        RefreshItemAmount(item.maxStack);
+            } else {
+                if (_item._itemBase == mouseHandlerI._dSlot._currentItem._itemBase && !_isFull) {
+                    int control = _item._maxAmount - _item._amount;
+                    if (mouseHandlerI._dSlot._currentItem._amount > control) {
+                        mouseHandlerI._dSlot.UpdateAmount(mouseHandlerI._dSlot._currentItem._amount - control);
+                        RefreshItemAmount(_item._maxAmount);
 
 
-                    }
-                    else {
-                        RefreshItemAmount(item.amount + mouseHandlerI.dSlot.currentItem.amount);
+                    } else {
+                        RefreshItemAmount(_item._amount + mouseHandlerI._dSlot._currentItem._amount);
                         Destroy(mouseHandlerI.gameObject);
 
 
                     }
-                }
-                else {
-                    mouseHandlerI.ChangeItem(item, out Item newItem);
+                } else {
+                    mouseHandlerI.ChangeItem(_item, out Item newItem);
                     AddItem(newItem);
 
 
                 }
             }
-        }
-        else {
-            if (isEmpty) {
+        } else {
+            if (_isEmpty) {
                 //Do nothing;
-            }
-            else {
-                mouseHandlerI.SetUp(item);
+            } else {
+                mouseHandlerI.SetUp(_item);
                 RemoveItem();
 
             }
         }
     }
     public void OnRightClick() {
-        if (Mouse_DraggableItemFromInventory.I == null) Instantiate(mouseHandler, transform.parent.parent);
-        Mouse_DraggableItemFromInventory mouseHandlerI = Mouse_DraggableItemFromInventory.I;
-        if (!isEmpty && item.amount > 1 && !mouseHandlerI.hasItem) {
-            Special.MyFunctions.Split(item.amount, out int value1, out int value2);
+        if (Mouse_DraggableItemFromInventory._I == null) Instantiate(_mouseHandler, transform.parent.parent);
+        Mouse_DraggableItemFromInventory mouseHandlerI = Mouse_DraggableItemFromInventory._I;
+        if (!_isEmpty && _item._amount > 1 && !mouseHandlerI._hasItem) {
+            InventoryF.Split(_item._amount, out int value1, out int value2);
             RefreshItemAmount(value1);
-            mouseHandlerI.SetUp(item, value2);
-        }
-        else if (mouseHandlerI.hasItem) {
-            if (isEmpty) {
-                int amount = mouseHandlerI.dSlot.currentItem.amount;
+            mouseHandlerI.SetUp(_item, value2);
+        } else if (mouseHandlerI._hasItem) {
+            if (_isEmpty) {
+                int amount = mouseHandlerI._dSlot._currentItem._amount;
                 if (amount == 1) {
-                    AddItem(mouseHandlerI.dSlot.currentItem);
+                    AddItem(mouseHandlerI._dSlot._currentItem);
                     mouseHandlerI.Reset();
-                }
-                else {
-                    AddItem(mouseHandlerI.dSlot.currentItem);
+                } else {
+                    AddItem(mouseHandlerI._dSlot._currentItem);
                     mouseHandlerI.Reset();
-                    mouseHandlerI = Instantiate(mouseHandler, transform.parent.parent);
-                    mouseHandlerI.SetUp(item, amount - 1);
+                    mouseHandlerI = Instantiate(_mouseHandler, transform.parent.parent);
+                    mouseHandlerI.SetUp(_item, amount - 1);
                     RefreshItemAmount(1);
                 }
-            }
-            else {
-                if (isFull) return;
-                if (item.itemBase == mouseHandlerI.dSlot.currentItem.itemBase) {
-                    int amount = mouseHandlerI.dSlot.currentItem.amount;
+            } else {
+                if (_isFull) return;
+                if (_item._itemBase == mouseHandlerI._dSlot._currentItem._itemBase) {
+                    int amount = mouseHandlerI._dSlot._currentItem._amount;
                     if (amount == 1) {
-                        RefreshItemAmount(item.amount + 1);
+                        RefreshItemAmount(_item._amount + 1);
                         mouseHandlerI.Reset();
-                    }
-                    else {
+                    } else {
                         mouseHandlerI.Reset();
-                        mouseHandlerI = Instantiate(mouseHandler, transform.parent.parent);
-                        mouseHandlerI.SetUp(item, amount - 1);
-                        RefreshItemAmount(item.amount + 1);
+                        mouseHandlerI = Instantiate(_mouseHandler, transform.parent.parent);
+                        mouseHandlerI.SetUp(_item, amount - 1);
+                        RefreshItemAmount(_item._amount + 1);
                     }
                 }
             }
@@ -147,9 +138,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        if (Mouse_DraggableItemFromInventory.I != null) if (Mouse_DraggableItemFromInventory.I.hasItem) return;
-        if (!isEmpty) {
-            ItemTooltip.Show(item);
+        if (Mouse_DraggableItemFromInventory._I != null) if (Mouse_DraggableItemFromInventory._I._hasItem) return;
+        if (!_isEmpty) {
+            ItemTooltip.Show(_item);
         }
     }
 

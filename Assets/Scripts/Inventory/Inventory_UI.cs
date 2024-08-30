@@ -1,77 +1,78 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyUtils.Classes;
 using UnityEngine;
 
 public class Inventory_UI : MonoBehaviour {
-    public static Action onInventoryClose;
-    public Action onEquipmentChange;
-    private Inventory inventory;
-    public List<InventorySlot> slots = new();
-    public SpecialInventorySlot[] specialSlots;
-    public GameObject specialSlotParent;
-    public GameObject slotParent;
-    public GameObject slotPF;
+    public static Action _onInventoryClose;
+    public Action _onEquipmentChange;
+    private Inventory _inventory;
+    public List<InventorySlot> _slots = new();
+    public SpecialInventorySlot[] _specialSlots;
+    public GameObject _specialSlotParent;
+    public GameObject _slotParent;
+    public GameObject _slotPF;
     private void Awake() {
-        slotParent.GetComponentsInChildren<InventorySlot>().ToList().ForEach(x => slots.Add(x));
-        specialSlots = specialSlotParent.GetComponentsInChildren<SpecialInventorySlot>();
+        _slotParent.GetComponentsInChildren<InventorySlot>().ToList().ForEach(x => _slots.Add(x));
+        _specialSlots = _specialSlotParent.GetComponentsInChildren<SpecialInventorySlot>();
     }
     public void SetInventory(Inventory invent) {
-        inventory = invent;
-        inventory.OnInventorySizeChange += ChangeInventorySize;
+        _inventory = invent;
+        _inventory.OnInventorySizeChange += ChangeInventorySize;
         SetupInventorySlots();
         SetupSpecialInventorySlots();
         ChangeInventorySize();
     }
     public void SetupInventorySlots() {
-        foreach (InventorySlot slot in slots) {
-            slot.Setup(inventory);
+        foreach (InventorySlot slot in _slots) {
+            slot.Setup(_inventory);
         }
     }
     public void SetupSpecialInventorySlots() {
-        foreach (SpecialInventorySlot slot in specialSlots) {
-            slot.Setup(inventory);
+        foreach (SpecialInventorySlot slot in _specialSlots) {
+            slot.Setup(_inventory);
         }
     }
 
     public void AddInventorySlot() {
-        while (inventory.inventorySize > slots.Count) {
-            InventorySlot slot = Instantiate(slotPF, slotParent.transform).GetComponent<InventorySlot>();
-            slot.Setup(inventory);
-            slots.Add(slot);
+        while (_inventory.inventorySize > _slots.Count) {
+            InventorySlot slot = Instantiate(_slotPF, _slotParent.transform).GetComponent<InventorySlot>();
+            slot.Setup(_inventory);
+            _slots.Add(slot);
 
         }
     }
 
 
     private void ChangeInventorySize() {
-        if (slots.Count > inventory.inventorySize) RemoveInventorySlot(slots.Count - inventory.inventorySize);
+        if (_slots.Count > _inventory.inventorySize) RemoveInventorySlot(_slots.Count - _inventory.inventorySize);
         else AddInventorySlot();
     }
     public void RemoveInventorySlot(int amountToRemove) {
-        if (amountToRemove > inventory.inventorySize) amountToRemove = inventory.inventorySize - 1;
+        if (amountToRemove > _inventory.inventorySize) amountToRemove = _inventory.inventorySize - 1;
 
-        List<InventorySlot> emptySlots = inventory.GetEmptySlots();
+        List<InventorySlot> emptySlots = _inventory.GetEmptySlots();
         foreach (InventorySlot slot in emptySlots) {
             InventorySlot slotToRemove = slot;
-            slots.Remove(slotToRemove);
+            _slots.Remove(slotToRemove);
             Destroy(slotToRemove.gameObject);
             amountToRemove -= 1;
             if (amountToRemove == 0) return;
         }
-        slots.Reverse();
+        _slots.Reverse();
         for (int i = 0; i < amountToRemove; i++) {
-            InventorySlot slotToRemove = slots[i];
-            if (!slotToRemove.isEmpty) {
-                inventory.RemoveItem(slotToRemove.item);
-                TossItem(slotToRemove.item);
+            InventorySlot slotToRemove = _slots[i];
+            if (!slotToRemove._isEmpty) {
+                _inventory.RemoveItem(slotToRemove._item);
+                TossItem(slotToRemove._item);
             }
             //?    slotToRemove.RemoveItem();
-            slots.Remove(slotToRemove);
+            _slots.Remove(slotToRemove);
             Destroy(slotToRemove.gameObject);
 
         }
-        slots.Reverse();
+        _slots.Reverse();
     }
 
     public void TossItem(Item item) {
