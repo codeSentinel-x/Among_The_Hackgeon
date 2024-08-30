@@ -33,12 +33,14 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private float _currentHealthRatio;
     private AudioManager _gAM;
     private bool _shootPressed;
+    private PlayerAnimations _pAnim;
     void Awake() {
         _gAM = AudioManager._I;
         SubscribeStats();
     }
 
     void Start() {
+        _pAnim = GetComponent<PlayerAnimations>();
         InitializeWeapon();
         MyLog();
         ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerSpawn, transform.position);
@@ -99,6 +101,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         if (_currentWeapon._nextShoot > Time.time) return;
         if (_currentWeapon._bulletsInMagazine <= 0) { _ = StartCoroutine(Reload()); /*Debug.Log("No bullets");*/ return; }
         // Debug.Log("Piu");
+        _pAnim.ChangeState(PlayerAnimations.AnimState.attack);
         float sp = UnityEngine.Random.Range(0f, _currentWeapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
 
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
@@ -140,6 +143,7 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
     private IEnumerator Reload() {
         if (_isReloading) yield return null;
         if (_currentWeapon._bulletsInMagazine == _currentWeapon._defaultSettings._maxBullet) yield return null;
+        _pAnim.ChangeState(PlayerAnimations.AnimState.reload);
         AudioManager._I.PlaySoundEffect(AudioType.PlayerReloadStart, transform.position);
         _isReloading = true;
         _ = StartCoroutine(PlayerUI._I.DisplayReload(_currentWeapon._reloadTime * _reloadSpeedMult));

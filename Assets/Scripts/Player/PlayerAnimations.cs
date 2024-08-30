@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_Animations : MonoBehaviour {
+public class PlayerAnimations : MonoBehaviour {
 
     private Animator _anim;
     private float _lockedUntil;
