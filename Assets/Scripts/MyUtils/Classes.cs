@@ -210,7 +210,8 @@ namespace MyUtils.Classes {
     [Serializable]
     public class Item {
         public SpecialItemSO _itemBase;
-        public int amount;
+        public int _amount;
+        public int _maxAmount;
     }
 
     [System.Serializable]
@@ -234,16 +235,16 @@ namespace MyUtils.Classes {
                 itemList.Add(item);
                 return true;
             } else {
-                int amountToAdd = item.amount;
+                int amountToAdd = item._amount;
                 int amountLeft = amountToAdd;
                 foreach (Item it in itemList) {
                     if (it._itemBase == item._itemBase) {
-                        if (it.amount != it.maxStack) {
+                        if (it._amount != it._maxAmount) {
 
-                            it.amount = CheckAmountToAdd(it, amountToAdd, out int aLeft);
+                            it._amount = CheckAmountToAdd(it, amountToAdd, out int aLeft);
                             InventorySlot slot = FindSlotWithItem(it);
                             if (slot != null) {
-                                slot.RefreshItemAmount(it.amount);
+                                slot.RefreshItemAmount(it._amount);
                             } else {
                                 Debug.Log("Slot is null");
                                 continue;
@@ -254,7 +255,7 @@ namespace MyUtils.Classes {
                     }
                 }
                 if (amountLeft > 0) {
-                    item.amount = amountLeft;
+                    item._amount = amountLeft;
                     AddItem(item, false);
                 }
                 return true;
@@ -282,7 +283,7 @@ namespace MyUtils.Classes {
         public int GetItemInInventoryAmount(Item item) {
             int amount = 0;
             foreach (InventorySlot slot in FindSlotsWIthItem(item)) {
-                amount += slot.item.amount;
+                amount += slot.item._amount;
             }
             return amount;
         }
@@ -301,19 +302,19 @@ namespace MyUtils.Classes {
             //TODO Add Item Amount
             throw new System.NotImplementedException();
         }
-        public int CheckAmountToAdd(ItemType item, int a, out int overStackAmount) {
+        public int CheckAmountToAdd(Item item, int a, out int overStackAmount) {
             if (!item._itemBase._isStackable) {
                 overStackAmount = a;
                 return 1;
             }
 
-            int amount = item.amount;
-            int maxStack = item._itemBase.stackSize;
+            int amount = item._amount;
+            int _maxStack = item._itemBase._stackSize;
             int control = amount + a;
 
-            if (control > maxStack) {
-                overStackAmount = control - maxStack;
-                amount = maxStack;
+            if (control > _maxStack) {
+                overStackAmount = control - _maxStack;
+                amount = _maxStack;
             } else {
                 amount += a;
                 overStackAmount = 0;
@@ -341,7 +342,7 @@ namespace MyUtils.Classes {
         public int GetSpaceInInventory() {
             return inventorySize - itemList.Count;
         }
-        private List<InventorySlot> FindSlotsWithItemOfType(ItemBaseSO _itemBase) {
+        private List<InventorySlot> FindSlotsWithItemOfType(SpecialItemSO _itemBase) {
             List<InventorySlot> slots = new();
             foreach (InventorySlot slot in inventoryUI.slots) {
                 if (slot.item._itemBase == _itemBase) slots.Add(slot);

@@ -1,8 +1,12 @@
-using MyUtils.Classes;
+using System.Collections;
+using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+public class SpecialInventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+    public Image itemImagePF;
     public Mouse_DraggableItemFromInventory mouseHandler;
     public Inventory inventory;
     public DraggableSlot itemSlotPF;
@@ -12,21 +16,33 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public bool isEmpty;
     public bool isFull;
 
+    [Tooltip("0 - headSlot \n 1 - chest slot \n 2 - leg slot \n 3 - bag slot \n 4 - belt slot \n 5 - rune slot \n 6 - special book slot \n 7 - food slot \n  8 - health potion slot \n 9 - mana potion slot")]
+    public int specialSlotIndex;
+
+    public bool CanBeAdded(Item item) {
+        if (!item.itemBase.isEquipable) return false;
+        if (item.equipableItemBase.specialSlotIndex == specialSlotIndex) return true;
+        else return false;
+    }
     public void Setup(Inventory inv) {
         inventory = inv;
         isEmpty = true;
         isFull = false;
     }
     public void AddItem(Item it) {
+        if (!CanBeAdded(it)) return;
         if (dSlot != null) Destroy(dSlot.gameObject);
         dSlot = Instantiate(itemSlotPF, this.transform).GetComponent<DraggableSlot>();
         item = it;
         dSlot.Setup(item, this);
         isEmpty = false;
         isFull = (item.amount == item.maxStack);
+        Player_Stats.OnInventoryEquipmentChange?.Invoke(null, item);
+
 
     }
     public void RemoveItem() {
+        Player_Stats.OnInventoryEquipmentChange?.Invoke(item, null);
         Destroy(dSlot.gameObject);
         item = null;
         isEmpty = true;
@@ -43,12 +59,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         switch (eventData.button) {
             case PointerEventData.InputButton.Left: {
                     OnLeftClick();
-                    inventory.RefreshItemList();
                     break;
                 }
             case PointerEventData.InputButton.Right: {
                     OnRightClick();
-                    inventory.RefreshItemList();
 
                     break;
                 }
@@ -65,6 +79,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
 
         if (mouseHandlerI.hasItem) {
+            if (!CanBeAdded(mouseHandlerI.dSlot.currentItem)) return;
             if (isEmpty) {
                 AddItem(mouseHandlerI.dSlot.currentItem);
                 mouseHandlerI.Reset();
@@ -87,6 +102,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
                 }
                 else {
                     mouseHandlerI.ChangeItem(item, out Item newItem);
+                    RemoveItem();
                     AddItem(newItem);
 
 
@@ -113,6 +129,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             mouseHandlerI.SetUp(item, value2);
         }
         else if (mouseHandlerI.hasItem) {
+            if (!CanBeAdded(mouseHandlerI.dSlot.currentItem)) return;
+
             if (isEmpty) {
                 int amount = mouseHandlerI.dSlot.currentItem.amount;
                 if (amount == 1) {
@@ -157,69 +175,4 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         ItemTooltip.Hide();
     }
 }
-//              For SEBASTIAN
 
-
-// public static class ConsumableItemFunctions{
-
-// 	public enum ItemType{
-// 		healthPotion,
-// 		manaPotion,
-// 		staminaPotion
-// 	}
-//     public static void UseItem(ItemType type)
-//     {
-//         switch (type) { 
-
-//             case ItemType.healthPotion : {
-//                 UseHealthPotion();
-//                 break;
-//             }
-//             case ItemType.manaPotion : {
-//                 UseManaPotion();
-//                 break;
-//             }
-//             case ItemType.staminaPotion : {
-//                 UseStaminaPotion();
-//                 break;
-//             }
-//             default : break;
-
-//         }
-
-//     }
-// 	public static void UseHealthPotion(){
-// 		//code
-// 	}
-// 	public static void UseManaPotion(){
-// 		//code
-// 	}
-// 	public static void UseStaminaPotion(){
-// 		//code
-// 	}	
-// }
-// class Example
-// {
-//     int x;
-//     int twiceX;
-//     public int Sqrt(int v)
-//     {
-//         return v * v;
-//     }
-//     public void Sqrtt(int v, out int value)
-//     {
-//         value = v * v;
-//     }
-//     public void Sqrtt(int v, out int value, out int twiceValue)
-//     {
-//         value = v * v;
-//         twiceValue = value * 2;
-//     }
-
-//     void Test()
-//     {
-//         x = Sqrt(x);
-//         Sqrtt(x, out x);
-//         Sqrtt(x, out x, out twiceX);
-//     }
-// }

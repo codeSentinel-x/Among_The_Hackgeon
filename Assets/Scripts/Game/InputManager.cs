@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using MyUtils.Enums;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 public class InputManager : MonoBehaviour {
     public static InputManager _I;
     public KeyArrayElement[] _keyDownArray;
