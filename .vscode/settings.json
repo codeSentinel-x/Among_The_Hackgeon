@@ -64,6 +64,7 @@
         "Interactable",
         "Mult",
         "Pushable",
+        "Stackable",
         "stam",
         "Tilemap"
     ]

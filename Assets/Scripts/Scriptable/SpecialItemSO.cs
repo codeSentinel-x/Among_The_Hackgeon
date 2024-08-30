@@ -7,6 +7,6 @@ public class SpecialItemSO : ScriptableObject {
     public StatChangeObject[] _statsToChange;
     public string _name;
     public string _shortDesc;
-
+    public bool _isStackable;
 
 }
