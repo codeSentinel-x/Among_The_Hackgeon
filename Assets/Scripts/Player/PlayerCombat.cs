@@ -44,16 +44,14 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         InitializeWeapon();
         MyLog();
         ParticleAssetManager._I.InstantiateParticles(ParticleType.PlayerSpawn, transform.position);
-        //TODO InitInput();
+        InitInput();
     }
-
+    KeyCode _shoot, _reload, _useBlank, _changeWeapon;
     private void InitInput() {
-        InputManager _iM = InputManager._I;
-        _iM.AddKeyAction(KeyBindType.Shoot, KeyPressMode.KeyDown, Shoot);
-        _iM.AddKeyAction(KeyBindType.UseBlank, KeyPressMode.KeyDown, UseBlank);
-        _iM.AddKeyAction(KeyBindType.Reload, KeyPressMode.KeyDown, () => { if (!_isReloading) StartCoroutine(Reload()); });
-        _iM.AddKeyAction(KeyBindType.ChangeWeapon, KeyPressMode.KeyDown, NextWeapon);
-
+        _shoot = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.Shoot)._key;
+        _useBlank = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.UseBlank)._key;
+        _reload = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.Reload)._key;
+        _changeWeapon = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.ChangeWeapon)._key;
     }
 
     public void Update() {
@@ -95,15 +93,15 @@ public class PlayerCombat : MonoBehaviour, IDamageable {
         ResetBulletDisplay();
     }
     private void HandleInput() {
-        if (_currentWeapon._defaultSettings._auto) {
-            if (Input.GetKey(KeyCode.Mouse0)) Shoot();
-        } else {
-            if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
-        }
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
-        if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
-        if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
-        if (Input.GetKeyDown(KeyCode.Q)) UseBlank();
+        // if (_currentWeapon._defaultSettings._auto) {
+        // if (Input.GetKey(KeyCode.Mouse0)) Shoot();
+        // } else {
+        // if (Input.GetKeyDown(KeyCode.Mouse0)) Shoot();
+        // }
+        // if (Input.GetKeyDown(KeyCode.R) && !_isReloading) StartCoroutine(Reload());
+        // if (Input.GetKeyDown(KeyCode.LeftShift)) NextWeapon();
+        // if (Input.GetKeyDown(KeyCode.LeftControl)) PreviousWeapon();
+        // if (Input.GetKeyDown(KeyCode.Q)) UseBlank();
     }
     public void Shoot() {
         if (_isReloading) return;

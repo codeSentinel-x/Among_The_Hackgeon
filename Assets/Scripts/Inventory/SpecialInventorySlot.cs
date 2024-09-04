@@ -1,8 +1,8 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using MyUtils.Classes;
 using MyUtils.Functions;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SpecialInventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     public Image _itemImagePF;

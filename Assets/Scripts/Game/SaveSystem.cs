@@ -6,6 +6,7 @@ using UnityEngine;
 public static class SaveSystem {
     public const string PLAYER_DATA_DEFAULT_SAVE_PATH = "PlayerData";
     public const string SETTINGS_DEFAULT_SAVE_PATH = "Settings";
+    public const string KEY_BIND_DATA_SAVE_PATH = "KeyBind";
     public static string PERSISTANCE_DATA_PATH = Application.persistentDataPath;
 
     public static void Save<T>(string path, string name, T data, string ext = ".json") {

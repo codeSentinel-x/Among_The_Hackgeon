@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MyUtils.Enums;
 using UnityEngine;
 
 
@@ -217,7 +218,20 @@ namespace MyUtils.Classes {
             throw new NotImplementedException();
         }
     }
-
+    [Serializable]
+    public class KeyBindData {
+        public Dictionary<KeyBindType, KeyBind> _keyBinds = new();
+    }
+    [Serializable]
+    public class KeyBind {
+        public KeyCode _key;
+        // public Action _onKeyAction;
+    }
+    [Serializable]
+    public class KeyBindArrayElement {
+        public KeyBindType _type;
+        public KeyBind _keyBind;
+    }
     [System.Serializable]
     public class Inventory {
         public Action OnInventorySizeChange;
