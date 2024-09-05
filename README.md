@@ -1,5 +1,5 @@
 # Among_The_Hackgeon
-## _A Winning Project from HackClub's Arcade GameJam_
+## _One of 5 **Winning Projects** from HackClub's Arcade GameJam_
 Welcome to **Among_The_Hackgeon**, a fast-paced, roguelike dungeon crawler inspired by **Enter the Gungeon**. 
 
 Fight enemies, discover hidden secrets, and defeat powerful boss in an looped dungeon.
