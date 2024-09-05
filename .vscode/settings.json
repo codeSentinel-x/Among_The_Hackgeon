@@ -66,6 +66,7 @@
         "Interactable",
         "Mult",
         "Pushable",
+        "roguelike",
         "Stackable",
         "stam",
         "Tilemap"

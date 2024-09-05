@@ -1,8 +1,8 @@
 # Among_The_Hackgeon
-## _One of the winning project from Arcade GameJam launched by HackClub_
-Welcome to my project amazing game based on Enter the Gungeon.
+## _A Winning Project from HackClub's Arcade GameJam_
+Welcome to **Among_The_Hackgeon**, a fast-paced, roguelike dungeon crawler inspired by **Enter the Gungeon**. 
 
-Fight enemies, look for hidden things and doors and defeat Boss. Good luck!
+Fight enemies, discover hidden secrets, and defeat powerful boss in an looped dungeon.
 
 I decided to finish this game after jam. There's so many things to add!
 
@@ -10,7 +10,7 @@ I decided to finish this game after jam. There's so many things to add!
 ### What's new?
 - **I made this game playable again!** 
 ### What's fixed?
-- All issue with player movement 
+- All issues with player movement 
 - Doors open now normally after combat
 - Chest with key to boss room also spawn normally
 - And much more...
