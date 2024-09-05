@@ -12,7 +12,7 @@ I decided to finish this game after jam. There's so many things to add!
 ### What's fixed?
 - All issues with player movement 
 - Doors open now normally after combat
-- he chest with the key to the boss room now spawns normally
+- The chest with the key to the boss room now spawns normally
 - And much more...
 ### What's next?
 - More customizable input system (Base is implemented)
