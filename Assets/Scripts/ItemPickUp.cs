@@ -21,6 +21,8 @@ public class ItemPickUp : MonoBehaviour {
     void Start() {
         if (_itemType == ItemType.Weapon) {
             AssetManager.LoadWeaponByName(_name);
+            GetComponent<TooltipShower>().Setup(AssetManager.LoadWeaponByName(_name));
+
         } else if (_itemType == ItemType.Special) {
             GetComponent<TooltipShower>().Setup(AssetManager.LoadItemByName(_name));
         }

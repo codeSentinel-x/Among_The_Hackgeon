@@ -40,21 +40,25 @@ public class PlayerMovement : MonoBehaviour {
     }
     void Start() {
         _speed += GameManager._gSettings._playerSpeedMultiplier;
-        PlayerUI._I.RefreshDash(_currentStamina, _maxStamina); ;
-        SetInputAction();
+        PlayerUI._I.RefreshDash(_currentStamina, _maxStamina);
+        InputManager._onKeyBindChange += ReloadKeyBinds;
+        ReloadKeyBinds();
     }
     public KeyCode _moveLeft, _moveRight, _moveUp, _moveDown, _dash;
-    public void SetInputAction() {
-        _moveLeft = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.MoveLeft)._key;
-        _moveUp = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.MoveUp)._key;
-        _moveDown = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.MoveDown)._key;
-        _moveRight = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.MoveRight)._key;
-        _dash = InputManager._keyBindData._keyBinds.GetValueOrDefault(KeyBindType.Dash)._key;
+
+    private InputManager _iM;
+    public void ReloadKeyBinds() {
+        _iM ??= InputManager._I;
+        _moveLeft = _iM.GetKey(KeyBindType.MoveLeft);
+        _moveUp = _iM.GetKey(KeyBindType.MoveUp);
+        _moveDown = _iM.GetKey(KeyBindType.MoveDown);
+        _moveRight = _iM.GetKey(KeyBindType.MoveRight);
+        _dash = _iM.GetKey(KeyBindType.Dash);
     }
 
 
 
-    public void LateUpdate() {
+    public void Update() {
         HandleInput();
         HandleStamina();
     }
@@ -73,7 +77,11 @@ public class PlayerMovement : MonoBehaviour {
 
     private void HandleInput() {
         _dir = Vector2.zero;
-        _dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        // _dir = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (Input.GetKey(_moveLeft)) _dir += new Vector2(-1, 0);
+        else if (Input.GetKey(_moveRight)) _dir += new Vector2(1, 0);
+        if (Input.GetKey(_moveUp)) _dir += new Vector2(0, 1);
+        if (Input.GetKey(_moveDown)) _dir += new Vector2(0, -1);
         if (Input.GetKeyDown(_dash)) if (_dashToMouse) DashToMouse(Camera.main.ScreenToWorldPoint(Input.mousePosition)); else DashForward();
     }
     private void DashForward() {

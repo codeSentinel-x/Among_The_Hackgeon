@@ -16,8 +16,6 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
     public Action _closeDoor;
     public Action _uncloseDoor;
     public Action _damage;
-    void Start() {
-    }
     public void Initialize() {
         if (_initialized) return;
         _initialized = true;
@@ -257,9 +255,9 @@ public class DoorController : MonoBehaviour, IDamageable, IDoor {
             _ => _gMD._openedDoorSprite[0],
         };
         var d = GetComponent<DoorController>();
-        if (d._tunnelToShow._maskTransform != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
-        d._tunnelToShow.ShowRoom();
-        d._roomToShow.ShowRoom();
+        if (d._tunnelToShow != null ? d._tunnelToShow._maskTransform : null != null) d._tunnelToShow._maskTransform.gameObject.SetActive(false);
+        d._tunnelToShow?.ShowRoom();
+        d._roomToShow?.ShowRoom();
     }
     public void DefaultDamage() {
         if (_opened || _hidden) return;

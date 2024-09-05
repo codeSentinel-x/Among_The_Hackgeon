@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour {
         _I = this;
         _time = _resetTime * GameManager._gSettings._timeMultiplier;
         AssetManager._I.Setup();
+        DontDestroyOnLoad(_endScreen);
     }
     void Update() {
         _time -= Time.deltaTime;

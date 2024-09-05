@@ -17,9 +17,6 @@ public class PlayerAnimations : MonoBehaviour {
     private static readonly int IDLE = Animator.StringToHash("idle");
     private static readonly int RUNNING = Animator.StringToHash("running");
     private static readonly int ATTACK = Animator.StringToHash("attack");
-    private void Awake() {
-        //_anim = GetComponentInChildren<Animator>();
-    }
 
     private void Update() {
         return;

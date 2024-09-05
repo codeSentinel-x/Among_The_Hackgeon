@@ -221,6 +221,7 @@ namespace MyUtils.Classes {
     [Serializable]
     public class KeyBindData {
         public Dictionary<KeyBindType, KeyBind> _keyBinds = new();
+        public KeyBindArrayElement[] _keyBindsAr;
     }
     [Serializable]
     public class KeyBind {

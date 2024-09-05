@@ -48,7 +48,7 @@ public class Boss : MonoBehaviour, IDamageable {
     public int _enemiesCount;
     public void NextStage(bool increase = true) {
         if (increase) _stage++;
-        if (_stage == 5) Die();
+        if (_stage == 5) { Die(); return; }
         _delayIndex = 0;
         _currentStageSO = _defaultSetting[_stage];
         StartInvincible();
@@ -160,8 +160,10 @@ public class Boss : MonoBehaviour, IDamageable {
         _currentHealth -= v;
         ParticleAssetManager._I.InstantiateParticles(ParticleType.BossDamage, transform.position);
         if (_currentHealth <= 0) {
-            if (_stage < 5) ParticleAssetManager._I.InstantiateParticles(ParticleType.BossStageChange, transform.position);
-            else Die();
+            if (_stage < 5) {
+                NextStage();
+                ParticleAssetManager._I.InstantiateParticles(ParticleType.BossStageChange, transform.position);
+            } else Die();
         }
         AudioManager._I.PlaySoundEffect(AudioType.BossDamage, transform.position);
         BossUI._I.UpdateHealth(_currentHealth, _currentStageSO._maxHealth);
@@ -169,16 +171,9 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     public void Die() {
         ParticleAssetManager._I.InstantiateParticles(ParticleType.BossDie, transform.position);
-        Soundtrack._I.CombatEnd();
-
-        _currentRoom._onRoomClear?.Invoke(_currentRoom);
-        AudioManager._I.PlaySoundEffect(AudioType.BossSpawn, transform.position);
+        _currentRoom.OnClear();
+        // foreach (var d in _currentRoom._doors) d._door._uncloseDoor?.Invoke();
+        AudioManager._I.PlaySoundEffect(AudioType.BossDie, transform.position);
         Destroy(transform.parent.gameObject);
-    }
-    void OnDestroy() {
-
-        // _currentRoom.EnemiesDie();
-
-
     }
 }

@@ -9,7 +9,7 @@ public class RoomController : MonoBehaviour {
     public Transform _checkerTransform;
     public Transform _maskTransform;
     public Transform _doorsTransform;
-    private List<DoorChecker> _doors = new();
+    public List<DoorChecker> _doors = new();
     public GameObject _roomMask;
     public bool _found;
     public Transform[] _spawnPoints;
@@ -27,9 +27,7 @@ public class RoomController : MonoBehaviour {
     public int _wave;
     private Torch[] _torches;
     void Awake() {
-        // _lightsHolder.gameObject.SetActive(false);
         wasInvokedOnClear = true;
-        // _lightsHolder.gameObject.SetActive(false);
         try { _maskTransform = transform.Find("Mask"); } catch (SystemException e) { Debug.Log(e); }
         _lightsHolder = _lightsHolder != null ? _lightsHolder : transform.Find("Lights");
         _torches = _lightsHolder.GetComponentsInChildren<Torch>();
@@ -54,9 +52,11 @@ public class RoomController : MonoBehaviour {
             var Uc = U.GetComponent<DoorController>();
             Uc._roomToShow = this;
             Uc.Initialize();
+            _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("U").GetComponent<Rigidbody2D>(), _door = Uc });
             var D = d.GetChild(1);
             var Dc = D.GetComponent<DoorController>();
             Dc._roomToShow = this;
+            _doors.Add(new DoorChecker() { _checker = _checkerTransform.Find("D").GetComponent<Rigidbody2D>(), _door = Dc });
             Dc.Initialize();
 
         }
@@ -84,36 +84,6 @@ public class RoomController : MonoBehaviour {
         }
     }
     bool wasInvokedOnClear;
-    void Update() {
-
-    }
-    /* //todo
-    public IEnumerator LightUp() {
-        StopCoroutine(LightsDown());
-        var intensity = 0f;
-        while (true) {
-            if (intensity >= 1f) break;
-            intensity += 0.05f;
-            foreach (var l in GetComponentsInChildren<Light2D>()) {
-                l.intensity += intensity;
-            }
-            yield return new WaitForSeconds(0.1f);
-
-        }
-    }
-    public IEnumerator LightsDown() {
-        StopCoroutine(LightUp());
-        var intensity = 1f;
-        while (true) {
-            intensity -= 0.05f;
-            if (intensity < 0f) break;
-            foreach (var l in GetComponentsInChildren<Light2D>()) {
-                l.intensity += intensity;
-            }
-            yield return new WaitForSeconds(0.1f);
-
-        }
-    }*/
     public void EnemiesDie() {
         if (wasInvokedOnClear) return;
         if (_roomType == RoomType.BossRoom) return;
@@ -121,14 +91,7 @@ public class RoomController : MonoBehaviour {
         if (_enemyCount <= 0) {
             _wave -= 1;
             if (_wave == 0) {
-                _onRoomClear?.Invoke(this);
-                _enemies = new();
-                wasInvokedOnClear = true;
-                if (_roomDifficulty == 5) Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
-                else if (_roomDifficulty >= 3) _ = Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity);
-                // _onCombatEnd?.Invoke();
-                Soundtrack._I.CombatEnd();
-
+                OnClear();
             } else {
                 SpawnEnemy();
             }
@@ -147,19 +110,16 @@ public class RoomController : MonoBehaviour {
             if (_roomType == RoomType.ExitRoom) Timer._I.BreakLoop();
             foreach (var t in _torches) t.StartLightsUp();
             var p = other.gameObject.GetComponent<PlayerController>();
-            p._currentRoom?.OnPlayerExit();
+            if (p._currentRoom != null) p._currentRoom.OnPlayerExit();
             SetupRoom(p);
         }
     }
     public void OnPlayerExit() {
-        //TODO StartCoroutine(LightsDown());
         foreach (var t in _torches) t.StartLightsDown();
-
     }
 
     private void SetupRoom(PlayerController contr) {
         if (contr._currentRoom == this) return;
-        // contr._confirmed.m_BoundingShape2D = _cameraBoundaries;
         contr._currentRoom = this;
         // Debug.Log($"Player entered {gameObject.name}");
         if (_roomType == RoomType.EnemyRoom && !_wasInvoked) { Soundtrack._I.PlayCombat(); SpawnEnemy(); }
@@ -176,12 +136,17 @@ public class RoomController : MonoBehaviour {
             _enemies.Add(e);
         }
         _enemyCount = _enemies.Count;
-
-        foreach (var d in _doors) {
-            // d._door.
-        }
     }
-
+    public void OnClear() {
+        _onRoomClear?.Invoke(this);
+        _enemies = new();
+        wasInvokedOnClear = true;
+        if (_roomDifficulty == 5) Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
+        else if (_roomDifficulty >= 3) _ = Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity);
+        // _onCombatEnd?.Invoke();
+        foreach (var d in _doors) d._door._uncloseDoor?.Invoke();
+        Soundtrack._I.CombatEnd();
+    }
     private void SpawnBoss() {
         Soundtrack._I.PlayCombat();
         Timer._I._time += 180;

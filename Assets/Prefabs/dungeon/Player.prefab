@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4542657741365041045
 Transform:
   m_ObjectHideFlags: 0
@@ -5176,7 +5176,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -6151,6 +6151,11 @@ MonoBehaviour:
   _staminaRegDelay: 0
   _stamRegPerSec: 0
   _dashToMouse: 0
+  _moveLeft: 0
+  _moveRight: 0
+  _moveUp: 0
+  _moveDown: 0
+  _dash: 0
 --- !u!50 &7242227466617701553
 Rigidbody2D:
   serializedVersion: 4
