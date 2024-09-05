@@ -40,9 +40,6 @@ I decided to finish this game after jam. There's so many things to add!
 - dangerApproaching, hit and hit-by-wood sounds (I didn't renamed them yet) are from [this website](https://pixabay.com)
 - other sound effects are from [this website](https://assetstore.unity.com/packages/audio/sound-fx/weapons/free-laser-weapons-214929)
 - soundtrack is from [this amazing asset pack](https://assetstore.unity.com/packages/audio/music/soft-rpg-music-pack-212935)
-### Get Involved
-Found a bug or have suggestions? Feel free to [open an issue](#). I really appreciate all your feedback!
-
 ### Images:
 ![Screenshot 1](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/8screenshot_from_2024-08-21_22-04-33.png)
 ![Screenshot 2](https://cloud-oavvjf2w1-hack-club-bot.vercel.app/7screenshot_from_2024-08-21_22-05-08.png)
