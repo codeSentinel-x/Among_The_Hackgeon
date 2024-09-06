@@ -53,9 +53,4 @@ namespace MyUtils.Enums {
         ExitToStartScreen,
         Exit,
     }
-    public enum KeyPressMode {
-        KeyDown,
-        KeyUP,
-        Both,
-    }
 }

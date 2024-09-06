@@ -1,5 +1,7 @@
 using System;
 using MyUtils.Classes;
+using MyUtils.Enums;
+using MyUtils.SaveSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,14 +30,29 @@ public class GameManager : MonoBehaviour {
         }
 
     }
+    void Start() {
+        _iM = InputManager._I;
+        InputManager._onKeyBindChange += ReloadKeyBinds;
+        ReloadKeyBinds();
+    }
+    InputManager _iM;
+    private void ReloadKeyBinds() {
+        _showHelp = _iM.GetKey(KeyBindType.ShowHelp);
+        _pause = _iM.GetKey(KeyBindType.Pause);
+        _loadStart = _iM.GetKey(KeyBindType.ExitToStartScreen);
+        _exit = _iM.GetKey(KeyBindType.Exit);
+        _loop = _iM.GetKey(KeyBindType.Loop);
+        _showReadme = _iM.GetKey(KeyBindType.ShowReadme);
+    }
 
     public GameObject _help;
     public GameObject _readme;
     public bool _isReadmeShowed;
     public bool _isPaused;
     public bool _isHelpShowed;
+    public KeyCode _showHelp, _pause, _loadStart, _exit, _loop, _showReadme;
     void Update() {
-        if (Input.GetKeyDown(KeyCode.F1)) {
+        if (Input.GetKeyDown(_showHelp)) {
             if (_isHelpShowed) {
                 _help.SetActive(false);
                 _isHelpShowed = false;
@@ -46,7 +63,7 @@ public class GameManager : MonoBehaviour {
                 Pause();
             }
         }
-        if (Input.GetKeyDown(KeyCode.F2)) {
+        if (Input.GetKeyDown(_pause)) {
             if (_isPaused) {
                 _isPaused = false;
                 Unpause();
@@ -55,7 +72,7 @@ public class GameManager : MonoBehaviour {
                 Pause();
             }
         }
-        if (Input.GetKeyDown(KeyCode.F3)) {
+        if (Input.GetKeyDown(_loadStart)) {
             if (SceneManager.GetActiveScene().buildIndex != 0) {
                 LoadStartScreen();
                 Cursor.visible = true;
@@ -70,13 +87,13 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.F4)) {
+        if (Input.GetKeyDown(_exit)) {
             Exit();
         }
-        if (Input.GetKeyDown(KeyCode.F5)) {
+        if (Input.GetKeyDown(_loop)) {
             if (SceneManager.GetActiveScene().buildIndex != 0) PlayerController._I.GetComponent<PlayerCombat>().Damage(1000);
         }
-        if (Input.GetKeyDown(KeyCode.F6)) {
+        if (Input.GetKeyDown(_showReadme)) {
             if (_isReadmeShowed) {
                 _readme.SetActive(false);
                 _isReadmeShowed = false;

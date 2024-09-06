@@ -40,8 +40,7 @@ public class BulletMono : MonoBehaviour {
         if (col.gameObject.CompareTag(_tagToIgnore)) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
         if (col.gameObject.CompareTag("Bullet")) { Physics2D.IgnoreCollision(col.gameObject.GetComponent<Collider2D>(), this.col); return; }
 
-        IDamageable unit = col.gameObject.GetComponent<IDamageable>();
-        if (unit != null) {
+        if (col.gameObject.TryGetComponent<IDamageable>(out var unit)) {
             unit.Damage(_bulletDamage);
         } else {
             ParticleAssetManager._I.InstantiateParticles(ParticleType.CollisionParticle, transform.position);

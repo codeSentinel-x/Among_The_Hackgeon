@@ -81,9 +81,9 @@ public class Soundtrack : MonoBehaviour {
     }
     public void StopCombat() {
         Debug.Log("CombatEnd");
-        _combatSource.Stop();
         _isCombat = false;
         _normalSource.Play();
+        _combatSource.Stop();
     }
     public void PlayNormal() {
         _startScreenSource.Stop();

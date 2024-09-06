@@ -13,7 +13,7 @@ public class Chest : MonoBehaviour, IInteractable {
     }
     public void Open() {
         ParticleAssetManager._I.InstantiateParticles(ParticleType.ChestOpen, transform.position);
-        AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position); //todo xif this
+        AudioManager._I.PlaySoundEffect(AudioType.DoorOpen, transform.position);
         if (!PlayerController._hasKey) _chestWithKey = Random.Range(0f, 1f) > 0.66f;
         if (!_chestWithKey) {
             _ = Instantiate(MyRandom.GetFromArray<Transform>(AssetManager._I._weaponsPrefab), transform.position + new Vector3(Random.Range(1f, 3f), 0), Quaternion.identity);

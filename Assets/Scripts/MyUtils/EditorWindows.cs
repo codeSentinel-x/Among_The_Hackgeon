@@ -1,8 +1,4 @@
-// public class EditorWindows : MonoBehaviour {
-
-// }
-
-// public class MyWindow : EditorWindow {
+// public class EditorWindows : EditorWindow {
 //     [MenuItem("Tools/MyWindow")]
 //     public static void ShowEditorWindow() {
 //         GetWindow<MyWindow>("My window");

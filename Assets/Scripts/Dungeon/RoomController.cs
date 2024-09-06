@@ -17,7 +17,7 @@ public class RoomController : MonoBehaviour {
 
     public bool _wasInvoked;
     public Action _onPlayerEnter;
-    public Action<RoomController> _onRoomClear;
+    public Action _onRoomClear;
     public static Action _onCombatStart;
     public static Action _onCombatEnd;
     public List<Enemy> _enemies;
@@ -138,13 +138,13 @@ public class RoomController : MonoBehaviour {
         _enemyCount = _enemies.Count;
     }
     public void OnClear() {
-        _onRoomClear?.Invoke(this);
+        _onRoomClear?.Invoke();
         _enemies = new();
         wasInvokedOnClear = true;
         if (_roomDifficulty == 5) Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity).GetComponent<Chest>()._chestWithKey = true;
         else if (_roomDifficulty >= 3) _ = Instantiate(AssetManager._I._chestPrefab, transform.position, Quaternion.identity);
         // _onCombatEnd?.Invoke();
-        foreach (var d in _doors) d._door._uncloseDoor?.Invoke();
+        // foreach (var d in _doors) d._door._uncloseDoor?.Invoke();
         Soundtrack._I.CombatEnd();
     }
     private void SpawnBoss() {

@@ -65,14 +65,12 @@ public class Boss : MonoBehaviour, IDamageable {
     }
     public IEnumerator SpawnEnemies() {
         for (int i = 0; i < _currentStageSO._countOfEnemiesToSpawn; i++) {
-            var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f)), Quaternion.identity).GetComponentInChildren<Enemy>();
+            var e = Instantiate(MyRandom.GetFromArray<Transform>(_currentStageSO._enemyToSpawn), transform.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f)), Quaternion.identity).GetComponentInChildren<Enemy>();
             e._currentRoom = _currentRoom;
             e._spawnedByBoss = true;
             _enemiesCount += 1;
             BossUI._I.ChangeName(true, _enemiesCount, _stage);
             yield return new WaitForSeconds(0.5f);
-            //TODO here!!!
-
         }
     }
     bool _isInvincible = false;
@@ -103,11 +101,11 @@ public class Boss : MonoBehaviour, IDamageable {
         if (_nextMoveDirectionChange > Time.time) return;
         if (Vector2.Distance(_target.position, transform.position) > _currentStageSO._playerDist) {
             _moveDirection = _target.position - transform.position;
-            _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 2f);
+            _nextMoveDirectionChange = Time.time + Random.Range(1f, 2f);
         } else {
-            Vector2 newVec = new(Mathf.Clamp(transform.position.x - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - UnityEngine.Random.Range(-6f, 6f), _currentRoom.transform.position.y - 6, _currentRoom.transform.position.y + 6));
+            Vector2 newVec = new(Mathf.Clamp(transform.position.x - Random.Range(-6f, 6f), _currentRoom.transform.position.x - 10, _currentRoom.transform.position.x + 10), Mathf.Clamp(transform.position.y - Random.Range(-6f, 6f), _currentRoom.transform.position.y - 6, _currentRoom.transform.position.y + 6));
             _moveDirection = newVec - (Vector2)transform.position;
-            _nextMoveDirectionChange = Time.time + UnityEngine.Random.Range(1f, 2f);
+            _nextMoveDirectionChange = Time.time + Random.Range(1f, 2f);
         }
     }
     void FixedUpdate() {
@@ -118,7 +116,7 @@ public class Boss : MonoBehaviour, IDamageable {
         if (_weapon._nextShoot > Time.time) return;
         if (_weapon._bulletsInMagazine <= 0) { _ = StartCoroutine(Reload()); _weapon._allBullets += 30; Debug.Log("No bullets"); return; }
         // Debug.Log("Piu");
-        float sp = UnityEngine.Random.Range(0f, _weapon._defaultSettings._spread) * (UnityEngine.Random.Range(0, 2) == 1 ? 1 : -1);
+        float sp = Random.Range(0f, _weapon._defaultSettings._spread) * (Random.Range(0, 2) == 1 ? 1 : -1);
         Quaternion spread = Quaternion.Euler(_weaponHolder.rotation.eulerAngles + new Vector3(0, 0, sp));
         var b = Instantiate(_weapon._defaultSettings._bulletPref, _firePoint.position, spread).GetComponentInChildren<BulletMono>();
         b.Setup(_weapon._defaultSettings._bulletSetting, 1, gameObject.layer, gameObject.tag, GetComponent<Collider2D>());

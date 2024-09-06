@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum ItemType {
@@ -19,12 +20,16 @@ public class ItemPickUp : MonoBehaviour {
         }
     }
     void Start() {
-        if (_itemType == ItemType.Weapon) {
-            AssetManager.LoadWeaponByName(_name);
-            GetComponent<TooltipShower>().Setup(AssetManager.LoadWeaponByName(_name));
+        switch (_itemType) {
+            case ItemType.Weapon: {
+                    GetComponent<TooltipShower>().Setup(AssetManager.LoadWeaponByName(_name));
+                    break;
+                }
+            case ItemType.Special: {
+                    GetComponent<TooltipShower>().Setup(AssetManager.LoadItemByName(_name));
+                    break;
+                }
 
-        } else if (_itemType == ItemType.Special) {
-            GetComponent<TooltipShower>().Setup(AssetManager.LoadItemByName(_name));
         }
     }
     void OnTriggerEnter2D(Collider2D other) {

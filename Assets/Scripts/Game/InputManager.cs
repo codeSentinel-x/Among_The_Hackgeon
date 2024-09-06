@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
-using System.Runtime.Serialization.Formatters;
 using MyUtils.Classes;
 using MyUtils.Enums;
+using MyUtils.SaveSystem;
 using UnityEngine;
 public class InputManager : MonoBehaviour {
     public const string KEY_BIND_NAME = "KeyBinds";
